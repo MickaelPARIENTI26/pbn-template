@@ -1,15 +1,12 @@
 <?php
+// DEBUG TEMPORAIRE
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/config.php';
 
 // Configuration environnement
 date_default_timezone_set(SITE_TIMEZONE);
-if (SITE_ENV === 'development') {
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL);
-} else {
-    ini_set('display_errors', 0);
-    error_reporting(0);
-}
 
 // Headers HTTP sécurité et cache
 header('Cache-Control: public, max-age=' . (int)SITE_CACHE_TTL);
