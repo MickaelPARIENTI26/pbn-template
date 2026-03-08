@@ -1,0 +1,14 @@
+# Activation du mod_rewrite
+RewriteEngine On
+
+# Ne pas réécrire si le fichier ou dossier existe (images, css, js, favicon)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Ne pas réécrire install.php et config.php
+RewriteRule ^install\.php$ - [L]
+RewriteRule ^config\.php$ - [L]
+
+# Tout passe par index.php (routing centralisé)
+RewriteRule ^(.*)$ index.php [L,QSA]

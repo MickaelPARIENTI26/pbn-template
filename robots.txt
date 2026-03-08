@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Fichiers sensibles
+Disallow: /install.php
+Disallow: /config.php
+Disallow: /migrate_db.php
+Disallow: /migrate_sites_db.php
+
+Sitemap: {{SITE_URL}}/sitemap.xml

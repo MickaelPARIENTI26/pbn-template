@@ -1,0 +1,16 @@
+/* TEAM */
+Site: {{SITE_NAME}}
+Rédaction: La Rédaction
+Contact: contact@{{SITE_DOMAIN}}
+Localisation: France
+
+/* THANKS */
+Bootstrap: https://getbootstrap.com
+jQuery: https://jquery.com
+Google Fonts: https://fonts.google.com
+
+/* SITE */
+Dernière mise à jour: {{DATE}}
+Standards: HTML5, CSS3, PHP 8.1+
+Composants: Bootstrap 5.3, jQuery 3.7
+Langage: Français

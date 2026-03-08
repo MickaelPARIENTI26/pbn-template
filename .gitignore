@@ -1,0 +1,24 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+error_log
+
+# Dependencies (si jamais)
+vendor/
+node_modules/
+
+# Environnement local
+.env
+.env.local
+
+# Cache
+*.cache
