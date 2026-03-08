@@ -1,7 +1,10 @@
 <?php
 // DEBUG TEMPORAIRE
 ini_set('display_errors', 1);
+ini_set('log_errors', 1);
 error_reporting(E_ALL);
+
+try {
 
 // ===== ROUTING PHP BUILT-IN SERVER =====
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
@@ -391,3 +394,11 @@ if (!function_exists('excerpt')) {
 
 </body>
 </html>
+<?php
+} catch (Throwable $e) {
+    echo "<h1>ERREUR</h1>";
+    echo "<p><strong>" . $e->getMessage() . "</strong></p>";
+    echo "<p>Fichier: " . $e->getFile() . " ligne " . $e->getLine() . "</p>";
+    echo "<pre>" . $e->getTraceAsString() . "</pre>";
+}
+?>
