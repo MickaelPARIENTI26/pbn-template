@@ -5,8 +5,9 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN a2enmod rewrite
 
 RUN find /etc/apache2/mods-enabled/ -name "mpm_*.load" -delete \
-    && ln -s /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load \
-    && ln -s /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+    && find /etc/apache2/mods-enabled/ -name "mpm_*.conf" -delete \
+    && ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load \
+    && ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
 
 COPY . /var/www/html/
 
