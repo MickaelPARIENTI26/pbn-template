@@ -3,6 +3,22 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// ===== ROUTING PHP BUILT-IN SERVER =====
+$uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$filepath = __DIR__ . '/' . $uri;
+
+// Servir les fichiers statiques directement (PHP built-in server)
+if ($uri !== '' && file_exists($filepath) && !is_dir($filepath)) {
+    // Fichiers statiques : laisser le serveur les servir
+    if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/i', $uri)) {
+        return false;
+    }
+    // Fichiers PHP autres que index.php
+    if (str_ends_with($uri, '.php')) {
+        return false;
+    }
+}
+
 require_once __DIR__ . '/config.php';
 
 // Configuration environnement
@@ -13,18 +29,6 @@ header('Cache-Control: public, max-age=' . (int)SITE_CACHE_TTL);
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('X-XSS-Protection: 1; mode=block');
-
-// ===== ROUTING HERD/VALET =====
-$uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-
-// Ne pas intercepter : fichiers PHP, assets, images (laissés au serveur)
-if (
-    str_ends_with($uri, '.php') ||
-    str_starts_with($uri, 'assets/') ||
-    str_starts_with($uri, 'images/')
-) {
-    return false; // Herd/Valet servira le fichier directement
-}
 
 if ($uri !== '' && $uri !== 'index.php') {
     if ($uri === 'mentions-legales') {
