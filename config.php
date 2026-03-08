@@ -1,7 +1,8 @@
 <?php
 /**
  * Configuration du site
- * Placeholders remplacés automatiquement par army_v2.py au déploiement
+ * - Railway : lit les variables d'environnement
+ * - Local/army_v2.py : utilise les placeholders {{...}}
  */
 
 /*
@@ -22,46 +23,46 @@
  */
 
 // Base de données
-define('DB_HOST', '{{DB_HOST}}');
-define('DB_NAME', '{{DB_NAME}}');
-define('DB_USER', '{{DB_USER}}');
-define('DB_PASS', '{{DB_PASS}}');
+define('DB_HOST', getenv('DB_HOST') ?: '{{DB_HOST}}');
+define('DB_NAME', getenv('DB_NAME') ?: '{{DB_NAME}}');
+define('DB_USER', getenv('DB_USER') ?: '{{DB_USER}}');
+define('DB_PASS', getenv('DB_PASS') ?: '{{DB_PASS}}');
 
 // Site
-define('SITE_NAME', '{{SITE_NAME}}');
-define('SITE_DOMAIN', '{{SITE_DOMAIN}}');
-define('SITE_URL', 'https://{{SITE_DOMAIN}}');
-define('SITE_TAGLINE', '{{SITE_TAGLINE}}');
-define('SITE_DESC', '{{SITE_DESC}}');
-define('SITE_NICHE', '{{SITE_NICHE}}');
+define('SITE_NAME', getenv('SITE_NAME') ?: '{{SITE_NAME}}');
+define('SITE_DOMAIN', getenv('SITE_DOMAIN') ?: '{{SITE_DOMAIN}}');
+define('SITE_URL', getenv('SITE_URL') ?: 'https://{{SITE_DOMAIN}}');
+define('SITE_TAGLINE', getenv('SITE_TAGLINE') ?: '{{SITE_TAGLINE}}');
+define('SITE_DESC', getenv('SITE_DESC') ?: '{{SITE_DESC}}');
+define('SITE_NICHE', getenv('SITE_NICHE') ?: '{{SITE_NICHE}}');
 
 // Couleurs
-define('COLOR_PRIMARY', '{{COLOR_PRIMARY}}');
-define('COLOR_PRIMARY_LIGHT', '{{COLOR_PRIMARY_LIGHT}}');
-define('COLOR_ACCENT', '{{COLOR_ACCENT}}');
+define('COLOR_PRIMARY', getenv('COLOR_PRIMARY') ?: '{{COLOR_PRIMARY}}');
+define('COLOR_PRIMARY_LIGHT', getenv('COLOR_PRIMARY_LIGHT') ?: '{{COLOR_PRIMARY_LIGHT}}');
+define('COLOR_ACCENT', getenv('COLOR_ACCENT') ?: '{{COLOR_ACCENT}}');
 
 // Identité étendue
-define('SITE_AUTHOR', '{{SITE_AUTHOR}}');            // ex: La Rédaction
-define('SITE_LOGO_TEXT', '{{SITE_LOGO_TEXT}}');      // ex: CBD Sport
-define('SITE_INITIAL', '{{SITE_INITIAL}}');          // ex: C (pour favicon)
-define('SITE_LANG', '{{SITE_LANG}}');                // ex: fr
-define('SITE_LOCALE', '{{SITE_LOCALE}}');            // ex: fr_FR
+define('SITE_AUTHOR', getenv('SITE_AUTHOR') ?: '{{SITE_AUTHOR}}');
+define('SITE_LOGO_TEXT', getenv('SITE_LOGO_TEXT') ?: '{{SITE_LOGO_TEXT}}');
+define('SITE_INITIAL', getenv('SITE_INITIAL') ?: '{{SITE_INITIAL}}');
+define('SITE_LANG', getenv('SITE_LANG') ?: 'fr');
+define('SITE_LOCALE', getenv('SITE_LOCALE') ?: 'fr_FR');
 
 // Contenu
-define('SITE_ARTICLES_PAR_PAGE', '{{SITE_ARTICLES_PAR_PAGE}}'); // ex: 8
-define('SITE_NEWSLETTER_TITRE', '{{SITE_NEWSLETTER_TITRE}}');   // ex: Restez informé
-define('SITE_NEWSLETTER_TEXTE', '{{SITE_NEWSLETTER_TEXTE}}');   // ex: Recevez nos articles
-define('SITE_FOOTER_DESC', '{{SITE_FOOTER_DESC}}');  // ex: Guide complet CBD
+define('SITE_ARTICLES_PAR_PAGE', getenv('SITE_ARTICLES_PAR_PAGE') ?: '8');
+define('SITE_NEWSLETTER_TITRE', getenv('SITE_NEWSLETTER_TITRE') ?: '{{SITE_NEWSLETTER_TITRE}}');
+define('SITE_NEWSLETTER_TEXTE', getenv('SITE_NEWSLETTER_TEXTE') ?: '{{SITE_NEWSLETTER_TEXTE}}');
+define('SITE_FOOTER_DESC', getenv('SITE_FOOTER_DESC') ?: '{{SITE_FOOTER_DESC}}');
 
 // SEO
-define('SITE_TWITTER_HANDLE', '{{SITE_TWITTER_HANDLE}}'); // ex: @cbdsport
-define('SITE_OG_IMAGE', '{{SITE_OG_IMAGE}}');        // ex: images/og-default.jpg
-define('SITE_ROBOTS', '{{SITE_ROBOTS}}');            // ex: index, follow
+define('SITE_TWITTER_HANDLE', getenv('SITE_TWITTER_HANDLE') ?: '{{SITE_TWITTER_HANDLE}}');
+define('SITE_OG_IMAGE', getenv('SITE_OG_IMAGE') ?: 'assets/images/og-default.svg');
+define('SITE_ROBOTS', getenv('SITE_ROBOTS') ?: 'index, follow');
 
 // Technique
-define('SITE_ENV', '{{SITE_ENV}}');                  // ex: production
-define('SITE_TIMEZONE', '{{SITE_TIMEZONE}}');        // ex: Europe/Paris
-define('SITE_CACHE_TTL', '{{SITE_CACHE_TTL}}');      // ex: 3600
+define('SITE_ENV', getenv('SITE_ENV') ?: 'production');
+define('SITE_TIMEZONE', getenv('SITE_TIMEZONE') ?: 'Europe/Paris');
+define('SITE_CACHE_TTL', getenv('SITE_CACHE_TTL') ?: '3600');
 
 /**
  * Connexion PDO singleton
