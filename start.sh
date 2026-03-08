@@ -1,5 +1,7 @@
 #!/bin/sh
+set -e
+export PORT=${PORT:-80}
+envsubst '${PORT}' < /nginx.template.conf > /etc/nginx/http.d/default.conf
 php-fpm -D
-sleep 2
-envsubst '${PORT}' < /etc/nginx/nginx.template.conf > /etc/nginx/nginx.conf
-nginx -g "daemon off;"
+sleep 1
+exec nginx -g "daemon off;"
