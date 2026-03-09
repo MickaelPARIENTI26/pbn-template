@@ -88,7 +88,7 @@ if (!function_exists('excerpt')) {
     <link rel="alternate" type="application/rss+xml" title="<?= escape(SITE_NAME) ?> RSS" href="<?= url('feed.xml') ?>">
 
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="<?= url('assets/css/style.css') ?>" as="style">
+    <link rel="preload" href="/assets/css/style.css" as="style">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,7 +100,7 @@ if (!function_exists('excerpt')) {
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"></noscript>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= url('assets/css/style.css') ?>">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- Variables CSS injectées -->
     <style>
@@ -203,7 +203,7 @@ if (!function_exists('excerpt')) {
     <!-- Bootstrap JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script defer src="<?= url('assets/js/main.js') ?>"></script>
+    <script defer src="/assets/js/main.js"></script>
 
 </body>
 </html>
