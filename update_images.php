@@ -12,11 +12,23 @@ $pdo = getDB();
 
 // Mapping ancien chemin → nouveau chemin
 $mappings = [
+    // Anciens chemins -hero
     'images/article-1-hero.svg' => 'images/article-1.svg',
     'images/article-2-hero.svg' => 'images/article-2.svg',
     'images/article-3-hero.svg' => 'images/article-3.svg',
     'images/article-4-hero.svg' => 'images/article-4.svg',
     'images/article-5-hero.svg' => 'images/article-5.svg',
+    // WebP vers SVG
+    'images/article-1.webp' => 'images/article-1.svg',
+    'images/article-2.webp' => 'images/article-2.svg',
+    'images/article-3.webp' => 'images/article-3.svg',
+    'images/article-4.webp' => 'images/article-4.svg',
+    'images/article-5.webp' => 'images/article-5.svg',
+    '/images/article-1.webp' => 'images/article-1.svg',
+    '/images/article-2.webp' => 'images/article-2.svg',
+    '/images/article-3.webp' => 'images/article-3.svg',
+    '/images/article-4.webp' => 'images/article-4.svg',
+    '/images/article-5.webp' => 'images/article-5.svg',
     // URLs picsum.photos vers images locales
     'https://picsum.photos/seed/article1/1200/675' => 'images/article-1.svg',
     'https://picsum.photos/seed/article2/1200/675' => 'images/article-2.svg',
