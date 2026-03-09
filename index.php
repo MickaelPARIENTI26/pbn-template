@@ -271,7 +271,7 @@ if (!function_exists('excerpt')) {
                     <div class="col-md-6">
                         <div class="card-img-wrap position-relative h-100">
                             <span class="hero-badge">À la une</span>
-                            <img src="<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>" loading="eager" class="w-100 h-100 object-fit-cover">
+                            <img src="/<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>" loading="eager" class="w-100 h-100 object-fit-cover">
                         </div>
                     </div>
                     <div class="col-md-6 d-flex align-items-center">
@@ -309,7 +309,7 @@ if (!function_exists('excerpt')) {
                     <article class="article-card fade-up delay-<?= ($index % 4) + 1 ?>">
                         <div class="card-img-wrap position-relative">
                             <span class="card-category-badge"><?= escape($article['categorie']) ?></span>
-                            <img src="<?= escape($article['image']) ?>" alt="" loading="lazy">
+                            <img src="/<?= escape($article['image']) ?>" alt="" loading="lazy">
                         </div>
                         <div class="p-3">
                             <div class="article-date small mb-2"><?= formatDate($article['date_publication']) ?></div>

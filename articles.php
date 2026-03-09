@@ -138,7 +138,7 @@ if (!function_exists('excerpt')) {
                     <article class="article-card fade-up delay-<?= ($index % 4) + 1 ?>">
                         <div class="card-img-wrap position-relative">
                             <span class="card-category-badge"><?= escape($article['categorie']) ?></span>
-                            <img src="<?= escape($article['image']) ?>" alt="" loading="lazy">
+                            <img src="/<?= escape($article['image']) ?>" alt="" loading="lazy">
                         </div>
                         <div class="p-3">
                             <div class="text-muted small mb-2"><?= formatDate($article['date_publication']) ?></div>

@@ -293,7 +293,7 @@ if (!function_exists('excerpt')) {
 
     <!-- IMAGE HERO -->
     <div class="container mt-4">
-        <img src="<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" class="article-hero-img" loading="eager">
+        <img src="/<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" class="article-hero-img" loading="eager">
     </div>
 
     <!-- LAYOUT ARTICLE -->
@@ -334,7 +334,7 @@ if (!function_exists('excerpt')) {
                         <div class="widget-title" id="widget-latest-title">Nouveaux articles</div>
                         <?php foreach ($latest as $index => $art): ?>
                         <a href="<?= url(escape($art['slug'])) ?>" class="sidebar-article-item <?= $index < count($latest) - 1 ? 'border-bottom' : '' ?>" aria-label="Lire : <?= escape($art['titre']) ?>">
-                            <img src="<?= escape($art['image']) ?>" alt="">
+                            <img src="/<?= escape($art['image']) ?>" alt="">
                             <div>
                                 <div class="sidebar-article-title"><?= escape($art['titre']) ?></div>
                                 <small class="text-muted"><?= formatDate($art['date_publication']) ?></small>
@@ -350,7 +350,7 @@ if (!function_exists('excerpt')) {
                         <div class="widget-title" id="widget-related-title">Articles similaires</div>
                         <?php foreach ($related as $index => $art): ?>
                         <a href="<?= url(escape($art['slug'])) ?>" class="sidebar-article-item <?= $index < count($related) - 1 ? 'border-bottom' : '' ?>" aria-label="Lire : <?= escape($art['titre']) ?>">
-                            <img src="<?= escape($art['image']) ?>" alt="">
+                            <img src="/<?= escape($art['image']) ?>" alt="">
                             <div>
                                 <div class="sidebar-article-title"><?= escape($art['titre']) ?></div>
                                 <small class="text-muted"><?= formatDate($art['date_publication']) ?></small>
