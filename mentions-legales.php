@@ -1,7 +1,9 @@
 <?php
-// Compression GZIP
-if (!ob_start("ob_gzhandler")) {
-    ob_start();
+// Compression GZIP (seulement si pas déjà actif via index.php)
+if (ob_get_level() === 0) {
+    if (!ob_start("ob_gzhandler")) {
+        ob_start();
+    }
 }
 
 require_once __DIR__ . '/config.php';
