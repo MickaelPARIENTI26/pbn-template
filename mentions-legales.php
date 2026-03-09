@@ -40,12 +40,13 @@ header('X-XSS-Protection: 1; mode=block');
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Navigation principale">
         <div class="container">
-            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);">.</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);" aria-hidden="true">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Ouvrir le menu de navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -58,7 +59,7 @@ header('X-XSS-Protection: 1; mode=block');
     </nav>
 
     <!-- CONTENU -->
-    <main class="container py-5">
+    <main class="container py-5" role="main" id="main-content">
         <h1 class="mb-4">Mentions légales</h1>
 
         <!-- Éditeur du site -->

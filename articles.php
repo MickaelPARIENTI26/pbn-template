@@ -104,39 +104,41 @@ if (!function_exists('excerpt')) {
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Navigation principale">
         <div class="container">
-            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);">.</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);" aria-hidden="true">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Ouvrir le menu de navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="<?= url() ?>">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="<?= url('articles') ?>">Articles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= url('articles') ?>" aria-current="page">Articles</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- BANNIÈRE -->
-    <div class="site-banner"><?= escape(SITE_NICHE) ?> — Tous nos articles</div>
+    <div class="site-banner" role="banner"><?= escape(SITE_NICHE) ?> — Tous nos articles</div>
 
+    <main role="main" id="main-content">
     <!-- LISTE DES ARTICLES -->
-    <section class="container mt-5 mb-5">
-        <h1 class="mb-4" style="font-family: var(--font-display);">Tous les articles</h1>
+    <section class="container mt-5 mb-5" aria-labelledby="page-title">
+        <h1 class="mb-4" style="font-family: var(--font-display);" id="page-title">Tous les articles</h1>
 
         <?php if (!empty($articles)): ?>
         <div class="row g-4">
             <?php foreach ($articles as $index => $article): ?>
             <div class="col-sm-6 col-md-4">
-                <a href="<?= url(escape($article['slug'])) ?>" class="text-decoration-none">
+                <a href="<?= url(escape($article['slug'])) ?>" class="text-decoration-none" aria-label="Lire l'article : <?= escape($article['titre']) ?>">
                     <article class="article-card fade-up delay-<?= ($index % 4) + 1 ?>">
                         <div class="card-img-wrap position-relative">
                             <span class="card-category-badge"><?= escape($article['categorie']) ?></span>
-                            <img src="<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" loading="lazy">
+                            <img src="<?= escape($article['image']) ?>" alt="" loading="lazy">
                         </div>
                         <div class="p-3">
                             <div class="text-muted small mb-2"><?= formatDate($article['date_publication']) ?></div>
@@ -144,7 +146,7 @@ if (!function_exists('excerpt')) {
                             <p class="card-excerpt mt-2"><?= escape(excerpt($article['contenu_html'], 100)) ?></p>
                         </div>
                         <div class="px-3 pb-3 mt-auto d-flex justify-content-between align-items-center">
-                            <span class="btn-read-more small">Lire <span>→</span></span>
+                            <span class="btn-read-more small">Lire <span aria-hidden="true">→</span></span>
                             <span class="text-muted small"><?= (int)$article['read_time'] ?> min</span>
                         </div>
                     </article>
@@ -156,6 +158,7 @@ if (!function_exists('excerpt')) {
         <p class="text-muted">Aucun article pour le moment.</p>
         <?php endif; ?>
     </section>
+    </main>
 
     <!-- FOOTER -->
     <footer class="pt-5 pb-4">

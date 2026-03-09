@@ -232,12 +232,13 @@ if (!function_exists('excerpt')) {
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Navigation principale">
         <div class="container">
-            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);">.</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);" aria-hidden="true">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Ouvrir le menu de navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -249,6 +250,7 @@ if (!function_exists('excerpt')) {
         </div>
     </nav>
 
+    <main role="main" id="main-content">
     <?php if ($not_found): ?>
     <!-- PAGE 404 -->
     <div class="container text-center py-5">
@@ -264,12 +266,12 @@ if (!function_exists('excerpt')) {
 
     <!-- BREADCRUMB -->
     <div class="container mt-3">
-        <nav class="breadcrumb-custom">
+        <nav class="breadcrumb-custom" aria-label="Fil d'Ariane">
             <a href="<?= url() ?>">Accueil</a>
-            <span class="mx-2">›</span>
+            <span class="mx-2" aria-hidden="true">›</span>
             <a href="<?= url('articles') ?>"><?= escape($article['categorie']) ?></a>
-            <span class="mx-2">›</span>
-            <span><?= escape(mb_substr($article['titre'], 0, 40)) ?>...</span>
+            <span class="mx-2" aria-hidden="true">›</span>
+            <span aria-current="page"><?= escape(mb_substr($article['titre'], 0, 40)) ?>...</span>
         </nav>
     </div>
 
@@ -318,21 +320,21 @@ if (!function_exists('excerpt')) {
                 <aside class="sidebar">
                     <!-- Widget Sommaire -->
                     <?php if (!empty($h2_titles)): ?>
-                    <div class="sidebar-widget">
-                        <div class="widget-title">Sommaire</div>
+                    <nav class="sidebar-widget" role="navigation" aria-labelledby="widget-toc-title">
+                        <div class="widget-title" id="widget-toc-title">Sommaire</div>
                         <?php foreach ($h2_titles as $index => $title): ?>
                         <a href="#section-<?= $index ?>" class="toc-link"><?= strip_tags($title) ?></a>
                         <?php endforeach; ?>
-                    </div>
+                    </nav>
                     <?php endif; ?>
 
                     <!-- Widget Nouveaux articles -->
                     <?php if (!empty($latest)): ?>
-                    <div class="sidebar-widget">
-                        <div class="widget-title">Nouveaux articles</div>
+                    <div class="sidebar-widget" role="complementary" aria-labelledby="widget-latest-title">
+                        <div class="widget-title" id="widget-latest-title">Nouveaux articles</div>
                         <?php foreach ($latest as $index => $art): ?>
-                        <a href="<?= url(escape($art['slug'])) ?>" class="sidebar-article-item <?= $index < count($latest) - 1 ? 'border-bottom' : '' ?>">
-                            <img src="<?= escape($art['image']) ?>" alt="<?= escape($art['titre']) ?>">
+                        <a href="<?= url(escape($art['slug'])) ?>" class="sidebar-article-item <?= $index < count($latest) - 1 ? 'border-bottom' : '' ?>" aria-label="Lire : <?= escape($art['titre']) ?>">
+                            <img src="<?= escape($art['image']) ?>" alt="">
                             <div>
                                 <div class="sidebar-article-title"><?= escape($art['titre']) ?></div>
                                 <small class="text-muted"><?= formatDate($art['date_publication']) ?></small>
@@ -344,11 +346,11 @@ if (!function_exists('excerpt')) {
 
                     <!-- Widget Articles similaires -->
                     <?php if (!empty($related)): ?>
-                    <div class="sidebar-widget">
-                        <div class="widget-title">Articles similaires</div>
+                    <div class="sidebar-widget" role="complementary" aria-labelledby="widget-related-title">
+                        <div class="widget-title" id="widget-related-title">Articles similaires</div>
                         <?php foreach ($related as $index => $art): ?>
-                        <a href="<?= url(escape($art['slug'])) ?>" class="sidebar-article-item <?= $index < count($related) - 1 ? 'border-bottom' : '' ?>">
-                            <img src="<?= escape($art['image']) ?>" alt="<?= escape($art['titre']) ?>">
+                        <a href="<?= url(escape($art['slug'])) ?>" class="sidebar-article-item <?= $index < count($related) - 1 ? 'border-bottom' : '' ?>" aria-label="Lire : <?= escape($art['titre']) ?>">
+                            <img src="<?= escape($art['image']) ?>" alt="">
                             <div>
                                 <div class="sidebar-article-title"><?= escape($art['titre']) ?></div>
                                 <small class="text-muted"><?= formatDate($art['date_publication']) ?></small>
@@ -364,19 +366,19 @@ if (!function_exists('excerpt')) {
 
     <!-- ARTICLES SIMILAIRES -->
     <?php if (!empty($related)): ?>
-    <section class="container mt-5 mb-5">
+    <section class="container mt-5 mb-5" aria-labelledby="section-related-title">
         <div class="d-flex align-items-center mb-4">
-            <h2 class="h4 mb-0">Articles similaires</h2>
-            <hr class="flex-grow-1 ms-3" style="border-color: var(--border);">
+            <h2 class="h4 mb-0" id="section-related-title">Articles similaires</h2>
+            <hr class="flex-grow-1 ms-3" style="border-color: var(--border);" aria-hidden="true">
         </div>
         <div class="row g-4">
             <?php foreach ($related as $index => $art): ?>
             <div class="col-md-4">
-                <a href="<?= url(escape($art['slug'])) ?>" class="text-decoration-none">
+                <a href="<?= url(escape($art['slug'])) ?>" class="text-decoration-none" aria-label="Lire l'article : <?= escape($art['titre']) ?>">
                     <article class="article-card fade-up delay-<?= $index + 1 ?>">
                         <div class="card-img-wrap position-relative">
                             <span class="card-category-badge"><?= escape($art['categorie']) ?></span>
-                            <img src="<?= escape($art['image']) ?>" alt="<?= escape($art['titre']) ?>" loading="lazy">
+                            <img src="<?= escape($art['image']) ?>" alt="" loading="lazy">
                         </div>
                         <div class="p-3">
                             <div class="text-muted small mb-2"><?= formatDate($art['date_publication']) ?></div>
@@ -384,7 +386,7 @@ if (!function_exists('excerpt')) {
                             <p class="card-excerpt mt-2"><?= escape(excerpt($art['contenu_html'], 100)) ?></p>
                         </div>
                         <div class="px-3 pb-3 mt-auto d-flex justify-content-between align-items-center">
-                            <span class="btn-read-more small">Lire <span>→</span></span>
+                            <span class="btn-read-more small">Lire <span aria-hidden="true">→</span></span>
                             <span class="text-muted small"><?= (int)$art['read_time'] ?> min</span>
                         </div>
                     </article>
@@ -396,6 +398,7 @@ if (!function_exists('excerpt')) {
     <?php endif; ?>
 
     <?php endif; ?>
+    </main>
 
     <!-- FOOTER -->
     <footer class="pt-5 pb-4">

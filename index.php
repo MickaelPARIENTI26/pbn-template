@@ -240,17 +240,18 @@ if (!function_exists('excerpt')) {
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Navigation principale">
         <div class="container">
-            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);">.</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);" aria-hidden="true">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Ouvrir le menu de navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="<?= url() ?>">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= url() ?>" aria-current="page">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= url('articles') ?>">Articles</a></li>
                 </ul>
             </div>
@@ -258,13 +259,14 @@ if (!function_exists('excerpt')) {
     </nav>
 
     <!-- BANNIÈRE -->
-    <div class="site-banner"><?= escape(SITE_NICHE) ?> — Guides, conseils & actualités</div>
+    <div class="site-banner" role="banner"><?= escape(SITE_NICHE) ?> — Guides, conseils & actualités</div>
 
+    <main role="main" id="main-content">
     <!-- HERO ARTICLE -->
     <?php if ($hero): ?>
-    <section class="container mt-4">
-        <a href="<?= url(escape($hero['slug'])) ?>" class="text-decoration-none">
-            <div class="hero-card">
+    <section class="container mt-4" aria-labelledby="hero-title">
+        <a href="<?= url(escape($hero['slug'])) ?>" class="text-decoration-none" aria-label="Lire l'article : <?= escape($hero['titre']) ?>">
+            <article class="hero-card">
                 <div class="row g-0">
                     <div class="col-md-6">
                         <div class="card-img-wrap position-relative h-100">
@@ -274,49 +276,49 @@ if (!function_exists('excerpt')) {
                     </div>
                     <div class="col-md-6 d-flex align-items-center">
                         <div class="p-4 p-lg-5">
-                            <div class="text-muted small mb-2">
+                            <div class="article-meta-info small mb-2">
                                 <span class="text-uppercase"><?= escape($hero['categorie']) ?></span>
-                                <span class="mx-2">•</span>
+                                <span class="mx-2" aria-hidden="true">•</span>
                                 <span><?= formatDate($hero['date_publication']) ?></span>
-                                <span class="mx-2">•</span>
+                                <span class="mx-2" aria-hidden="true">•</span>
                                 <span><?= (int)$hero['read_time'] ?> min de lecture</span>
                             </div>
-                            <div class="hero-divider"></div>
-                            <h1 class="hero-title text-dark"><?= escape($hero['titre']) ?></h1>
-                            <p class="text-muted mt-3"><?= escape(excerpt($hero['contenu_html'], 200)) ?></p>
-                            <span class="btn-read-more mt-3">Lire l'article <span>→</span></span>
+                            <div class="hero-divider" aria-hidden="true"></div>
+                            <h1 class="hero-title text-dark" id="hero-title"><?= escape($hero['titre']) ?></h1>
+                            <p class="article-excerpt mt-3"><?= escape(excerpt($hero['contenu_html'], 200)) ?></p>
+                            <span class="btn-read-more mt-3">Lire l'article <span aria-hidden="true">→</span></span>
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
         </a>
     </section>
     <?php endif; ?>
 
     <!-- SECTION ARTICLES -->
     <?php if (!empty($articles)): ?>
-    <section class="container mt-5">
+    <section class="container mt-5" aria-labelledby="section-articles-title">
         <div class="d-flex align-items-center mb-4">
-            <h2 class="h4 mb-0">Derniers articles</h2>
-            <hr class="flex-grow-1 ms-3" style="border-color: var(--border);">
+            <h2 class="h4 mb-0" id="section-articles-title">Derniers articles</h2>
+            <hr class="flex-grow-1 ms-3" style="border-color: var(--border);" aria-hidden="true">
         </div>
         <div class="row g-4">
             <?php foreach ($articles as $index => $article): ?>
             <div class="col-sm-6 col-md-3">
-                <a href="<?= url(escape($article['slug'])) ?>" class="text-decoration-none">
-                    <article class="article-card fade-up delay-<?= $index + 1 ?>">
+                <a href="<?= url(escape($article['slug'])) ?>" class="text-decoration-none" aria-label="Lire l'article : <?= escape($article['titre']) ?>">
+                    <article class="article-card fade-up delay-<?= ($index % 4) + 1 ?>">
                         <div class="card-img-wrap position-relative">
                             <span class="card-category-badge"><?= escape($article['categorie']) ?></span>
-                            <img src="<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" loading="lazy">
+                            <img src="<?= escape($article['image']) ?>" alt="" loading="lazy">
                         </div>
                         <div class="p-3">
-                            <div class="text-muted small mb-2"><?= formatDate($article['date_publication']) ?></div>
-                            <h2 class="card-title text-dark"><?= escape($article['titre']) ?></h2>
+                            <div class="article-date small mb-2"><?= formatDate($article['date_publication']) ?></div>
+                            <h3 class="card-title text-dark"><?= escape($article['titre']) ?></h3>
                             <p class="card-excerpt mt-2"><?= escape(excerpt($article['contenu_html'], 100)) ?></p>
                         </div>
                         <div class="px-3 pb-3 mt-auto d-flex justify-content-between align-items-center">
-                            <span class="btn-read-more small">Lire <span>→</span></span>
-                            <span class="text-muted small"><?= (int)$article['read_time'] ?> min</span>
+                            <span class="btn-read-more small">Lire <span aria-hidden="true">→</span></span>
+                            <span class="article-read-time small"><?= (int)$article['read_time'] ?> min</span>
                         </div>
                     </article>
                 </a>
@@ -352,6 +354,7 @@ if (!function_exists('excerpt')) {
         <?php endif; ?>
     </section>
     <?php endif; ?>
+    </main>
 
     <!-- FOOTER -->
     <footer class="pt-5 pb-4">
