@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2d2d44;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#111120;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg5)"/>
+
+  <!-- Motif hexagonal -->
+  <g opacity="0.05" stroke="#C8A96E" stroke-width="1" fill="none">
+    <polygon points="900,100 950,127 950,181 900,208 850,181 850,127"/>
+    <polygon points="1000,100 1050,127 1050,181 1000,208 950,181 950,127"/>
+    <polygon points="950,181 1000,208 1000,262 950,289 900,262 900,208"/>
+    <polygon points="900,262 950,289 950,343 900,370 850,343 850,289"/>
+    <polygon points="1000,262 1050,289 1050,343 1000,370 950,343 950,289"/>
+  </g>
+
+  <!-- Balance de justice stylisée -->
+  <g transform="translate(780, 100)" opacity="0.35">
+    <!-- Barre centrale -->
+    <line x1="150" y1="50" x2="150" y2="400" stroke="#C8A96E" stroke-width="4"/>
+    <!-- Barre horizontale -->
+    <line x1="50" y1="150" x2="250" y2="150" stroke="#C8A96E" stroke-width="3"/>
+    <!-- Plateaux -->
+    <path d="M30,150 Q50,200 70,150" stroke="#C8A96E" stroke-width="2" fill="rgba(200,169,110,0.1)"/>
+    <path d="M230,150 Q250,200 270,150" stroke="#C8A96E" stroke-width="2" fill="rgba(200,169,110,0.1)"/>
+    <!-- Chaînes -->
+    <line x1="50" y1="150" x2="50" y2="165" stroke="#C8A96E" stroke-width="1.5"/>
+    <line x1="250" y1="150" x2="250" y2="165" stroke="#C8A96E" stroke-width="1.5"/>
+    <!-- Socle -->
+    <rect x="120" y="390" width="60" height="15" rx="3" fill="#C8A96E" opacity="0.5"/>
+    <!-- Triangle top -->
+    <polygon points="150,50 140,80 160,80" fill="#C8A96E" opacity="0.7"/>
+  </g>
+
+  <!-- Drapeaux tri-coulore (France) -->
+  <g transform="translate(100, 50)" opacity="0.15">
+    <rect x="0" y="0" width="30" height="90" fill="#002395"/>
+    <rect x="30" y="0" width="30" height="90" fill="#ffffff"/>
+    <rect x="60" y="0" width="30" height="90" fill="#ED2939"/>
+  </g>
+
+  <!-- Check / Croix légalité -->
+  <g transform="translate(520, 350)">
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#4a8a4d" stroke-width="3" opacity="0.6"/>
+    <path d="M-20,0 L-5,18 L25,-20" stroke="#4a8a4d" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+  </g>
+
+  <!-- Contenu texte -->
+  <g transform="translate(100, 160)">
+    <rect x="0" y="0" width="175" height="32" rx="2" fill="#C8A96E" opacity="0.9"/>
+    <text x="87" y="21" font-family="Arial, sans-serif" font-size="11" fill="#1a1a2e" text-anchor="middle" font-weight="700" letter-spacing="2">LÉGALITÉ CBD</text>
+
+    <text x="0" y="90" font-family="Georgia, serif" font-size="50" fill="#ffffff" font-weight="700">CBD en France :</text>
+    <text x="0" y="150" font-family="Georgia, serif" font-size="50" fill="#C8A96E" font-weight="700">Ce qui est Légal</text>
+
+    <rect x="0" y="170" width="60" height="3" rx="1" fill="#C8A96E"/>
+
+    <text x="0" y="215" font-family="Arial, sans-serif" font-size="17" fill="#9090aa">Réglementation, droits et limites en 2026</text>
+  </g>
+
+  <!-- Points de loi -->
+  <g transform="translate(100, 440)" opacity="0.6">
+    <g>
+      <circle cx="8" cy="8" r="6" fill="none" stroke="#4a8a4d" stroke-width="1.5"/>
+      <path d="M5,8 L7,11 L12,5" stroke="#4a8a4d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <text x="24" y="13" font-family="Arial, sans-serif" font-size="14" fill="#b0b0cc">Taux THC &lt; 0,3% autorisé</text>
+    </g>
+    <g transform="translate(0, 35)">
+      <circle cx="8" cy="8" r="6" fill="none" stroke="#4a8a4d" stroke-width="1.5"/>
+      <path d="M5,8 L7,11 L12,5" stroke="#4a8a4d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <text x="24" y="13" font-family="Arial, sans-serif" font-size="14" fill="#b0b0cc">Vente libre en magasin</text>
+    </g>
+    <g transform="translate(0, 70)">
+      <circle cx="8" cy="8" r="6" fill="none" stroke="#4a8a4d" stroke-width="1.5"/>
+      <path d="M5,8 L7,11 L12,5" stroke="#4a8a4d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <text x="24" y="13" font-family="Arial, sans-serif" font-size="14" fill="#b0b0cc">Pas de prescription nécessaire</text>
+    </g>
+  </g>
+
+  <line x1="0" y1="2" x2="1200" y2="2" stroke="#C8A96E" stroke-width="2" opacity="0.4"/>
+  <line x1="0" y1="673" x2="1200" y2="673" stroke="#C8A96E" stroke-width="2" opacity="0.4"/>
+</svg>

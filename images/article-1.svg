@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a2f1a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2C5F2E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1f0d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="leaf1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a8a4d;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#2C5F2E;stop-opacity:0.6" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C8A96E;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#C8A96E;stop-opacity:0" />
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg1)"/>
+
+  <!-- Texture overlay -->
+  <rect width="1200" height="675" fill="none" stroke="#4a8a4d" stroke-width="0.5" opacity="0.1"/>
+
+  <!-- Cercles décoratifs fond -->
+  <circle cx="900" cy="150" r="300" fill="#4a8a4d" opacity="0.08" filter="url(#blur2)"/>
+  <circle cx="200" cy="500" r="200" fill="#C8A96E" opacity="0.06" filter="url(#blur2)"/>
+
+  <!-- Feuille de cannabis stylisée - grande -->
+  <g transform="translate(750, 50) rotate(15)" opacity="0.15">
+    <path d="M100,400 C100,400 80,300 20,250 C60,260 90,280 100,400Z" fill="#6ab06d"/>
+    <path d="M100,400 C100,400 50,280 10,200 C60,230 90,310 100,400Z" fill="#6ab06d"/>
+    <path d="M100,400 C100,400 30,250 40,150 C75,200 95,310 100,400Z" fill="#6ab06d"/>
+    <path d="M100,400 C100,400 70,230 100,120 C110,200 110,310 100,400Z" fill="#6ab06d"/>
+    <path d="M100,400 C100,400 130,230 160,120 C130,200 110,310 100,400Z" fill="#6ab06d"/>
+    <path d="M100,400 C100,400 150,200 190,150 C160,200 120,310 100,400Z" fill="#6ab06d"/>
+    <path d="M100,400 C100,400 170,230 220,200 C190,230 130,310 100,400Z" fill="#6ab06d"/>
+    <line x1="100" y1="400" x2="100" y2="120" stroke="#4a8a4d" stroke-width="2"/>
+  </g>
+
+  <!-- Feuille 2 - petite droite -->
+  <g transform="translate(950, 300) rotate(-20)" opacity="0.12">
+    <path d="M50,200 C50,200 40,150 10,125 C30,130 45,140 50,200Z" fill="#6ab06d"/>
+    <path d="M50,200 C50,200 25,140 5,100 C30,115 45,155 50,200Z" fill="#6ab06d"/>
+    <path d="M50,200 C50,200 15,125 20,75 C38,100 48,155 50,200Z" fill="#6ab06d"/>
+    <path d="M50,200 C50,200 35,115 50,60 C55,100 55,155 50,200Z" fill="#6ab06d"/>
+    <path d="M50,200 C50,200 65,115 80,60 C65,100 55,155 50,200Z" fill="#6ab06d"/>
+    <path d="M50,200 C50,200 75,100 95,75 C80,100 60,155 50,200Z" fill="#6ab06d"/>
+    <line x1="50" y1="200" x2="50" y2="60" stroke="#4a8a4d" stroke-width="1.5"/>
+  </g>
+
+  <!-- Ligne décorative dorée -->
+  <line x1="0" y1="1" x2="1200" y2="1" stroke="#C8A96E" stroke-width="3" opacity="0.4"/>
+  <line x1="0" y1="674" x2="1200" y2="674" stroke="#C8A96E" stroke-width="3" opacity="0.4"/>
+
+  <!-- Contenu texte -->
+  <g transform="translate(100, 200)">
+    <!-- Badge catégorie -->
+    <rect x="0" y="0" width="140" height="32" rx="2" fill="#C8A96E" opacity="0.9"/>
+    <text x="70" y="21" font-family="Georgia, serif" font-size="11" fill="#1a2f1a" text-anchor="middle" font-weight="700" letter-spacing="2">SPORT &amp; CBD</text>
+
+    <!-- Titre principal -->
+    <text x="0" y="90" font-family="Georgia, serif" font-size="52" fill="#ffffff" font-weight="700" opacity="0.95">Les Bienfaits du CBD</text>
+    <text x="0" y="155" font-family="Georgia, serif" font-size="52" fill="#ffffff" font-weight="700" opacity="0.95">pour les Sportifs</text>
+
+    <!-- Ligne décorative -->
+    <rect x="0" y="175" width="60" height="3" rx="1" fill="#C8A96E"/>
+
+    <!-- Sous-titre -->
+    <text x="0" y="220" font-family="Arial, sans-serif" font-size="18" fill="#a8c4a9" opacity="0.85">Récupération • Performance • Bien-être</text>
+  </g>
+
+  <!-- Molécule décorative -->
+  <g transform="translate(1050, 550)" opacity="0.2">
+    <circle cx="0" cy="0" r="8" fill="none" stroke="#C8A96E" stroke-width="1.5"/>
+    <circle cx="40" cy="-30" r="8" fill="none" stroke="#C8A96E" stroke-width="1.5"/>
+    <circle cx="40" cy="30" r="8" fill="none" stroke="#C8A96E" stroke-width="1.5"/>
+    <circle cx="-40" cy="-30" r="8" fill="none" stroke="#C8A96E" stroke-width="1.5"/>
+    <circle cx="-40" cy="30" r="8" fill="none" stroke="#C8A96E" stroke-width="1.5"/>
+    <line x1="0" y1="0" x2="40" y2="-30" stroke="#C8A96E" stroke-width="1"/>
+    <line x1="0" y1="0" x2="40" y2="30" stroke="#C8A96E" stroke-width="1"/>
+    <line x1="0" y1="0" x2="-40" y2="-30" stroke="#C8A96E" stroke-width="1"/>
+    <line x1="0" y1="0" x2="-40" y2="30" stroke="#C8A96E" stroke-width="1"/>
+  </g>
+
+  <!-- Gradient overlay bas -->
+  <defs>
+    <linearGradient id="fadeBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="60%" style="stop-color:#000000;stop-opacity:0" />
+      <stop offset="100%" style="stop-color:#0d1f0d;stop-opacity:0.5" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#fadeBottom)"/>
+</svg>

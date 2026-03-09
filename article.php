@@ -126,7 +126,7 @@ if (!function_exists('excerpt')) {
     <meta property="og:title" content="<?= escape($article['titre']) ?>">
     <meta property="og:description" content="<?= escape($article['meta_description']) ?>">
     <meta property="og:url" content="<?= SITE_URL ?>/<?= escape($article['slug']) ?>">
-    <meta property="og:image" content="<?= escape($article['image']) ?>">
+    <meta property="og:image" content="<?= SITE_URL . '/' . escape($article['image']) ?>">
     <meta property="og:locale" content="<?= SITE_LOCALE ?>">
     <meta property="article:published_time" content="<?= $article['date_publication'] ?>">
     <meta property="article:modified_time" content="<?= $article['date_modification'] ?? $article['date_publication'] ?>">
@@ -137,7 +137,7 @@ if (!function_exists('excerpt')) {
     <meta name="twitter:site" content="<?= escape(SITE_TWITTER_HANDLE) ?>">
     <meta name="twitter:title" content="<?= escape($article['titre']) ?>">
     <meta name="twitter:description" content="<?= escape($article['meta_description']) ?>">
-    <meta name="twitter:image" content="<?= escape($article['image']) ?>">
+    <meta name="twitter:image" content="<?= SITE_URL . '/' . escape($article['image']) ?>">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="<?= url('favicon.svg') ?>">
@@ -181,7 +181,7 @@ if (!function_exists('excerpt')) {
         "@type": "Article",
         "headline": "<?= escape($article['titre']) ?>",
         "description": "<?= escape($article['meta_description']) ?>",
-        "image": "<?= escape($article['image']) ?>",
+        "image": "<?= SITE_URL . '/' . escape($article['image']) ?>",
         "datePublished": "<?= $article['date_publication'] ?>",
         "dateModified": "<?= $article['date_modification'] ?? $article['date_publication'] ?>",
         "wordCount": <?= str_word_count(strip_tags($article['contenu_html'])) ?>,

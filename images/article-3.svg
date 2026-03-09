@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f1a0d;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#3d3010;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1508;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="drop" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C8A96E;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#8B6914;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg3)"/>
+
+  <!-- Cercles concentriques -->
+  <circle cx="900" cy="337" r="350" fill="none" stroke="#C8A96E" stroke-width="0.5" opacity="0.1"/>
+  <circle cx="900" cy="337" r="280" fill="none" stroke="#C8A96E" stroke-width="0.5" opacity="0.15"/>
+  <circle cx="900" cy="337" r="210" fill="none" stroke="#C8A96E" stroke-width="1" opacity="0.2"/>
+  <circle cx="900" cy="337" r="140" fill="#C8A96E" opacity="0.05"/>
+
+  <!-- Goutte d'huile CBD stylisée -->
+  <g transform="translate(820, 130)">
+    <!-- Goutte -->
+    <path d="M80,0 C80,0 0,100 0,160 C0,204 36,240 80,240 C124,240 160,204 160,160 C160,100 80,0 80,0Z" fill="url(#drop)" opacity="0.8"/>
+    <!-- Reflet -->
+    <path d="M50,80 C50,80 30,120 35,150" stroke="rgba(255,255,255,0.3)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Texte dans la goutte -->
+    <text x="80" y="145" font-family="Georgia, serif" font-size="28" fill="#1f1a0d" text-anchor="middle" font-weight="700">CBD</text>
+    <text x="80" y="175" font-family="Arial, sans-serif" font-size="11" fill="#1f1a0d" text-anchor="middle" letter-spacing="1">HUILE</text>
+  </g>
+
+  <!-- Pipette stylisée -->
+  <g transform="translate(940, 50)" opacity="0.5">
+    <rect x="0" y="0" width="8" height="120" rx="4" fill="#C8A96E"/>
+    <rect x="-6" y="115" width="20" height="40" rx="3" fill="#8B6914"/>
+    <circle cx="4" cy="165" r="8" fill="#C8A96E" opacity="0.8"/>
+  </g>
+
+  <!-- Tableau de dosage décoratif -->
+  <g transform="translate(100, 380)" opacity="0.7">
+    <rect x="0" y="0" width="380" height="140" rx="8" fill="rgba(200,169,110,0.08)" stroke="#C8A96E" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="20" y="28" font-family="Arial, sans-serif" font-size="12" fill="#C8A96E" letter-spacing="2" font-weight="700">GUIDE DE DOSAGE</text>
+    <line x1="20" y1="38" x2="360" y2="38" stroke="#C8A96E" stroke-width="0.5" opacity="0.4"/>
+
+    <text x="20" y="62" font-family="Arial, sans-serif" font-size="13" fill="#d4b87a">Débutant</text>
+    <text x="160" y="62" font-family="Arial, sans-serif" font-size="13" fill="#ffffff">5 - 10 mg / jour</text>
+
+    <text x="20" y="88" font-family="Arial, sans-serif" font-size="13" fill="#d4b87a">Intermédiaire</text>
+    <text x="160" y="88" font-family="Arial, sans-serif" font-size="13" fill="#ffffff">15 - 25 mg / jour</text>
+
+    <text x="20" y="114" font-family="Arial, sans-serif" font-size="13" fill="#d4b87a">Avancé</text>
+    <text x="160" y="114" font-family="Arial, sans-serif" font-size="13" fill="#ffffff">30 - 50 mg / jour</text>
+  </g>
+
+  <!-- Contenu texte principal -->
+  <g transform="translate(100, 130)">
+    <rect x="0" y="0" width="150" height="32" rx="2" fill="#C8A96E" opacity="0.9"/>
+    <text x="75" y="21" font-family="Arial, sans-serif" font-size="11" fill="#1f1a0d" text-anchor="middle" font-weight="700" letter-spacing="2">DOSAGE CBD</text>
+
+    <text x="0" y="90" font-family="Georgia, serif" font-size="50" fill="#ffffff" font-weight="700">Quel Dosage CBD</text>
+    <text x="0" y="150" font-family="Georgia, serif" font-size="50" fill="#C8A96E" font-weight="700">Choisir ?</text>
+
+    <rect x="0" y="170" width="60" height="3" rx="1" fill="#C8A96E"/>
+
+    <text x="0" y="215" font-family="Arial, sans-serif" font-size="17" fill="#b09060">Le guide pratique pour trouver votre dose idéale</text>
+  </g>
+
+  <line x1="0" y1="2" x2="1200" y2="2" stroke="#C8A96E" stroke-width="2" opacity="0.5"/>
+  <line x1="0" y1="673" x2="1200" y2="673" stroke="#C8A96E" stroke-width="2" opacity="0.5"/>
+</svg>

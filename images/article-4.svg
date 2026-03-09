@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0d1a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#151d3a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#080c18;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#fef3c7;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg4)"/>
+
+  <!-- Étoiles -->
+  <g fill="#ffffff" opacity="0.6">
+    <circle cx="100" cy="80" r="1.5"/>
+    <circle cx="250" cy="40" r="1"/>
+    <circle cx="400" cy="90" r="2"/>
+    <circle cx="550" cy="30" r="1.5"/>
+    <circle cx="700" cy="70" r="1"/>
+    <circle cx="1000" cy="50" r="2"/>
+    <circle cx="1100" cy="120" r="1.5"/>
+    <circle cx="1150" cy="60" r="1"/>
+    <circle cx="180" cy="150" r="1"/>
+    <circle cx="320" cy="200" r="1.5"/>
+    <circle cx="800" cy="100" r="1"/>
+    <circle cx="950" cy="180" r="2"/>
+    <circle cx="50" cy="300" r="1"/>
+    <circle cx="1180" cy="250" r="1.5"/>
+  </g>
+
+  <!-- Lune -->
+  <g transform="translate(850, 80)">
+    <circle cx="100" cy="100" r="90" fill="#fef3c7" opacity="0.15"/>
+    <circle cx="100" cy="100" r="70" fill="#fef3c7" opacity="0.1"/>
+    <!-- Croissant -->
+    <path d="M100,30 A70,70 0 1,1 100,170 A50,50 0 1,0 100,30Z" fill="#fef3c7" opacity="0.6"/>
+    <!-- Halo -->
+    <circle cx="100" cy="100" r="110" fill="url(#moonGlow)"/>
+  </g>
+
+  <!-- Vagues de sommeil / ZZZ stylisés -->
+  <g opacity="0.2">
+    <path d="M600,250 Q650,220 700,250 Q750,280 800,250" stroke="#C8A96E" stroke-width="2" fill="none"/>
+    <path d="M620,290 Q680,255 740,290 Q800,325 860,290" stroke="#C8A96E" stroke-width="1.5" fill="none"/>
+    <path d="M640,330 Q710,290 780,330 Q850,370 920,330" stroke="#C8A96E" stroke-width="1" fill="none"/>
+  </g>
+
+  <!-- Feuille CBD stylisée petite -->
+  <g transform="translate(930, 400) rotate(30)" opacity="0.3">
+    <path d="M30,120 C30,120 24,90 6,75 C18,78 27,84 30,120Z" fill="#4a8a4d"/>
+    <path d="M30,120 C30,120 15,84 3,60 C18,69 27,93 30,120Z" fill="#4a8a4d"/>
+    <path d="M30,120 C30,120 9,75 12,45 C22.5,60 28.5,93 30,120Z" fill="#4a8a4d"/>
+    <path d="M30,120 C30,120 21,69 30,36 C33,60 33,93 30,120Z" fill="#4a8a4d"/>
+    <path d="M30,120 C30,120 39,69 48,36 C39,60 33,93 30,120Z" fill="#4a8a4d"/>
+    <path d="M30,120 C30,120 45,60 57,45 C48,60 36,93 30,120Z" fill="#4a8a4d"/>
+    <line x1="30" y1="120" x2="30" y2="36" stroke="#2C5F2E" stroke-width="1.5"/>
+  </g>
+
+  <!-- Contenu texte -->
+  <g transform="translate(100, 180)">
+    <rect x="0" y="0" width="170" height="32" rx="2" fill="#4a6fa5" opacity="0.9"/>
+    <text x="85" y="21" font-family="Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700" letter-spacing="2">SOMMEIL &amp; CBD</text>
+
+    <text x="0" y="90" font-family="Georgia, serif" font-size="50" fill="#ffffff" font-weight="700">CBD pour Mieux</text>
+    <text x="0" y="150" font-family="Georgia, serif" font-size="50" fill="#C8A96E" font-weight="700">Dormir</text>
+
+    <rect x="0" y="170" width="60" height="3" rx="1" fill="#C8A96E"/>
+
+    <text x="0" y="215" font-family="Arial, sans-serif" font-size="17" fill="#8898bb">Retrouvez un sommeil réparateur naturellement</text>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(100, 470)" opacity="0.7">
+    <g>
+      <circle cx="30" cy="20" r="28" fill="none" stroke="#C8A96E" stroke-width="1.5" opacity="0.5"/>
+      <text x="30" y="16" font-family="Georgia, serif" font-size="18" fill="#C8A96E" text-anchor="middle" font-weight="700">8h</text>
+      <text x="30" y="30" font-family="Arial" font-size="8" fill="#8898bb" text-anchor="middle">sommeil</text>
+    </g>
+    <g transform="translate(90, 0)">
+      <circle cx="30" cy="20" r="28" fill="none" stroke="#4a8a4d" stroke-width="1.5" opacity="0.5"/>
+      <text x="30" y="16" font-family="Georgia, serif" font-size="18" fill="#4a8a4d" text-anchor="middle" font-weight="700">-40%</text>
+      <text x="30" y="30" font-family="Arial" font-size="8" fill="#8898bb" text-anchor="middle">anxiété</text>
+    </g>
+    <g transform="translate(180, 0)">
+      <circle cx="30" cy="20" r="28" fill="none" stroke="#C8A96E" stroke-width="1.5" opacity="0.5"/>
+      <text x="30" y="16" font-family="Georgia, serif" font-size="18" fill="#C8A96E" text-anchor="middle" font-weight="700">100%</text>
+      <text x="30" y="30" font-family="Arial" font-size="8" fill="#8898bb" text-anchor="middle">naturel</text>
+    </g>
+  </g>
+
+  <line x1="0" y1="2" x2="1200" y2="2" stroke="#4a6fa5" stroke-width="2" opacity="0.5"/>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a3a5c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a1520;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg2)"/>
+
+  <!-- Grille décorative -->
+  <g opacity="0.05">
+    <line x1="0" y1="135" x2="1200" y2="135" stroke="#ffffff" stroke-width="1"/>
+    <line x1="0" y1="270" x2="1200" y2="270" stroke="#ffffff" stroke-width="1"/>
+    <line x1="0" y1="405" x2="1200" y2="405" stroke="#ffffff" stroke-width="1"/>
+    <line x1="0" y1="540" x2="1200" y2="540" stroke="#ffffff" stroke-width="1"/>
+    <line x1="240" y1="0" x2="240" y2="675" stroke="#ffffff" stroke-width="1"/>
+    <line x1="480" y1="0" x2="480" y2="675" stroke="#ffffff" stroke-width="1"/>
+    <line x1="720" y1="0" x2="720" y2="675" stroke="#ffffff" stroke-width="1"/>
+    <line x1="960" y1="0" x2="960" y2="675" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <!-- Cercle lumineux -->
+  <circle cx="850" cy="337" r="280" fill="none" stroke="#C8A96E" stroke-width="1" opacity="0.15"/>
+  <circle cx="850" cy="337" r="220" fill="none" stroke="#C8A96E" stroke-width="0.5" opacity="0.1"/>
+  <circle cx="850" cy="337" r="160" fill="#C8A96E" opacity="0.04"/>
+
+  <!-- Silhouette sportif stylisée -->
+  <g transform="translate(700, 80)" opacity="0.25" fill="#4a8a4d">
+    <!-- Corps -->
+    <ellipse cx="150" cy="80" rx="25" ry="25"/>
+    <rect x="125" y="105" width="50" height="140" rx="10"/>
+    <!-- Bras gauche levé -->
+    <path d="M125,130 Q80,80 60,50" stroke="#4a8a4d" stroke-width="20" fill="none" stroke-linecap="round"/>
+    <!-- Bras droit -->
+    <path d="M175,130 Q220,160 240,190" stroke="#4a8a4d" stroke-width="20" fill="none" stroke-linecap="round"/>
+    <!-- Jambes -->
+    <path d="M140,245 Q120,320 110,400" stroke="#4a8a4d" stroke-width="18" fill="none" stroke-linecap="round"/>
+    <path d="M160,245 Q180,320 190,400" stroke="#4a8a4d" stroke-width="18" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Barres de progression / énergie -->
+  <g transform="translate(100, 450)" opacity="0.6">
+    <rect x="0" y="0" width="200" height="4" rx="2" fill="#1a3a5c"/>
+    <rect x="0" y="0" width="170" height="4" rx="2" fill="#C8A96E"/>
+    <text x="0" y="-8" font-family="Arial" font-size="11" fill="#a0b4c8" letter-spacing="1">RÉCUPÉRATION</text>
+
+    <rect x="0" y="30" width="200" height="4" rx="2" fill="#1a3a5c"/>
+    <rect x="0" y="30" width="140" height="4" rx="2" fill="#4a8a4d"/>
+    <text x="0" y="22" font-family="Arial" font-size="11" fill="#a0b4c8" letter-spacing="1">PERFORMANCE</text>
+
+    <rect x="0" y="60" width="200" height="4" rx="2" fill="#1a3a5c"/>
+    <rect x="0" y="60" width="185" height="4" rx="2" fill="#C8A96E"/>
+    <text x="0" y="52" font-family="Arial" font-size="11" fill="#a0b4c8" letter-spacing="1">BIEN-ÊTRE</text>
+  </g>
+
+  <!-- Contenu texte -->
+  <g transform="translate(100, 150)">
+    <rect x="0" y="0" width="160" height="32" rx="2" fill="#4a8a4d" opacity="0.9"/>
+    <text x="80" y="21" font-family="Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700" letter-spacing="2">RÉCUPÉRATION</text>
+
+    <text x="0" y="90" font-family="Georgia, serif" font-size="50" fill="#ffffff" font-weight="700">CBD &amp; Muscles :</text>
+    <text x="0" y="150" font-family="Georgia, serif" font-size="50" fill="#C8A96E" font-weight="700">Le Guide Complet</text>
+
+    <rect x="0" y="170" width="60" height="3" rx="1" fill="#C8A96E"/>
+
+    <text x="0" y="215" font-family="Arial, sans-serif" font-size="17" fill="#a0b4c8">Anti-inflammatoire naturel pour une meilleure récupération</text>
+  </g>
+
+  <!-- Points décoratifs -->
+  <g opacity="0.4">
+    <circle cx="50" cy="50" r="3" fill="#C8A96E"/>
+    <circle cx="70" cy="50" r="3" fill="#C8A96E"/>
+    <circle cx="90" cy="50" r="3" fill="#C8A96E"/>
+    <circle cx="1150" cy="625" r="3" fill="#4a8a4d"/>
+    <circle cx="1130" cy="625" r="3" fill="#4a8a4d"/>
+    <circle cx="1110" cy="625" r="3" fill="#4a8a4d"/>
+  </g>
+
+  <line x1="0" y1="2" x2="1200" y2="2" stroke="#C8A96E" stroke-width="2" opacity="0.5"/>
+</svg>

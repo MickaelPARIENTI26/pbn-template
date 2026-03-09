@@ -56,7 +56,7 @@ define('SITE_FOOTER_DESC', getenv('SITE_FOOTER_DESC') ?: '{{SITE_FOOTER_DESC}}')
 
 // SEO
 define('SITE_TWITTER_HANDLE', getenv('SITE_TWITTER_HANDLE') ?: '{{SITE_TWITTER_HANDLE}}');
-define('SITE_OG_IMAGE', getenv('SITE_OG_IMAGE') ?: 'assets/images/og-default.svg');
+define('SITE_OG_IMAGE', getenv('SITE_OG_IMAGE') ?: 'images/og-default.svg');
 define('SITE_ROBOTS', getenv('SITE_ROBOTS') ?: 'index, follow');
 
 // Technique

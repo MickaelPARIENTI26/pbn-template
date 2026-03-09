@@ -171,14 +171,14 @@ if (!function_exists('excerpt')) {
     <meta property="og:description" content="<?= escape(SITE_DESC) ?>">
     <meta property="og:url" content="<?= SITE_URL ?>">
     <meta property="og:locale" content="<?= SITE_LOCALE ?>">
-    <meta property="og:image" content="<?= $hero ? escape($hero['image']) : SITE_URL . '/' . SITE_OG_IMAGE ?>">
+    <meta property="og:image" content="<?= $hero ? SITE_URL . '/' . escape($hero['image']) : SITE_URL . '/' . SITE_OG_IMAGE ?>">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="<?= escape(SITE_TWITTER_HANDLE) ?>">
     <meta name="twitter:title" content="<?= escape(SITE_NAME) ?> — <?= escape(SITE_TAGLINE) ?>">
     <meta name="twitter:description" content="<?= escape(SITE_DESC) ?>">
-    <meta name="twitter:image" content="<?= $hero ? escape($hero['image']) : SITE_URL . '/' . SITE_OG_IMAGE ?>">
+    <meta name="twitter:image" content="<?= $hero ? SITE_URL . '/' . escape($hero['image']) : SITE_URL . '/' . SITE_OG_IMAGE ?>">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="<?= url('favicon.svg') ?>">
