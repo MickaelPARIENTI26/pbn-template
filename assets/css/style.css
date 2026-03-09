@@ -112,13 +112,12 @@ textarea:focus,
 /* === BANNIERE THEMATIQUE === */
 .site-banner {
     background-color: var(--primary);
-    color: #ffffff !important;
+    color: #fff;
     padding: 0.5rem;
     text-align: center;
     font-size: 0.75rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    font-weight: 600;
 }
 
 /* === HERO ARTICLE === */
@@ -538,13 +537,11 @@ footer {
     color: #fff;
 }
 
-.footer-heading {
+footer h5 {
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    font-weight: 600;
     color: #fff;
-    margin-bottom: 1rem;
 }
 
 footer a {
