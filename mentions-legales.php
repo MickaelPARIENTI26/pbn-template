@@ -1,4 +1,9 @@
 <?php
+// Compression GZIP
+if (!ob_start("ob_gzhandler")) {
+    ob_start();
+}
+
 require_once __DIR__ . '/config.php';
 
 // Headers HTTP sécurité et cache
@@ -24,8 +29,9 @@ header('X-XSS-Protection: 1; mode=block');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS (async loading) -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"></noscript>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -127,14 +133,14 @@ header('X-XSS-Protection: 1; mode=block');
                     <p class="mt-3 small"><?= escape(SITE_FOOTER_DESC) ?></p>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Navigation</h5>
+                    <p class="footer-heading">Navigation</p>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="<?= url() ?>">Accueil</a></li>
                         <li class="mb-2"><a href="<?= url('articles') ?>">Articles</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Légal</h5>
+                    <p class="footer-heading">Légal</p>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="<?= url('mentions-legales') ?>">Mentions légales</a></li>
                         <li class="mb-2"><a href="#">Politique de confidentialité</a></li>
@@ -149,11 +155,11 @@ header('X-XSS-Protection: 1; mode=block');
     </footer>
 
     <!-- jQuery -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="assets/js/main.js"></script>
+    <script defer src="assets/js/main.js"></script>
 
 </body>
 </html>
