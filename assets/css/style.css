@@ -170,6 +170,7 @@ textarea:focus,
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
+    color: var(--dark);
 }
 
 .btn-read-more {
@@ -241,6 +242,7 @@ textarea:focus,
     font-size: 1.2rem;
     font-weight: 600;
     line-height: 1.3;
+    color: var(--dark);
     transition: color 0.2s ease;
 }
 
