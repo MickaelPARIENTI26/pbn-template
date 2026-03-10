@@ -481,7 +481,6 @@ textarea:focus,
     font-weight: 500;
     line-height: 1.35;
     color: var(--dark);
-    color: var(--dark);
     transition: color 0.2s ease;
 }
 
