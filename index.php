@@ -243,18 +243,16 @@ if (!function_exists('excerpt')) {
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Navigation principale">
-        <div class="container">
-            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--color-accent);" aria-hidden="true">.</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Ouvrir le menu de navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="<?= url() ?>" aria-current="page">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= url('articles') ?>">Articles</a></li>
-                </ul>
-            </div>
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+        <a href="<?= url() ?>" class="navbar-brand"><?= escape(SITE_LOGO_TEXT) ?></a>
+        <div class="navbar-nav">
+            <a href="<?= url() ?>">Accueil</a>
+            <a href="<?= url('articles') ?>">Articles</a>
+            <?php
+            $cats = getDB()->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' LIMIT 5")->fetchAll();
+            foreach($cats as $c): ?>
+                <a href="<?= url('articles') ?>?cat=<?= urlencode($c['categorie']) ?>"><?= escape($c['categorie']) ?></a>
+            <?php endforeach; ?>
         </div>
     </nav>
 

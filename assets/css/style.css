@@ -8,7 +8,7 @@
 :root {
     --dark: #1a1a18;
     --mid: #4a4a46;
-    --light: #f7f5f0;
+    --light: #f8f6f1;
     --border: #e8e4dc;
     --muted: #595959; /* Accessible contrast ratio 7:1 on white */
     --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -78,8 +78,16 @@ textarea:focus,
 
 /* === NAVBAR === */
 .navbar {
-    background-color: #fff;
-    border-bottom: 1px solid var(--border);
+    background: white;
+    border-bottom: 1px solid #e8e4dc;
+    padding: 0 40px;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .navbar.scrolled {
@@ -87,25 +95,34 @@ textarea:focus,
 }
 
 .navbar-brand {
-    font-family: var(--font-display);
-    color: var(--color-primary);
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
+    color: #1a1a18;
+    text-decoration: none;
 }
 
 .navbar-brand:hover {
     color: var(--color-primary);
 }
 
-.nav-link {
-    text-transform: uppercase;
-    font-size: 0.82rem;
-    letter-spacing: 0.08em;
-    color: var(--mid);
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 0;
 }
 
-.nav-link:hover,
-.nav-link:focus {
+.navbar-nav a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4a4a46;
+    padding: 0 16px;
+    text-decoration: none;
+}
+
+.navbar-nav a:hover {
     color: var(--color-primary);
 }
 
