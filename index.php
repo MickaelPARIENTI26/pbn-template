@@ -293,34 +293,36 @@ if (!function_exists('excerpt')) {
         LIMIT 3
     ")->fetchAll();
     ?>
-    <?php if (!empty($sections)): ?>
-    <!-- Section éditoriale (1er article) -->
-    <?php if (isset($sections[0])): $s = $sections[0]; ?>
-    <a href="<?= url(escape($s['slug'])) ?>" class="editorial-section">
-        <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
+    <?php $s1 = $sections[0] ?? null; ?>
+    <?php if ($s1): ?>
+    <!-- Section éditoriale (bandeau pleine largeur) -->
+    <section class="editorial-section">
+        <img src="<?= escape($s1['image']) ?>" alt="<?= escape($s1['titre']) ?>">
         <div class="editorial-overlay">
-            <span class="badge-cat"><?= escape($s['cat_name']) ?></span>
-            <h2><?= escape($s['titre']) ?></h2>
-            <p><?= escape(substr(strip_tags($s['contenu_html']), 0, 180)) ?>...</p>
-            <span class="editorial-link">Lire l'article →</span>
+            <span class="editorial-badge"><?= escape($s1['cat_name']) ?></span>
+            <h2><?= escape($s1['titre']) ?></h2>
+            <p><?= escape(substr(strip_tags($s1['contenu_html']), 0, 160)) ?>...</p>
+            <a href="<?= url(escape($s1['slug'])) ?>" class="editorial-btn">Découvrir →</a>
         </div>
-    </a>
+    </section>
     <?php endif; ?>
 
-    <!-- Section duo (articles 2 et 3) -->
-    <?php if (count($sections) > 1): ?>
-    <div class="duo-section">
-        <?php for ($i = 1; $i < min(3, count($sections)); $i++): $s = $sections[$i]; ?>
+    <?php if (isset($sections[1]) || isset($sections[2])): ?>
+    <!-- Section duo (2 cartes visuelles) -->
+    <section class="duo-section">
+        <?php foreach([$sections[1] ?? null, $sections[2] ?? null] as $s): ?>
+        <?php if (!$s): continue; endif; ?>
         <a href="<?= url(escape($s['slug'])) ?>" class="duo-card">
             <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
             <div class="duo-overlay">
-                <span class="badge-cat"><?= escape($s['cat_name']) ?></span>
+                <span class="editorial-badge"><?= escape($s['cat_name']) ?></span>
                 <h3><?= escape($s['titre']) ?></h3>
+                <p><?= escape(substr(strip_tags($s['contenu_html']), 0, 120)) ?>...</p>
+                <span class="lire-link">Lire l'article →</span>
             </div>
         </a>
-        <?php endfor; ?>
-    </div>
-    <?php endif; ?>
+        <?php endforeach; ?>
+    </section>
     <?php endif; ?>
 
     <!-- DERNIERS ARTICLES -->

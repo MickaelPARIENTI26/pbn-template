@@ -381,14 +381,13 @@ textarea:focus,
     }
 }
 
-/* === SECTION ÉDITORIALE (FULL-WIDTH BANNER) === */
+/* === SECTION ÉDITORIALE (BANDEAU PLEINE LARGEUR) === */
 .editorial-section {
-    display: block;
     position: relative;
     width: 100%;
     height: 500px;
     overflow: hidden;
-    margin: 80px 0 0;
+    margin: 80px 0;
 }
 .editorial-section > img {
     position: absolute;
@@ -397,86 +396,99 @@ textarea:focus,
     height: 100%;
     object-fit: cover;
     z-index: 0;
-    transition: transform 0.6s ease;
-}
-.editorial-section:hover > img {
-    transform: scale(1.03);
 }
 .editorial-overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 60px 80px;
+    padding: 0 0 0 10%;
+    max-width: 600px;
     color: white;
+    gap: 16px;
 }
-.editorial-overlay .badge-cat {
-    color: white;
-    border-color: white;
-    margin-bottom: 16px;
+.editorial-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    padding: 4px 14px;
+    border-radius: 2px;
+    width: fit-content;
 }
 .editorial-overlay h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.6rem;
     font-weight: 700;
     color: white;
-    max-width: 540px;
     line-height: 1.2;
-    margin: 0 0 16px;
+    margin: 0;
+    max-width: 520px;
 }
 .editorial-overlay p {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.85);
-    max-width: 480px;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.82);
     line-height: 1.7;
-    margin: 0 0 24px;
+    margin: 0;
+    max-width: 460px;
 }
-.editorial-link {
+.editorial-btn {
+    display: inline-block;
+    border: 2px solid white;
+    color: white;
+    padding: 10px 28px;
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-accent);
-    transition: opacity 0.2s;
+    text-decoration: none;
+    width: fit-content;
+    transition: all 0.3s;
+    margin-top: 8px;
 }
-.editorial-section:hover .editorial-link {
-    opacity: 0.8;
+.editorial-btn:hover {
+    background: white;
+    color: var(--dark);
 }
 
 /* Editorial responsive */
 @media (max-width: 768px) {
     .editorial-section {
         height: 420px;
-        margin: 40px 0 0;
+        margin: 40px 0;
     }
     .editorial-overlay {
         padding: 40px 20px;
-        background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 100%);
+        max-width: 100%;
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
         justify-content: flex-end;
     }
     .editorial-overlay h2 {
         font-size: 1.8rem;
     }
     .editorial-overlay p {
-        font-size: 0.9rem;
+        font-size: 0.88rem;
     }
 }
 
-/* === SECTION DUO (2 COLONNES) === */
+/* === SECTION DUO (2 COLONNES VISUELLES) === */
 .duo-section {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    margin: 2px 0 0;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 0 0 80px;
 }
 .duo-card {
-    display: block;
     position: relative;
     height: 420px;
     overflow: hidden;
+    text-decoration: none;
+    display: block;
 }
 .duo-card > img {
     position: absolute;
@@ -496,37 +508,50 @@ textarea:focus,
     left: 0;
     right: 0;
     z-index: 1;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
-    padding: 100px 32px 32px;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.0) 100%);
+    padding: 60px 36px 36px;
     color: white;
-}
-.duo-overlay .badge-cat {
-    color: white;
-    border-color: white;
-    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .duo-overlay h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: white;
-    line-height: 1.25;
+    line-height: 1.2;
     margin: 0;
+}
+.duo-overlay p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.duo-overlay .lire-link {
+    color: var(--color-accent);
+    font-size: 0.78rem;
 }
 
 /* Duo responsive */
 @media (max-width: 768px) {
     .duo-section {
         grid-template-columns: 1fr;
+        margin: 0 0 40px;
     }
     .duo-card {
-        height: 320px;
+        height: 340px;
     }
     .duo-overlay {
-        padding: 80px 20px 24px;
+        padding: 50px 24px 28px;
     }
     .duo-overlay h3 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 }
 
