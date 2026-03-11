@@ -111,8 +111,7 @@ if (!function_exists('excerpt')) {
     <main role="main" id="main-content">
         <!-- EN-TÊTE CATÉGORIE -->
         <div style="max-width:1200px; margin:60px auto 48px; padding:0 40px; text-align:center;">
-            <span class="badge-cat"><?= escape($cat) ?></span>
-            <h1 style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:700; color:var(--dark); margin:16px 0 0;">
+            <h1 style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:700; color:var(--dark); margin:0;">
                 <?= escape($cat) ?>
             </h1>
             <div class="section-divider"></div>
