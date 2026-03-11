@@ -25,12 +25,21 @@ if (!$article) {
 
 // Articles similaires
 $similaires = $pdo->prepare(
-    "SELECT * FROM articles
+    "SELECT id, slug, titre, image, categorie, date_publication
+     FROM articles
      WHERE categorie = ? AND slug != ? AND statut='publie'
-     ORDER BY date_publication DESC LIMIT 3"
+     ORDER BY date_publication DESC LIMIT 4"
 );
 $similaires->execute([$article['categorie'], $article['slug']]);
 $similaires = $similaires->fetchAll();
+
+// Derniers articles
+$derniers = $pdo->query(
+    "SELECT id, slug, titre, image, categorie, date_publication
+     FROM articles
+     WHERE statut='publie'
+     ORDER BY date_publication DESC LIMIT 4"
+)->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="<?= SITE_LANG ?>">
@@ -127,33 +136,52 @@ $similaires = $similaires->fetchAll();
             <div class="article-divider"></div>
         </div>
 
-        <!-- CONTENU ARTICLE -->
-        <div class="article-content">
-            <?= $article['contenu_html'] ?>
-        </div>
+        <!-- LAYOUT 2 COLONNES -->
+        <div class="article-layout">
 
-        <!-- ARTICLES SIMILAIRES -->
-        <?php if ($similaires): ?>
-        <section class="similaires">
-            <div class="similaires-inner">
-                <h2 class="section-title">Articles similaires</h2>
-                <div class="section-divider"></div>
-                <div class="recents-grid">
+            <!-- Contenu principal -->
+            <div class="article-main">
+                <div class="article-content">
+                    <?= $article['contenu_html'] ?>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="article-sidebar">
+
+                <?php if ($similaires): ?>
+                <div class="sidebar-block">
+                    <h4 class="sidebar-title">Articles similaires</h4>
+                    <div class="sidebar-divider"></div>
                     <?php foreach($similaires as $s): ?>
-                    <a href="<?= url(escape($s['slug'])) ?>" class="article-card">
-                        <div class="card-img-wrap">
-                            <img src="<?= escape($s['image']) ?>" alt="">
-                        </div>
-                        <div class="card-body">
-                            <span class="badge-cat"><?= escape($s['categorie']) ?></span>
-                            <h3><?= escape($s['titre']) ?></h3>
+                    <a href="<?= url(escape($s['slug'])) ?>" class="sidebar-card">
+                        <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
+                        <div class="sidebar-card-body">
+                            <span class="sidebar-cat"><?= escape($s['categorie']) ?></span>
+                            <p><?= escape($s['titre']) ?></p>
                         </div>
                     </a>
                     <?php endforeach; ?>
                 </div>
-            </div>
-        </section>
-        <?php endif; ?>
+                <?php endif; ?>
+
+                <div class="sidebar-block">
+                    <h4 class="sidebar-title">Derniers articles</h4>
+                    <div class="sidebar-divider"></div>
+                    <?php foreach($derniers as $d): ?>
+                    <?php if ($d['slug'] === $article['slug']) continue; ?>
+                    <a href="<?= url(escape($d['slug'])) ?>" class="sidebar-card">
+                        <img src="<?= escape($d['image']) ?>" alt="<?= escape($d['titre']) ?>">
+                        <div class="sidebar-card-body">
+                            <span class="sidebar-cat"><?= escape($d['categorie']) ?></span>
+                            <p><?= escape($d['titre']) ?></p>
+                        </div>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+
+            </aside>
+        </div>
     </main>
 
     <!-- FOOTER -->
