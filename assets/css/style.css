@@ -381,66 +381,156 @@ textarea:focus,
     }
 }
 
-/* === SECTIONS THÉMATIQUES === */
-.thematic-sections {
-    max-width: 1280px;
-    margin: 80px auto;
-    padding: 0 40px;
-}
-.thematic-row {
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    padding: 60px 0;
-    border-bottom: 1px solid var(--border);
-}
-.thematic-row.reverse {
-    flex-direction: row-reverse;
-}
-.thematic-row:last-child {
-    border-bottom: none;
-}
-.thematic-img {
-    flex: 1;
-    min-width: 0;
-}
-.thematic-img img {
+/* === SECTION ÉDITORIALE (FULL-WIDTH BANNER) === */
+.editorial-section {
+    display: block;
+    position: relative;
     width: 100%;
-    height: 380px;
-    object-fit: cover;
-    border-radius: 4px;
+    height: 500px;
+    overflow: hidden;
+    margin: 80px 0 0;
 }
-.thematic-content {
-    flex: 1;
-    min-width: 0;
+.editorial-section > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: transform 0.6s ease;
+}
+.editorial-section:hover > img {
+    transform: scale(1.03);
+}
+.editorial-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    justify-content: center;
+    padding: 60px 80px;
+    color: white;
 }
-.thematic-content h2 {
+.editorial-overlay .badge-cat {
+    color: white;
+    border-color: white;
+    margin-bottom: 16px;
+}
+.editorial-overlay h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
+    font-size: 2.6rem;
     font-weight: 700;
-    color: var(--dark);
+    color: white;
+    max-width: 540px;
+    line-height: 1.2;
+    margin: 0 0 16px;
+}
+.editorial-overlay p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    max-width: 480px;
+    line-height: 1.7;
+    margin: 0 0 24px;
+}
+.editorial-link {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    transition: opacity 0.2s;
+}
+.editorial-section:hover .editorial-link {
+    opacity: 0.8;
+}
+
+/* Editorial responsive */
+@media (max-width: 768px) {
+    .editorial-section {
+        height: 420px;
+        margin: 40px 0 0;
+    }
+    .editorial-overlay {
+        padding: 40px 20px;
+        background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 100%);
+        justify-content: flex-end;
+    }
+    .editorial-overlay h2 {
+        font-size: 1.8rem;
+    }
+    .editorial-overlay p {
+        font-size: 0.9rem;
+    }
+}
+
+/* === SECTION DUO (2 COLONNES) === */
+.duo-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin: 2px 0 0;
+}
+.duo-card {
+    display: block;
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+}
+.duo-card > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: transform 0.6s ease;
+}
+.duo-card:hover > img {
+    transform: scale(1.04);
+}
+.duo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    padding: 100px 32px 32px;
+    color: white;
+}
+.duo-overlay .badge-cat {
+    color: white;
+    border-color: white;
+    margin-bottom: 12px;
+}
+.duo-overlay h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: white;
     line-height: 1.25;
     margin: 0;
 }
-.thematic-content p {
-    font-size: 0.95rem;
-    line-height: 1.75;
-    color: var(--muted);
-    margin: 0;
+
+/* Duo responsive */
+@media (max-width: 768px) {
+    .duo-section {
+        grid-template-columns: 1fr;
+    }
+    .duo-card {
+        height: 320px;
+    }
+    .duo-overlay {
+        padding: 80px 20px 24px;
+    }
+    .duo-overlay h3 {
+        font-size: 1.4rem;
+    }
 }
-.thematic-link {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: opacity 0.2s;
-}
-.thematic-link:hover { opacity: 0.7; }
+
+/* === BADGE CATÉGORIE === */
 .badge-cat {
     display: inline-block;
     font-size: 0.7rem;
@@ -452,28 +542,6 @@ textarea:focus,
     padding: 3px 10px;
     border-radius: 2px;
     width: fit-content;
-}
-
-/* Thematic responsive */
-@media (max-width: 768px) {
-    .thematic-sections {
-        padding: 0 20px;
-        margin: 40px auto;
-    }
-    .thematic-row {
-        flex-direction: column;
-        gap: 24px;
-        padding: 40px 0;
-    }
-    .thematic-row.reverse {
-        flex-direction: column;
-    }
-    .thematic-img img {
-        height: 240px;
-    }
-    .thematic-content h2 {
-        font-size: 1.6rem;
-    }
 }
 
 /* === SECTION DERNIERS ARTICLES (GRILLE) === */

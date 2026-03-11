@@ -294,22 +294,33 @@ if (!function_exists('excerpt')) {
     ")->fetchAll();
     ?>
     <?php if (!empty($sections)): ?>
-    <div class="thematic-sections">
-        <?php foreach($sections as $i => $s):
-            $reverse = ($i % 2 === 1) ? 'reverse' : ''; ?>
-        <div class="thematic-row <?= $reverse ?>">
-            <div class="thematic-img">
-                <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
-            </div>
-            <div class="thematic-content">
-                <span class="badge-cat"><?= escape($s['cat_name']) ?></span>
-                <h2><?= escape($s['titre']) ?></h2>
-                <p><?= escape(substr(strip_tags($s['contenu_html']), 0, 220)) ?>...</p>
-                <a href="<?= url(escape($s['slug'])) ?>" class="thematic-link">Lire l'article →</a>
-            </div>
+    <!-- Section éditoriale (1er article) -->
+    <?php if (isset($sections[0])): $s = $sections[0]; ?>
+    <a href="<?= url(escape($s['slug'])) ?>" class="editorial-section">
+        <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
+        <div class="editorial-overlay">
+            <span class="badge-cat"><?= escape($s['cat_name']) ?></span>
+            <h2><?= escape($s['titre']) ?></h2>
+            <p><?= escape(substr(strip_tags($s['contenu_html']), 0, 180)) ?>...</p>
+            <span class="editorial-link">Lire l'article →</span>
         </div>
-        <?php endforeach; ?>
+    </a>
+    <?php endif; ?>
+
+    <!-- Section duo (articles 2 et 3) -->
+    <?php if (count($sections) > 1): ?>
+    <div class="duo-section">
+        <?php for ($i = 1; $i < min(3, count($sections)); $i++): $s = $sections[$i]; ?>
+        <a href="<?= url(escape($s['slug'])) ?>" class="duo-card">
+            <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
+            <div class="duo-overlay">
+                <span class="badge-cat"><?= escape($s['cat_name']) ?></span>
+                <h3><?= escape($s['titre']) ?></h3>
+            </div>
+        </a>
+        <?php endfor; ?>
     </div>
+    <?php endif; ?>
     <?php endif; ?>
 
     <!-- DERNIERS ARTICLES -->
