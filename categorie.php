@@ -19,16 +19,21 @@ if (empty($cat)) {
     exit;
 }
 
-// Requête articles de cette catégorie
+// Requête articles de cette catégorie (insensible à la casse)
 $stmt = $pdo->prepare("
     SELECT * FROM articles
     WHERE statut = 'publie'
-      AND categorie = ?
+      AND LOWER(categorie) = LOWER(?)
       AND (date_publication_prevue IS NULL OR date_publication_prevue <= NOW())
     ORDER BY date_publication DESC
 ");
 $stmt->execute([$cat]);
 $articles = $stmt->fetchAll();
+
+// Récupérer le nom exact de la catégorie depuis la BDD si articles trouvés
+if (!empty($articles)) {
+    $cat = $articles[0]['categorie'];
+}
 
 // Helper pour générer un extrait
 if (!function_exists('excerpt')) {
@@ -131,10 +136,9 @@ if (!function_exists('excerpt')) {
                 </a>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="no-articles">
-                    <p>Aucun article dans cette catégorie pour le moment.</p>
-                    <a href="<?= url() ?>" class="thematic-link">← Retour à l'accueil</a>
-                </div>
+                <p style="text-align:center; color:var(--muted); padding:60px 0; font-size:1rem;">
+                    Aucun article dans cette catégorie pour le moment.
+                </p>
             <?php endif; ?>
         </div>
     </main>
