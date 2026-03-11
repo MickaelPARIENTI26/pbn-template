@@ -279,49 +279,59 @@ if (!function_exists('excerpt')) {
     </section>
     <?php endif; ?>
 
-    <!-- SECTIONS THÉMATIQUES -->
+    <!-- SECTIONS ALTERNÉES -->
     <?php
-    $sections = $pdo->query("
-        SELECT a.*, a.categorie as cat_name
-        FROM articles a
-        INNER JOIN (
-            SELECT categorie, MAX(date_publication) as maxdate
-            FROM articles WHERE statut='publie' AND est_hero=0
-            GROUP BY categorie
-        ) b ON a.categorie = b.categorie AND a.date_publication = b.maxdate
-        WHERE a.statut='publie' AND a.est_hero=0
-        LIMIT 3
+    $featured = $pdo->query("
+        SELECT * FROM articles
+        WHERE statut='publie' AND est_hero=0
+        ORDER BY date_publication DESC LIMIT 3
     ")->fetchAll();
+    $f1 = $featured[0] ?? null;
+    $f2 = $featured[1] ?? null;
+    $f3 = $featured[2] ?? null;
     ?>
-    <?php $s1 = $sections[0] ?? null; ?>
-    <?php if ($s1): ?>
-    <!-- Section éditoriale (bandeau pleine largeur) -->
-    <section class="editorial-section">
-        <img src="<?= escape($s1['image']) ?>" alt="<?= escape($s1['titre']) ?>">
-        <div class="editorial-overlay">
-            <span class="editorial-badge"><?= escape($s1['cat_name']) ?></span>
-            <h2><?= escape($s1['titre']) ?></h2>
-            <p><?= escape(substr(strip_tags($s1['contenu_html']), 0, 160)) ?>...</p>
-            <a href="<?= url(escape($s1['slug'])) ?>" class="editorial-btn">Découvrir →</a>
+
+    <?php if ($f1): ?>
+    <!-- Section alternée 1 : image gauche, texte droite -->
+    <section class="alt-section">
+        <div class="alt-inner">
+            <div class="alt-img">
+                <img src="<?= escape($f1['image']) ?>" alt="<?= escape($f1['titre']) ?>">
+            </div>
+            <div class="alt-body">
+                <span class="badge-cat"><?= escape($f1['categorie']) ?></span>
+                <h2><?= escape($f1['titre']) ?></h2>
+                <p><?= escape(substr(strip_tags($f1['contenu_html']), 0, 240)) ?>...</p>
+                <a href="<?= url(escape($f1['slug'])) ?>" class="alt-link">Lire l'article →</a>
+            </div>
         </div>
     </section>
     <?php endif; ?>
 
-    <?php if (isset($sections[1]) || isset($sections[2])): ?>
-    <!-- Section duo (2 cartes visuelles) -->
-    <section class="duo-section">
-        <?php foreach([$sections[1] ?? null, $sections[2] ?? null] as $s): ?>
-        <?php if (!$s): continue; endif; ?>
-        <a href="<?= url(escape($s['slug'])) ?>" class="duo-card">
-            <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
-            <div class="duo-overlay">
-                <span class="editorial-badge"><?= escape($s['cat_name']) ?></span>
-                <h3><?= escape($s['titre']) ?></h3>
-                <p><?= escape(substr(strip_tags($s['contenu_html']), 0, 120)) ?>...</p>
-                <span class="lire-link">Lire l'article →</span>
+    <?php if ($f2): ?>
+    <!-- Bandeau sombre pleine largeur -->
+    <section class="dark-band">
+        <span class="badge-cat" style="border-color:var(--color-accent);color:var(--color-accent);"><?= escape($f2['categorie']) ?></span>
+        <h2><?= escape($f2['titre']) ?></h2>
+        <p><?= escape(substr(strip_tags($f2['contenu_html']), 0, 180)) ?>...</p>
+        <a href="<?= url(escape($f2['slug'])) ?>" class="hero-btn">Découvrir →</a>
+    </section>
+    <?php endif; ?>
+
+    <?php if ($f3): ?>
+    <!-- Section alternée 2 : image droite, texte gauche -->
+    <section class="alt-section alt-reverse">
+        <div class="alt-inner">
+            <div class="alt-img">
+                <img src="<?= escape($f3['image']) ?>" alt="<?= escape($f3['titre']) ?>">
             </div>
-        </a>
-        <?php endforeach; ?>
+            <div class="alt-body">
+                <span class="badge-cat"><?= escape($f3['categorie']) ?></span>
+                <h2><?= escape($f3['titre']) ?></h2>
+                <p><?= escape(substr(strip_tags($f3['contenu_html']), 0, 240)) ?>...</p>
+                <a href="<?= url(escape($f3['slug'])) ?>" class="alt-link">Lire l'article →</a>
+            </div>
+        </div>
     </section>
     <?php endif; ?>
 
