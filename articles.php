@@ -97,9 +97,9 @@ if (!function_exists('excerpt')) {
     <!-- Variables CSS injectées -->
     <style>
         :root {
-            --primary: <?= COLOR_PRIMARY ?>;
-            --primary-light: <?= COLOR_PRIMARY_LIGHT ?>;
-            --accent: <?= COLOR_ACCENT ?>;
+            --color-primary: <?= COLOR_PRIMARY ?>;
+            --color-primary-light: <?= COLOR_PRIMARY_LIGHT ?>;
+            --color-accent: <?= COLOR_ACCENT ?>;
         }
     </style>
 </head>
@@ -109,7 +109,7 @@ if (!function_exists('excerpt')) {
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Navigation principale">
         <div class="container">
-            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);" aria-hidden="true">.</span></a>
+            <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--color-accent);" aria-hidden="true">.</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Ouvrir le menu de navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -166,7 +166,7 @@ if (!function_exists('excerpt')) {
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="footer-brand">
-                        <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--accent);">.</span></a>
+                        <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--color-accent);">.</span></a>
                     </div>
                     <p class="mt-3 small"><?= escape(SITE_FOOTER_DESC) ?></p>
                 </div>
