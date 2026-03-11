@@ -262,67 +262,36 @@ if (!function_exists('excerpt')) {
     <main role="main" id="main-content">
     <!-- HERO ARTICLE -->
     <?php if ($hero): ?>
-    <section class="container mt-4" aria-labelledby="hero-title">
-        <a href="<?= url(escape($hero['slug'])) ?>" class="text-decoration-none" aria-label="Lire l'article : <?= escape($hero['titre']) ?>">
-            <article class="hero-card">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <div class="card-img-wrap position-relative h-100">
-                            <span class="hero-badge">À la une</span>
-                            <img src="/<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>" loading="eager" class="w-100 h-100 object-fit-cover">
-                        </div>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <div class="p-4 p-lg-5">
-                            <div class="article-meta-info small mb-2">
-                                <span class="text-uppercase"><?= escape($hero['categorie']) ?></span>
-                                <span class="mx-2" aria-hidden="true">•</span>
-                                <span><?= formatDate($hero['date_publication']) ?></span>
-                                <span class="mx-2" aria-hidden="true">•</span>
-                                <span><?= (int)$hero['read_time'] ?> min de lecture</span>
-                            </div>
-                            <div class="hero-divider" aria-hidden="true"></div>
-                            <h1 class="hero-title text-dark" id="hero-title"><?= escape($hero['titre']) ?></h1>
-                            <p class="article-excerpt mt-3"><?= escape(excerpt($hero['contenu_html'], 200)) ?></p>
-                            <span class="btn-read-more mt-3">Lire l'article <span aria-hidden="true">→</span></span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </a>
+    <section class="hero-section" aria-labelledby="hero-title">
+        <img src="/<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>" loading="eager">
+        <div class="hero-overlay">
+            <span class="badge-cat"><?= escape($hero['categorie']) ?></span>
+            <h1 id="hero-title"><?= escape($hero['titre']) ?></h1>
+            <p class="excerpt"><?= escape(excerpt($hero['contenu_html'], 160)) ?></p>
+            <a href="<?= url(escape($hero['slug'])) ?>" class="btn-hero">
+                Lire l'article <span aria-hidden="true">→</span>
+            </a>
+        </div>
     </section>
     <?php endif; ?>
 
     <!-- SECTION ARTICLES -->
     <?php if (!empty($articles)): ?>
-    <section class="container mt-5" aria-labelledby="section-articles-title">
-        <div class="d-flex align-items-center mb-4">
-            <h2 class="h4 mb-0" id="section-articles-title">Derniers articles</h2>
-            <hr class="flex-grow-1 ms-3" style="border-color: var(--border);" aria-hidden="true">
-        </div>
-        <div class="row g-4">
-            <?php foreach ($articles as $index => $article): ?>
-            <div class="col-sm-6 col-md-3">
-                <a href="<?= url(escape($article['slug'])) ?>" class="text-decoration-none" aria-label="Lire l'article : <?= escape($article['titre']) ?>">
-                    <article class="article-card fade-up delay-<?= ($index % 4) + 1 ?>">
-                        <div class="card-img-wrap position-relative">
-                            <span class="card-category-badge"><?= escape($article['categorie']) ?></span>
-                            <img src="/<?= escape($article['image']) ?>" alt="" loading="lazy">
-                        </div>
-                        <div class="p-3">
-                            <div class="article-date small mb-2"><?= formatDate($article['date_publication']) ?></div>
-                            <h3 class="card-title text-dark"><?= escape($article['titre']) ?></h3>
-                            <p class="card-excerpt mt-2"><?= escape(excerpt($article['contenu_html'], 100)) ?></p>
-                        </div>
-                        <div class="px-3 pb-3 mt-auto d-flex justify-content-between align-items-center">
-                            <span class="btn-read-more small">Lire <span aria-hidden="true">→</span></span>
-                            <span class="article-read-time small"><?= (int)$article['read_time'] ?> min</span>
-                        </div>
-                    </article>
-                </a>
+    <section class="articles-list" aria-labelledby="section-articles-title">
+        <h2 class="section-title" id="section-articles-title">Derniers articles</h2>
+        <div class="section-title-line"></div>
+
+        <?php foreach ($articles as $a): ?>
+        <a href="<?= url(escape($a['slug'])) ?>" class="article-row" aria-label="Lire l'article : <?= escape($a['titre']) ?>">
+            <img class="article-row-img" src="/<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" loading="lazy">
+            <div class="article-row-body">
+                <span class="badge-cat"><?= escape($a['categorie']) ?></span>
+                <h3><?= escape($a['titre']) ?></h3>
+                <p class="excerpt"><?= escape(excerpt($a['contenu_html'], 200)) ?></p>
+                <span class="lire-link">Lire l'article <span aria-hidden="true">→</span></span>
             </div>
-            <?php endforeach; ?>
-        </div>
+        </a>
+        <?php endforeach; ?>
 
         <?php if ($total_pages > 1): ?>
         <!-- Pagination -->
@@ -355,34 +324,26 @@ if (!function_exists('excerpt')) {
     </main>
 
     <!-- FOOTER -->
-    <footer class="pt-5 pb-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="footer-brand">
-                        <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--color-accent);">.</span></a>
-                    </div>
-                    <p class="mt-3 small"><?= escape(SITE_FOOTER_DESC) ?></p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Navigation</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="<?= url() ?>">Accueil</a></li>
-                        <li class="mb-2"><a href="<?= url('articles') ?>">Articles</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Légal</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="<?= url('mentions-legales') ?>">Mentions légales</a></li>
-                        <li class="mb-2"><a href="#">Politique de confidentialité</a></li>
-                        <li class="mb-2"><a href="#">CGU</a></li>
-                    </ul>
-                </div>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <div class="footer-brand"><?= escape(SITE_LOGO_TEXT) ?></div>
+                <p><?= escape(SITE_FOOTER_DESC) ?></p>
             </div>
-            <div class="footer-bottom pt-4 mt-4 text-center">
-                <p class="mb-0">&copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?> — <?= escape(SITE_DOMAIN) ?></p>
+            <div class="footer-col">
+                <p class="footer-heading">Navigation</p>
+                <a href="<?= url() ?>">Accueil</a>
+                <a href="<?= url('articles') ?>">Articles</a>
             </div>
+            <div class="footer-col">
+                <p class="footer-heading">Légal</p>
+                <a href="<?= url('mentions-legales') ?>">Mentions légales</a>
+                <a href="<?= url('politique-confidentialite') ?>">Confidentialité</a>
+                <a href="<?= url('cgu') ?>">CGU</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?> — <?= escape(SITE_DOMAIN) ?>
         </div>
     </footer>
 

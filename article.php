@@ -262,105 +262,33 @@ if (!function_exists('excerpt')) {
 
     <?php else: ?>
 
-    <!-- BREADCRUMB -->
-    <div class="container mt-3">
-        <nav class="breadcrumb-custom" aria-label="Fil d'Ariane">
-            <a href="<?= url() ?>">Accueil</a>
-            <span class="mx-2" aria-hidden="true">›</span>
-            <a href="<?= url('articles') ?>"><?= escape($article['categorie']) ?></a>
-            <span class="mx-2" aria-hidden="true">›</span>
-            <span aria-current="page"><?= escape(mb_substr($article['titre'], 0, 40)) ?>...</span>
-        </nav>
-    </div>
+    <!-- IMAGE HERO -->
+    <img src="/<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" class="article-hero-img" loading="eager">
 
     <!-- EN-TÊTE ARTICLE -->
-    <header class="container mt-4">
-        <div class="article-header text-center">
-            <span class="article-category-badge"><?= escape($article['categorie']) ?></span>
-            <h1 class="article-title"><?= escape($article['titre']) ?></h1>
-            <p class="article-intro mt-4"><?= escape(excerpt($article['contenu_html'], 200)) ?></p>
-            <div class="article-meta mt-4 d-flex justify-content-center gap-3 flex-wrap">
-                <span><?= formatDate($article['date_publication']) ?></span>
-                <span>•</span>
-                <span><?= (int)$article['read_time'] ?> min de lecture</span>
-                <span>•</span>
-                <span><?= escape(SITE_AUTHOR) ?></span>
-            </div>
+    <header class="article-header">
+        <div class="article-meta">
+            <span class="badge-cat"><?= escape($article['categorie']) ?></span>
+            <span><?= formatDate($article['date_publication']) ?></span>
+            <span><?= (int)$article['read_time'] ?> min de lecture</span>
         </div>
+        <h1><?= escape($article['titre']) ?></h1>
+        <div class="article-title-line"></div>
     </header>
 
-    <!-- IMAGE HERO -->
-    <div class="container mt-4">
-        <img src="/<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" class="article-hero-img" loading="eager">
-    </div>
+    <!-- CONTENU ARTICLE -->
+    <article class="article-content">
+        <?= $contenu_modifie ?>
 
-    <!-- LAYOUT ARTICLE -->
-    <div class="container mt-4">
-        <div class="row">
-            <!-- Colonne contenu -->
-            <div class="col-lg-8">
-                <div class="article-content">
-                    <?= $contenu_modifie ?>
-                </div>
-
-                <!-- Tags -->
-                <?php if (!empty($tags)): ?>
-                <div class="article-tags mt-4">
-                    <?php foreach ($tags as $tag): ?>
-                    <a href="#" class="tag me-1 mb-1"><?= escape($tag) ?></a>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="col-lg-4">
-                <aside class="sidebar">
-                    <!-- Widget Sommaire -->
-                    <?php if (!empty($h2_titles)): ?>
-                    <nav class="sidebar-widget" role="navigation" aria-labelledby="widget-toc-title">
-                        <div class="widget-title" id="widget-toc-title">Sommaire</div>
-                        <?php foreach ($h2_titles as $index => $title): ?>
-                        <a href="#section-<?= $index ?>" class="toc-link"><?= strip_tags($title) ?></a>
-                        <?php endforeach; ?>
-                    </nav>
-                    <?php endif; ?>
-
-                    <!-- Widget Nouveaux articles -->
-                    <?php if (!empty($latest)): ?>
-                    <div class="sidebar-widget" role="complementary" aria-labelledby="widget-latest-title">
-                        <div class="widget-title" id="widget-latest-title">Nouveaux articles</div>
-                        <?php foreach ($latest as $index => $art): ?>
-                        <a href="<?= url(escape($art['slug'])) ?>" class="sidebar-article-item <?= $index < count($latest) - 1 ? 'border-bottom' : '' ?>" aria-label="Lire : <?= escape($art['titre']) ?>">
-                            <img src="/<?= escape($art['image']) ?>" alt="">
-                            <div>
-                                <div class="sidebar-article-title"><?= escape($art['titre']) ?></div>
-                                <small class="text-muted"><?= formatDate($art['date_publication']) ?></small>
-                            </div>
-                        </a>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php endif; ?>
-
-                    <!-- Widget Articles similaires -->
-                    <?php if (!empty($related)): ?>
-                    <div class="sidebar-widget" role="complementary" aria-labelledby="widget-related-title">
-                        <div class="widget-title" id="widget-related-title">Articles similaires</div>
-                        <?php foreach ($related as $index => $art): ?>
-                        <a href="<?= url(escape($art['slug'])) ?>" class="sidebar-article-item <?= $index < count($related) - 1 ? 'border-bottom' : '' ?>" aria-label="Lire : <?= escape($art['titre']) ?>">
-                            <img src="/<?= escape($art['image']) ?>" alt="">
-                            <div>
-                                <div class="sidebar-article-title"><?= escape($art['titre']) ?></div>
-                                <small class="text-muted"><?= formatDate($art['date_publication']) ?></small>
-                            </div>
-                        </a>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php endif; ?>
-                </aside>
-            </div>
+        <!-- Tags -->
+        <?php if (!empty($tags)): ?>
+        <div class="article-tags mt-5">
+            <?php foreach ($tags as $tag): ?>
+            <a href="#" class="tag me-1 mb-1"><?= escape($tag) ?></a>
+            <?php endforeach; ?>
         </div>
-    </div>
+        <?php endif; ?>
+    </article>
 
     <!-- ARTICLES SIMILAIRES -->
     <?php if (!empty($related)): ?>
@@ -399,34 +327,26 @@ if (!function_exists('excerpt')) {
     </main>
 
     <!-- FOOTER -->
-    <footer class="pt-5 pb-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="footer-brand">
-                        <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--color-accent);">.</span></a>
-                    </div>
-                    <p class="mt-3 small"><?= escape(SITE_FOOTER_DESC) ?></p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Navigation</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="<?= url() ?>">Accueil</a></li>
-                        <li class="mb-2"><a href="<?= url('articles') ?>">Articles</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Légal</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="<?= url('mentions-legales') ?>">Mentions légales</a></li>
-                        <li class="mb-2"><a href="#">Politique de confidentialité</a></li>
-                        <li class="mb-2"><a href="#">CGU</a></li>
-                    </ul>
-                </div>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <div class="footer-brand"><?= escape(SITE_LOGO_TEXT) ?></div>
+                <p><?= escape(SITE_FOOTER_DESC) ?></p>
             </div>
-            <div class="footer-bottom pt-4 mt-4 text-center">
-                <p class="mb-0">&copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?> — <?= escape(SITE_DOMAIN) ?></p>
+            <div class="footer-col">
+                <p class="footer-heading">Navigation</p>
+                <a href="<?= url() ?>">Accueil</a>
+                <a href="<?= url('articles') ?>">Articles</a>
             </div>
+            <div class="footer-col">
+                <p class="footer-heading">Légal</p>
+                <a href="<?= url('mentions-legales') ?>">Mentions légales</a>
+                <a href="<?= url('politique-confidentialite') ?>">Confidentialité</a>
+                <a href="<?= url('cgu') ?>">CGU</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?> — <?= escape(SITE_DOMAIN) ?>
         </div>
     </footer>
 

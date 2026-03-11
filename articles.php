@@ -159,32 +159,26 @@ if (!function_exists('excerpt')) {
     </main>
 
     <!-- FOOTER -->
-    <footer class="pt-5 pb-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="footer-brand">
-                        <a class="navbar-brand" href="<?= url() ?>"><?= escape(SITE_LOGO_TEXT) ?><span style="color: var(--color-accent);">.</span></a>
-                    </div>
-                    <p class="mt-3 small"><?= escape(SITE_FOOTER_DESC) ?></p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Navigation</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="<?= url() ?>">Accueil</a></li>
-                        <li class="mb-2"><a href="<?= url('articles') ?>">Articles</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Légal</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="<?= url('mentions-legales') ?>">Mentions légales</a></li>
-                    </ul>
-                </div>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <div class="footer-brand"><?= escape(SITE_LOGO_TEXT) ?></div>
+                <p><?= escape(SITE_FOOTER_DESC) ?></p>
             </div>
-            <div class="footer-bottom pt-4 mt-4 text-center">
-                <p class="mb-0">&copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?> — <?= escape(SITE_DOMAIN) ?></p>
+            <div class="footer-col">
+                <p class="footer-heading">Navigation</p>
+                <a href="<?= url() ?>">Accueil</a>
+                <a href="<?= url('articles') ?>">Articles</a>
             </div>
+            <div class="footer-col">
+                <p class="footer-heading">Légal</p>
+                <a href="<?= url('mentions-legales') ?>">Mentions légales</a>
+                <a href="<?= url('politique-confidentialite') ?>">Confidentialité</a>
+                <a href="<?= url('cgu') ?>">CGU</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?> — <?= escape(SITE_DOMAIN) ?>
         </div>
     </footer>
 
