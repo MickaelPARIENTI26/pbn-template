@@ -12,54 +12,50 @@ header('X-XSS-Protection: 1; mode=block');
 
 $pdo = getDB();
 
-// Récupérer l'article par slug
-$slug = $_GET['slug'] ?? '';
-$stmt = $pdo->prepare("SELECT * FROM articles WHERE slug = ? AND statut='publie'");
-$stmt->execute([$slug]);
-$article = $stmt->fetch();
-
-if (!$article) {
-    http_response_code(404);
-    die('Article non trouvé');
+// Récupérer la catégorie
+$cat = isset($_GET['cat']) ? trim(urldecode($_GET['cat'])) : '';
+if (empty($cat)) {
+    header('Location: ' . url('articles'));
+    exit;
 }
 
-// Articles similaires
-$similaires = $pdo->prepare(
-    "SELECT * FROM articles
-     WHERE categorie = ? AND slug != ? AND statut='publie'
-     ORDER BY date_publication DESC LIMIT 3"
-);
-$similaires->execute([$article['categorie'], $article['slug']]);
-$similaires = $similaires->fetchAll();
+// Requête articles de cette catégorie
+$stmt = $pdo->prepare("
+    SELECT * FROM articles
+    WHERE statut = 'publie'
+      AND categorie = ?
+      AND (date_publication_prevue IS NULL OR date_publication_prevue <= NOW())
+    ORDER BY date_publication DESC
+");
+$stmt->execute([$cat]);
+$articles = $stmt->fetchAll();
+
+// Helper pour générer un extrait
+if (!function_exists('excerpt')) {
+    function excerpt($html, $length = 150) {
+        $text = strip_tags($html);
+        if (strlen($text) <= $length) return $text;
+        return substr($text, 0, $length) . '...';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?= SITE_LANG ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= escape($article['titre']) ?> — <?= escape(SITE_NAME) ?></title>
-    <meta name="description" content="<?= escape($article['meta_description']) ?>">
+    <title><?= escape($cat) ?> — <?= escape(SITE_NAME) ?></title>
+    <meta name="description" content="Tous nos articles sur <?= escape($cat) ?>">
     <meta name="robots" content="<?= SITE_ROBOTS ?>">
-    <meta name="author" content="<?= escape(SITE_AUTHOR) ?>">
-    <link rel="canonical" href="<?= SITE_URL ?>/<?= escape($article['slug']) ?>">
+    <link rel="canonical" href="<?= SITE_URL ?>/categorie?cat=<?= urlencode($cat) ?>">
 
     <!-- Open Graph -->
-    <meta property="og:type" content="article">
+    <meta property="og:type" content="website">
     <meta property="og:site_name" content="<?= escape(SITE_NAME) ?>">
-    <meta property="og:title" content="<?= escape($article['titre']) ?>">
-    <meta property="og:description" content="<?= escape($article['meta_description']) ?>">
-    <meta property="og:url" content="<?= SITE_URL ?>/<?= escape($article['slug']) ?>">
-    <meta property="og:image" content="<?= SITE_URL . '/' . escape($article['image']) ?>">
+    <meta property="og:title" content="<?= escape($cat) ?> — <?= escape(SITE_NAME) ?>">
+    <meta property="og:description" content="Tous nos articles sur <?= escape($cat) ?>">
+    <meta property="og:url" content="<?= SITE_URL ?>/categorie?cat=<?= urlencode($cat) ?>">
     <meta property="og:locale" content="<?= SITE_LOCALE ?>">
-    <meta property="article:published_time" content="<?= $article['date_publication'] ?>">
-    <meta property="article:section" content="<?= escape($article['categorie']) ?>">
-
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="<?= escape(SITE_TWITTER_HANDLE) ?>">
-    <meta name="twitter:title" content="<?= escape($article['titre']) ?>">
-    <meta name="twitter:description" content="<?= escape($article['meta_description']) ?>">
-    <meta name="twitter:image" content="<?= SITE_URL . '/' . escape($article['image']) ?>">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="<?= url('favicon.svg') ?>">
@@ -108,52 +104,34 @@ $similaires = $similaires->fetchAll();
     </nav>
 
     <main role="main" id="main-content">
-        <!-- IMAGE HERO -->
-        <div class="article-hero">
-            <img src="<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>">
-        </div>
+        <!-- EN-TÊTE CATÉGORIE -->
+        <header class="category-header">
+            <h1><?= escape($cat) ?></h1>
+            <div class="section-divider"></div>
+            <p class="category-count"><?= count($articles) ?> article<?= count($articles) > 1 ? 's' : '' ?></p>
+        </header>
 
-        <!-- HEADER ARTICLE -->
-        <div class="article-header">
-            <span class="badge-cat"><?= escape($article['categorie']) ?></span>
-            <h1><?= escape($article['titre']) ?></h1>
-            <div class="article-meta">
-                <span><?= date('d M Y', strtotime($article['date_publication'])) ?></span>
-                <span>·</span>
-                <span><?= $article['read_time'] ?> min de lecture</span>
-                <span>·</span>
-                <span><?= escape($article['categorie']) ?></span>
-            </div>
-            <div class="article-divider"></div>
-        </div>
-
-        <!-- CONTENU ARTICLE -->
-        <div class="article-content">
-            <?= $article['contenu_html'] ?>
-        </div>
-
-        <!-- ARTICLES SIMILAIRES -->
-        <?php if ($similaires): ?>
-        <section class="similaires">
-            <div class="similaires-inner">
-                <h2 class="section-title">Articles similaires</h2>
-                <div class="section-divider"></div>
-                <div class="recents-grid">
-                    <?php foreach($similaires as $s): ?>
-                    <a href="<?= url(escape($s['slug'])) ?>" class="article-card">
-                        <div class="card-img-wrap">
-                            <img src="<?= escape($s['image']) ?>" alt="">
-                        </div>
-                        <div class="card-body">
-                            <span class="badge-cat"><?= escape($s['categorie']) ?></span>
-                            <h3><?= escape($s['titre']) ?></h3>
-                        </div>
-                    </a>
-                    <?php endforeach; ?>
+        <!-- LISTE DES ARTICLES -->
+        <section class="category-articles">
+            <?php if (!empty($articles)): ?>
+                <?php foreach ($articles as $a): ?>
+                <a href="<?= url(escape($a['slug'])) ?>" class="article-row">
+                    <img class="article-row-img" src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" loading="lazy">
+                    <div class="article-row-body">
+                        <span class="badge-cat"><?= escape($a['categorie']) ?></span>
+                        <h3><?= escape($a['titre']) ?></h3>
+                        <p class="excerpt"><?= escape(excerpt($a['contenu_html'], 200)) ?></p>
+                        <span class="lire-link">Lire l'article →</span>
+                    </div>
+                </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="no-articles">
+                    <p>Aucun article dans cette catégorie pour le moment.</p>
+                    <a href="<?= url() ?>" class="thematic-link">← Retour à l'accueil</a>
                 </div>
-            </div>
+            <?php endif; ?>
         </section>
-        <?php endif; ?>
     </main>
 
     <!-- FOOTER -->

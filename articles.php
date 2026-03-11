@@ -107,11 +107,18 @@ if (!function_exists('excerpt')) {
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- NAVBAR -->
-    <nav style="background:white;border-bottom:1px solid #e8e4dc;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000;">
-        <a href="<?= url() ?>" style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#1a1a18;text-decoration:none;"><?= escape(SITE_LOGO_TEXT) ?></a>
-        <div style="display:flex;gap:8px;">
-            <a href="<?= url() ?>" style="font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4a4a46;text-decoration:none;padding:0 12px;">Accueil</a>
-            <a href="<?= url('articles') ?>" style="font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4a4a46;text-decoration:none;padding:0 12px;">Articles</a>
+    <nav class="main-nav">
+        <a href="<?= url() ?>" class="nav-brand"><?= escape(SITE_LOGO_TEXT) ?></a>
+        <div class="nav-links">
+            <a href="<?= url() ?>" class="nav-link">Accueil</a>
+            <?php
+            $cats = $pdo->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' ORDER BY categorie LIMIT 6")->fetchAll();
+            foreach($cats as $c):
+                $catSlug = urlencode($c['categorie']);
+            ?>
+            <a href="<?= url('categorie') ?>?cat=<?= $catSlug ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
+            <?php endforeach; ?>
+            <a href="<?= url('articles') ?>" class="nav-link nav-link-cta">Tous les articles</a>
         </div>
     </nav>
 
@@ -154,8 +161,13 @@ if (!function_exists('excerpt')) {
     </main>
 
     <!-- FOOTER -->
+    <?php
+    $footer_cats = $pdo->query(
+        "SELECT DISTINCT categorie FROM articles WHERE statut='publie' LIMIT 5"
+    )->fetchAll();
+    ?>
     <footer class="site-footer">
-        <div class="footer-inner">
+        <div class="footer-grid">
             <div class="footer-col">
                 <div class="footer-brand"><?= escape(SITE_LOGO_TEXT) ?></div>
                 <p><?= escape(SITE_FOOTER_DESC) ?></p>
@@ -163,7 +175,13 @@ if (!function_exists('excerpt')) {
             <div class="footer-col">
                 <p class="footer-heading">Navigation</p>
                 <a href="<?= url() ?>">Accueil</a>
-                <a href="<?= url('articles') ?>">Articles</a>
+                <a href="<?= url('articles') ?>">Tous les articles</a>
+            </div>
+            <div class="footer-col">
+                <p class="footer-heading">Catégories</p>
+                <?php foreach($footer_cats as $fc): ?>
+                <a href="<?= url('categorie') ?>?cat=<?= urlencode($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
+                <?php endforeach; ?>
             </div>
             <div class="footer-col">
                 <p class="footer-heading">Légal</p>

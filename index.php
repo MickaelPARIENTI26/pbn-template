@@ -42,6 +42,10 @@ if ($uri !== '' && $uri !== 'index.php') {
         require __DIR__ . '/articles.php';
         exit;
     }
+    if ($uri === 'categorie') {
+        require __DIR__ . '/categorie.php';
+        exit;
+    }
     if ($uri === 'sitemap.xml') {
         require __DIR__ . '/sitemap.php';
         exit;
@@ -243,11 +247,18 @@ if (!function_exists('excerpt')) {
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- NAVBAR -->
-    <nav style="background:white;border-bottom:1px solid #e8e4dc;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000;">
-        <a href="<?= url() ?>" style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#1a1a18;text-decoration:none;"><?= escape(SITE_LOGO_TEXT) ?></a>
-        <div style="display:flex;gap:8px;">
-            <a href="<?= url() ?>" style="font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4a4a46;text-decoration:none;padding:0 12px;">Accueil</a>
-            <a href="<?= url('articles') ?>" style="font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4a4a46;text-decoration:none;padding:0 12px;">Articles</a>
+    <nav class="main-nav">
+        <a href="<?= url() ?>" class="nav-brand"><?= escape(SITE_LOGO_TEXT) ?></a>
+        <div class="nav-links">
+            <a href="<?= url() ?>" class="nav-link">Accueil</a>
+            <?php
+            $cats = $pdo->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' ORDER BY categorie LIMIT 6")->fetchAll();
+            foreach($cats as $c):
+                $catSlug = urlencode($c['categorie']);
+            ?>
+            <a href="<?= url('categorie') ?>?cat=<?= $catSlug ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
+            <?php endforeach; ?>
+            <a href="<?= url('articles') ?>" class="nav-link nav-link-cta">Tous les articles</a>
         </div>
     </nav>
 
@@ -257,70 +268,94 @@ if (!function_exists('excerpt')) {
     <main role="main" id="main-content">
     <!-- HERO ARTICLE -->
     <?php if ($hero): ?>
-    <section class="hero-section" aria-labelledby="hero-title">
-        <img src="/<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>" loading="eager">
+    <section class="hero-section">
+        <img src="<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>">
         <div class="hero-overlay">
-            <span class="badge-cat"><?= escape($hero['categorie']) ?></span>
-            <h1 id="hero-title"><?= escape($hero['titre']) ?></h1>
-            <p class="excerpt"><?= escape(excerpt($hero['contenu_html'], 160)) ?></p>
-            <a href="<?= url(escape($hero['slug'])) ?>" class="btn-hero">
-                Lire l'article <span aria-hidden="true">→</span>
-            </a>
+            <span class="hero-badge"><?= escape($hero['categorie']) ?></span>
+            <h1><?= escape($hero['titre']) ?></h1>
+            <p class="hero-excerpt"><?= escape(substr(strip_tags($hero['contenu_html']), 0, 180)) ?>...</p>
+            <a href="<?= url(escape($hero['slug'])) ?>" class="hero-btn">Lire l'article →</a>
         </div>
     </section>
     <?php endif; ?>
 
-    <!-- SECTION ARTICLES -->
-    <?php if (!empty($articles)): ?>
-    <section class="articles-list" aria-labelledby="section-articles-title">
-        <h2 class="section-title" id="section-articles-title">Derniers articles</h2>
-        <div class="section-title-line"></div>
-
-        <?php foreach ($articles as $a): ?>
-        <a href="<?= url(escape($a['slug'])) ?>" class="article-row" aria-label="Lire l'article : <?= escape($a['titre']) ?>">
-            <img class="article-row-img" src="/<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" loading="lazy">
-            <div class="article-row-body">
-                <span class="badge-cat"><?= escape($a['categorie']) ?></span>
-                <h3><?= escape($a['titre']) ?></h3>
-                <p class="excerpt"><?= escape(excerpt($a['contenu_html'], 200)) ?></p>
-                <span class="lire-link">Lire l'article <span aria-hidden="true">→</span></span>
+    <!-- SECTIONS THÉMATIQUES -->
+    <?php
+    $sections = $pdo->query("
+        SELECT a.*, a.categorie as cat_name
+        FROM articles a
+        INNER JOIN (
+            SELECT categorie, MAX(date_publication) as maxdate
+            FROM articles WHERE statut='publie' AND est_hero=0
+            GROUP BY categorie
+        ) b ON a.categorie = b.categorie AND a.date_publication = b.maxdate
+        WHERE a.statut='publie' AND a.est_hero=0
+        LIMIT 3
+    ")->fetchAll();
+    ?>
+    <?php if (!empty($sections)): ?>
+    <div class="thematic-sections">
+        <?php foreach($sections as $i => $s):
+            $reverse = ($i % 2 === 1) ? 'reverse' : ''; ?>
+        <div class="thematic-row <?= $reverse ?>">
+            <div class="thematic-img">
+                <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
             </div>
-        </a>
+            <div class="thematic-content">
+                <span class="badge-cat"><?= escape($s['cat_name']) ?></span>
+                <h2><?= escape($s['titre']) ?></h2>
+                <p><?= escape(substr(strip_tags($s['contenu_html']), 0, 220)) ?>...</p>
+                <a href="<?= url(escape($s['slug'])) ?>" class="thematic-link">Lire l'article →</a>
+            </div>
+        </div>
         <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
 
-        <?php if ($total_pages > 1): ?>
-        <!-- Pagination -->
-        <nav class="mt-5" aria-label="Navigation des articles">
-            <ul class="pagination justify-content-center">
-                <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                    <a class="page-link" href="<?= url() ?>?page=<?= $page - 1 ?>" aria-label="Précédent">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <?php
-                $start = max(1, $page - 2);
-                $end = min($total_pages, $page + 2);
-                for ($i = $start; $i <= $end; $i++):
-                ?>
-                <li class="page-item <?= $i === $page ? 'active' : '' ?>">
-                    <a class="page-link" href="<?= url() ?>?page=<?= $i ?>"><?= $i ?></a>
-                </li>
-                <?php endfor; ?>
-                <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                    <a class="page-link" href="<?= url() ?>?page=<?= $page + 1 ?>" aria-label="Suivant">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <?php endif; ?>
+    <!-- DERNIERS ARTICLES -->
+    <?php
+    $recents = $pdo->query("
+        SELECT * FROM articles
+        WHERE statut='publie' AND est_hero=0
+        ORDER BY date_publication DESC LIMIT 4
+    ")->fetchAll();
+    ?>
+    <?php if (!empty($recents)): ?>
+    <section class="recents-section">
+        <div class="recents-inner">
+            <h2 class="section-title">Derniers articles</h2>
+            <div class="section-divider"></div>
+            <div class="recents-grid">
+                <?php foreach($recents as $a): ?>
+                <a href="<?= url(escape($a['slug'])) ?>" class="article-card">
+                    <div class="card-img-wrap">
+                        <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>">
+                    </div>
+                    <div class="card-body">
+                        <span class="badge-cat"><?= escape($a['categorie']) ?></span>
+                        <h3><?= escape($a['titre']) ?></h3>
+                        <p class="card-excerpt"><?= escape(substr(strip_tags($a['contenu_html']), 0, 130)) ?>...</p>
+                        <div class="card-meta">
+                            <span><?= date('d M Y', strtotime($a['date_publication'])) ?></span>
+                            <span><?= $a['read_time'] ?> min</span>
+                        </div>
+                    </div>
+                </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </section>
     <?php endif; ?>
     </main>
 
     <!-- FOOTER -->
+    <?php
+    $footer_cats = $pdo->query(
+        "SELECT DISTINCT categorie FROM articles WHERE statut='publie' LIMIT 5"
+    )->fetchAll();
+    ?>
     <footer class="site-footer">
-        <div class="footer-inner">
+        <div class="footer-grid">
             <div class="footer-col">
                 <div class="footer-brand"><?= escape(SITE_LOGO_TEXT) ?></div>
                 <p><?= escape(SITE_FOOTER_DESC) ?></p>
@@ -328,7 +363,13 @@ if (!function_exists('excerpt')) {
             <div class="footer-col">
                 <p class="footer-heading">Navigation</p>
                 <a href="<?= url() ?>">Accueil</a>
-                <a href="<?= url('articles') ?>">Articles</a>
+                <a href="<?= url('articles') ?>">Tous les articles</a>
+            </div>
+            <div class="footer-col">
+                <p class="footer-heading">Catégories</p>
+                <?php foreach($footer_cats as $fc): ?>
+                <a href="<?= url('categorie') ?>?cat=<?= urlencode($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
+                <?php endforeach; ?>
             </div>
             <div class="footer-col">
                 <p class="footer-heading">Légal</p>
