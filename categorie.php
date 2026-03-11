@@ -105,7 +105,7 @@ if (!function_exists('excerpt')) {
 
     <main role="main" id="main-content">
         <!-- EN-TÊTE CATÉGORIE -->
-        <div style="max-width:900px; margin:60px auto 48px; padding:0 40px; text-align:center;">
+        <div style="max-width:1200px; margin:60px auto 48px; padding:0 40px; text-align:center;">
             <span class="badge-cat"><?= escape($cat) ?></span>
             <h1 style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:700; color:var(--dark); margin:16px 0 0;">
                 <?= escape($cat) ?>
@@ -117,7 +117,7 @@ if (!function_exists('excerpt')) {
         </div>
 
         <!-- LISTE DES ARTICLES -->
-        <div style="max-width:900px; margin:0 auto; padding:0 40px 80px;">
+        <div style="max-width:1200px; margin:0 auto; padding:0 40px 80px;">
             <?php if (!empty($articles)): ?>
                 <?php foreach ($articles as $a): ?>
                 <a href="<?= url(escape($a['slug'])) ?>" class="article-row">
