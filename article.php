@@ -140,10 +140,8 @@ $derniers = $pdo->query(
         <div class="article-layout">
 
             <!-- Contenu principal -->
-            <div class="article-main">
-                <div class="article-content">
-                    <?= $article['contenu_html'] ?>
-                </div>
+            <div class="article-content">
+                <?= $article['contenu_html'] ?>
             </div>
 
             <!-- Sidebar -->
@@ -169,7 +167,7 @@ $derniers = $pdo->query(
                     <h4 class="sidebar-title">Derniers articles</h4>
                     <div class="sidebar-divider"></div>
                     <?php foreach($derniers as $d): ?>
-                    <?php if ($d['slug'] === $article['slug']) continue; ?>
+                    <?php if ($d['slug'] === $article['slug']): continue; endif; ?>
                     <a href="<?= url(escape($d['slug'])) ?>" class="sidebar-card">
                         <img src="<?= escape($d['image']) ?>" alt="<?= escape($d['titre']) ?>">
                         <div class="sidebar-card-body">

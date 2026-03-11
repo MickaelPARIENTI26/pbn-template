@@ -788,10 +788,8 @@ textarea:focus,
     padding: 0 40px 80px;
     align-items: start;
 }
-.article-main {
-    min-width: 0;
-}
 .article-content {
+    min-width: 0;
     font-size: 1.05rem;
     line-height: 1.85;
     color: #2a2a28;
