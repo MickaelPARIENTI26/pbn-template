@@ -105,22 +105,27 @@ if (!function_exists('excerpt')) {
 
     <main role="main" id="main-content">
         <!-- EN-TÊTE CATÉGORIE -->
-        <header class="category-header">
-            <h1><?= escape($cat) ?></h1>
+        <div style="max-width:900px; margin:60px auto 48px; padding:0 40px; text-align:center;">
+            <span class="badge-cat"><?= escape($cat) ?></span>
+            <h1 style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:700; color:var(--dark); margin:16px 0 0;">
+                <?= escape($cat) ?>
+            </h1>
             <div class="section-divider"></div>
-            <p class="category-count"><?= count($articles) ?> article<?= count($articles) > 1 ? 's' : '' ?></p>
-        </header>
+            <p style="color:var(--muted); font-size:0.9rem;">
+                <?= count($articles) ?> article<?= count($articles) > 1 ? 's' : '' ?>
+            </p>
+        </div>
 
         <!-- LISTE DES ARTICLES -->
-        <section class="category-articles">
+        <div style="max-width:900px; margin:0 auto; padding:0 40px 80px;">
             <?php if (!empty($articles)): ?>
                 <?php foreach ($articles as $a): ?>
                 <a href="<?= url(escape($a['slug'])) ?>" class="article-row">
-                    <img class="article-row-img" src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" loading="lazy">
+                    <img class="article-row-img" src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>">
                     <div class="article-row-body">
                         <span class="badge-cat"><?= escape($a['categorie']) ?></span>
                         <h3><?= escape($a['titre']) ?></h3>
-                        <p class="excerpt"><?= escape(excerpt($a['contenu_html'], 200)) ?></p>
+                        <p class="excerpt"><?= escape(substr(strip_tags($a['contenu_html']), 0, 220)) ?>...</p>
                         <span class="lire-link">Lire l'article →</span>
                     </div>
                 </a>
@@ -131,7 +136,7 @@ if (!function_exists('excerpt')) {
                     <a href="<?= url() ?>" class="thematic-link">← Retour à l'accueil</a>
                 </div>
             <?php endif; ?>
-        </section>
+        </div>
     </main>
 
     <!-- FOOTER -->
