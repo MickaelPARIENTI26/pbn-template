@@ -1478,20 +1478,36 @@ textarea:focus,
 
 /* === SEO BLOCKS HOMEPAGE === */
 
-/* BLOC 1 — image gauche + 3 colonnes droite */
-.seo-block-1 { padding: 80px 0; background: white; }
+/* BLOC 1 — image pleine largeur gauche + 3 colonnes droite */
+.seo-block-1 {
+    padding: 0;
+    background: white;
+    overflow: hidden;
+}
 .seo-block-1-inner {
-    max-width: 1200px; margin: 0 auto; padding: 0 40px;
-    display: grid; grid-template-columns: 1fr 1.4fr;
-    gap: 80px; align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 0;
+    align-items: stretch;
+    min-height: 520px;
+}
+.seo-block-1-img {
+    overflow: hidden;
 }
 .seo-block-1-img img {
-    width: 100%; height: 500px;
-    object-fit: cover; border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
+    border-radius: 0;
+    display: block;
 }
 .seo-block-1-cols {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 32px;
+    padding: 60px;
+    align-content: center;
 }
 .seo-col { display: flex; flex-direction: column; gap: 12px; }
 .seo-icon { font-size: 2rem; margin-bottom: 4px; }
@@ -1527,6 +1543,44 @@ textarea:focus,
 .seo-block-2-img img {
     width: 100%; height: 420px;
     object-fit: cover; border-radius: 4px;
+}
+.seo-block-2-text {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--muted);
+}
+
+/* Chiffres clés */
+.seo-chiffres {
+    display: flex;
+    gap: 24px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+.seo-chiffre {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 140px;
+    padding: 20px 16px;
+    background: white;
+    border-left: 3px solid var(--color-accent);
+}
+.seo-block-4 .seo-chiffre {
+    background: var(--light);
+}
+.seo-chiffre-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+}
+.seo-chiffre-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.4;
 }
 
 /* SEO DARK BAND — bandeau sombre centré */
@@ -1571,6 +1625,11 @@ textarea:focus,
     font-size: 0.92rem; line-height: 1.8;
     color: var(--muted); margin: 0;
 }
+.seo-block-4-text {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--muted);
+}
 
 /* BLOC 5 — image fond + texte overlay gauche */
 .seo-video-band {
@@ -1604,16 +1663,20 @@ textarea:focus,
 
 /* SEO Blocks responsive */
 @media (max-width: 768px) {
-    .seo-block-1 { padding: 60px 0; }
+    .seo-block-1 { padding: 0; }
     .seo-block-1-inner {
         grid-template-columns: 1fr;
-        gap: 40px;
-        padding: 0 20px;
+        gap: 0;
+        min-height: auto;
     }
-    .seo-block-1-img img { height: 300px; }
+    .seo-block-1-img img {
+        height: 300px;
+        min-height: 300px;
+    }
     .seo-block-1-cols {
         grid-template-columns: 1fr;
         gap: 32px;
+        padding: 40px 20px;
     }
 
     .seo-block-2 { padding: 60px 0; }
@@ -1624,6 +1687,15 @@ textarea:focus,
     }
     .seo-block-2-body h2 { font-size: 1.6rem; }
     .seo-block-2-img img { height: 280px; }
+
+    .seo-chiffres {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .seo-chiffre {
+        min-width: 100%;
+    }
+    .seo-chiffre-num { font-size: 1.5rem; }
 
     .seo-dark-band { padding: 60px 20px; }
     .seo-dark-inner h2 { font-size: 2rem; }
