@@ -43,6 +43,9 @@ define('COLOR_ACCENT', getenv('COLOR_ACCENT') ?: '#C8A96E');
 
 // Identité étendue
 define('SITE_AUTHOR', getenv('SITE_AUTHOR') ?: '{{SITE_AUTHOR}}');
+define('SITE_AUTHOR_TITLE', getenv('SITE_AUTHOR_TITLE') ?: 'Rédacteur spécialisé');
+define('SITE_AUTHOR_CREDENTIALS', getenv('SITE_AUTHOR_CREDENTIALS') ?: '');
+define('SITE_AUTHOR_BIO', getenv('SITE_AUTHOR_BIO') ?: '');
 define('SITE_LOGO_TEXT', getenv('SITE_LOGO_TEXT') ?: '{{SITE_LOGO_TEXT}}');
 define('SITE_INITIAL', getenv('SITE_INITIAL') ?: '{{SITE_INITIAL}}');
 define('SITE_LANG', getenv('SITE_LANG') ?: 'fr');

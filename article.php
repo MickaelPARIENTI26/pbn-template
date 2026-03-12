@@ -72,6 +72,35 @@ $derniers = $pdo->query(
 
     <!-- JSON-LD BlogPosting Schema -->
     <?php
+    // Détection YMYL pour credentials auteur
+    $ymyl_cats = ['cbd', 'santé', 'sante', 'bien-être', 'bien-etre', 'wellness', 'health', 'médecine', 'medecine', 'nutrition', 'complément', 'complement', 'thérapie', 'therapie', 'huile', 'chanvre', 'cannabidiol'];
+    $cat_check = mb_strtolower($article['categorie'], 'UTF-8');
+    $is_ymyl_article = false;
+    foreach ($ymyl_cats as $ycat) {
+        if (strpos($cat_check, $ycat) !== false) {
+            $is_ymyl_article = true;
+            break;
+        }
+    }
+
+    // Author schema avec credentials si disponibles
+    $author_schema = [
+        "@type" => "Person",
+        "name" => SITE_AUTHOR
+    ];
+    if (SITE_AUTHOR_TITLE) {
+        $author_schema["jobTitle"] = SITE_AUTHOR_TITLE;
+    }
+    if (SITE_AUTHOR_CREDENTIALS) {
+        $author_schema["hasCredential"] = [
+            "@type" => "EducationalOccupationalCredential",
+            "credentialCategory" => SITE_AUTHOR_CREDENTIALS
+        ];
+    }
+    if ($is_ymyl_article) {
+        $author_schema["knowsAbout"] = [$article['categorie'], "CBD", "Bien-être", "Santé naturelle"];
+    }
+
     $schema_article = [
         "@context" => "https://schema.org",
         "@type" => "BlogPosting",
@@ -80,10 +109,7 @@ $derniers = $pdo->query(
         "image" => url($article['image']),
         "datePublished" => date('c', strtotime($article['date_publication'])),
         "dateModified" => date('c', strtotime($article['date_publication'])),
-        "author" => [
-            "@type" => "Person",
-            "name" => SITE_AUTHOR
-        ],
+        "author" => $author_schema,
         "publisher" => [
             "@type" => "Organization",
             "name" => SITE_NAME,
@@ -103,6 +129,11 @@ $derniers = $pdo->query(
         "inLanguage" => "fr",
         "wordCount" => str_word_count(strip_tags($article['contenu_html']))
     ];
+
+    // Ajouter reviewedBy pour articles YMYL santé
+    if ($is_ymyl_article && SITE_AUTHOR_CREDENTIALS) {
+        $schema_article["reviewedBy"] = $author_schema;
+    }
     ?>
     <script type="application/ld+json">
 <?= json_encode($schema_article, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
@@ -200,13 +231,21 @@ $derniers = $pdo->query(
         </div>
 
         <!-- AUTEUR -->
-        <div class="author-byline">
+        <div class="author-byline<?= $is_ymyl_article ? ' author-byline-ymyl' : '' ?>">
             <div class="author-avatar">
                 <?= strtoupper(substr(SITE_AUTHOR, 0, 1)) ?>
             </div>
             <div class="author-info">
                 <span class="author-name"><?= escape(SITE_AUTHOR) ?></span>
-                <span class="author-role">Rédacteur expert • <?= SITE_NAME ?></span>
+                <?php if (SITE_AUTHOR_TITLE): ?>
+                <span class="author-title"><?= escape(SITE_AUTHOR_TITLE) ?></span>
+                <?php endif; ?>
+                <?php if ($is_ymyl_article && SITE_AUTHOR_CREDENTIALS): ?>
+                <span class="author-credentials"><?= escape(SITE_AUTHOR_CREDENTIALS) ?></span>
+                <?php endif; ?>
+                <?php if ($is_ymyl_article && SITE_AUTHOR_BIO): ?>
+                <p class="author-bio"><?= escape(SITE_AUTHOR_BIO) ?></p>
+                <?php endif; ?>
             </div>
         </div>
 

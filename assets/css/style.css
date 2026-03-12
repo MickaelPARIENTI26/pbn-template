@@ -1343,6 +1343,52 @@ textarea:focus,
     margin-top: 2px;
 }
 
+/* Enhanced author for YMYL articles */
+.author-byline-ymyl {
+    align-items: flex-start;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #fafaf8 0%, #f5f3ee 100%);
+    border-radius: 0 6px 6px 0;
+}
+
+.author-byline-ymyl .author-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 1.4rem;
+}
+
+.author-byline-ymyl .author-info {
+    flex: 1;
+}
+
+.author-title {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.author-credentials {
+    display: inline-block;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-top: 6px;
+}
+
+.author-bio {
+    font-size: 0.82rem;
+    color: var(--mid);
+    line-height: 1.5;
+    margin: 10px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+
 /* === PAGES LÉGALES === */
 .legal-page {
     max-width: 800px;
