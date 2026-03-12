@@ -12,7 +12,7 @@ $pdo = getDB();
 
 // Récupérer tous les articles publiés uniquement
 $stmt = $pdo->prepare("
-    SELECT slug, date_modification, date_publication
+    SELECT slug, date_publication
     FROM articles
     WHERE statut = 'publie'
       AND (date_publication_prevue IS NULL OR date_publication_prevue <= NOW())
@@ -24,7 +24,7 @@ $articles = $stmt->fetchAll();
 // Date de dernière modification du site (dernier article)
 $lastmod_home = date('Y-m-d');
 if (!empty($articles)) {
-    $lastmod_home = date('Y-m-d', strtotime($articles[0]['date_modification'] ?? $articles[0]['date_publication']));
+    $lastmod_home = date('Y-m-d', strtotime($articles[0]['date_publication']));
 }
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
@@ -49,7 +49,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
     <!-- Articles individuels -->
 <?php foreach ($articles as $article):
-    $lastmod = date('Y-m-d', strtotime($article['date_modification'] ?? $article['date_publication']));
+    $lastmod = date('Y-m-d', strtotime($article['date_publication']));
 ?>
     <url>
         <loc><?= SITE_URL ?>/<?= htmlspecialchars($article['slug'], ENT_XML1, 'UTF-8') ?></loc>
