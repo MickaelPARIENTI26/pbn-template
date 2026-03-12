@@ -490,6 +490,26 @@ textarea:focus,
     line-height: 1.7;
     margin: 0;
 }
+.dark-band .editorial-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    padding: 4px 12px;
+    border-radius: 2px;
+}
+.dark-band .hero-btn {
+    border-color: white;
+    color: white;
+    background: transparent;
+}
+.dark-band .hero-btn:hover {
+    background: white;
+    color: var(--dark);
+}
 
 /* Dark-band responsive */
 @media (max-width: 768px) {
