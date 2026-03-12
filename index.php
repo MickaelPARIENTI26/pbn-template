@@ -135,14 +135,14 @@ if (!$hero) {
     $hero = $stmt->fetch();
 }
 
-// Sections éditoriales depuis homepage_content
-$sections_edito = [];
+// Blocs SEO homepage depuis homepage_content
+$blocs = [];
 try {
     $rows = getDB()->query(
         "SELECT * FROM homepage_content ORDER BY ordre ASC"
     )->fetchAll();
     foreach ($rows as $row) {
-        $sections_edito[$row['section']] = $row;
+        $blocs[$row['section']] = $row;
     }
 } catch (PDOException $e) {
     // Table n'existe pas encore, on la crée
@@ -161,63 +161,64 @@ try {
     ");
 }
 
-// Insérer des données de test si la table est vide
+// Insérer des données de test CBD si la table est vide
 $count = getDB()->query("SELECT COUNT(*) FROM homepage_content")->fetchColumn();
 if ($count == 0) {
     $test_data = [
-        [
-            'section'    => 'alt_1',
-            'titre'      => 'Les bienfaits naturels du CBD',
-            'texte'      => 'Le cannabidiol est un composé naturel issu du chanvre industriel. Sans effet psychotrope, il agit sur le système endocannabinoïde pour favoriser la relaxation, améliorer le sommeil et réduire les inflammations. De plus en plus d\'athlètes et sportifs intègrent le CBD dans leur routine quotidienne de récupération.',
-            'image'      => 'images/article-1.webp',
-            'lien'       => '/articles',
-            'lien_texte' => 'Découvrir nos guides',
-            'ordre'      => 1,
-        ],
-        [
-            'section'    => 'dark',
-            'titre'      => 'Récupération • Performance • Bien-être',
-            'texte'      => 'Le CBD s\'impose progressivement comme un allié incontournable des sportifs de tous niveaux. Que vous soyez un athlète professionnel ou un amateur passionné, le cannabidiol peut transformer votre approche de la récupération musculaire et de la gestion du stress.',
-            'image'      => '',
-            'lien'       => '/articles',
-            'lien_texte' => 'Tous nos articles',
-            'ordre'      => 2,
-        ],
-        [
-            'section'    => 'alt_2',
-            'titre'      => 'CBD et sport : une alliance naturelle',
-            'texte'      => 'Les recherches scientifiques confirment l\'intérêt du CBD pour les sportifs : réduction des douleurs musculaires post-effort, amélioration de la qualité du sommeil réparateur, gestion du stress avant la compétition. Une approche naturelle, légale et sans danger pour optimiser vos performances.',
-            'image'      => 'images/article-2.webp',
-            'lien'       => '/articles',
-            'lien_texte' => 'Lire nos conseils',
-            'ordre'      => 3,
-        ],
+        ['bloc_1_col_1', '💪', 'CBD et Récupération',
+         'Le CBD agit sur les récepteurs CB1 et CB2 pour réduire l\'inflammation musculaire post-effort. Les sportifs l\'intègrent pour accélérer la récupération et réduire les courbatures après l\'entraînement.',
+         '/articles', 'En savoir plus', 1],
+
+        ['bloc_1_col_2', '🏃', 'CBD et Performance',
+         'Le cannabidiol optimise la gestion du stress avant la compétition sans effet psychotrope. Légal depuis 2018, il améliore la concentration et réduit l\'anxiété de performance chez les athlètes de tous niveaux.',
+         '/articles', 'En savoir plus', 2],
+
+        ['bloc_1_col_3', '😴', 'CBD et Sommeil',
+         'Un sommeil réparateur est essentiel à la progression sportive. Le CBD favorise l\'endormissement et améliore la qualité des cycles de sommeil pour une régénération musculaire optimale durant la nuit.',
+         '/articles', 'En savoir plus', 3],
+
+        ['bloc_2', '', 'Le CBD Sport : légal, naturel et efficace',
+         "L'Agence Mondiale Antidopage a retiré le CBD de la liste des substances interdites en 2018. Les sportifs peuvent le consommer légalement, à condition que le taux de THC soit inférieur à 0,3%.\n\nHuile de CBD, gélules, baumes topiques — les formats adaptés au sport sont nombreux. Choisissez des produits certifiés avec analyse laboratoire indépendant.",
+         '/articles', 'Découvrir nos guides', 4],
+
+        ['bloc_dark', '', 'Récupération • Performance • Bien-être',
+         'Le CBD s\'impose progressivement comme un allié incontournable des sportifs de tous niveaux. Une approche naturelle et holistique pour optimiser vos performances sans compromis.',
+         '/articles', 'Tous nos articles', 5],
+
+        ['bloc_4', '', 'Une solution naturelle antidouleur',
+         "L'interaction du CBD avec le système endocannabinoïde module la perception de la douleur chronique. Ce composé végétal cible les récepteurs CB2 pour calmer les tensions musculaires et articulaires sans risque de dépendance.\n\nContrairement aux anti-inflammatoires classiques, le CBD n'agresse pas la muqueuse gastrique et peut être utilisé sur le long terme.",
+         '/articles', 'Lire nos conseils', 6],
+
+        ['bloc_5', '', 'Nutrition sportive et CBD',
+         'Le CBD s\'intègre naturellement dans votre protocole nutritionnel sportif. Associé à une alimentation riche en protéines et acides gras essentiels, il optimise la récupération musculaire et soutient les performances sur la durée.',
+         '/articles', 'Explorer nos articles', 7],
     ];
 
     $stmt = getDB()->prepare(
         "INSERT INTO homepage_content
-         (section, titre, texte, image, lien, lien_texte, ordre)
+         (section, image, titre, texte, lien, lien_texte, ordre)
          VALUES (?, ?, ?, ?, ?, ?, ?)"
     );
     foreach ($test_data as $row) {
-        $stmt->execute([
-            $row['section'], $row['titre'], $row['texte'],
-            $row['image'], $row['lien'], $row['lien_texte'], $row['ordre']
-        ]);
+        $stmt->execute($row);
     }
 
-    // Recharger les sections après insertion
+    // Recharger les blocs après insertion
     $rows = getDB()->query(
         "SELECT * FROM homepage_content ORDER BY ordre ASC"
     )->fetchAll();
     foreach ($rows as $row) {
-        $sections_edito[$row['section']] = $row;
+        $blocs[$row['section']] = $row;
     }
 }
 
-$s1   = $sections_edito['alt_1'] ?? null;
-$dark = $sections_edito['dark']  ?? null;
-$s2   = $sections_edito['alt_2'] ?? null;
+$b1c1  = $blocs['bloc_1_col_1'] ?? null;
+$b1c2  = $blocs['bloc_1_col_2'] ?? null;
+$b1c3  = $blocs['bloc_1_col_3'] ?? null;
+$b2    = $blocs['bloc_2']       ?? null;
+$bdark = $blocs['bloc_dark']    ?? null;
+$b4    = $blocs['bloc_4']       ?? null;
+$b5    = $blocs['bloc_5']       ?? null;
 
 // Pagination
 $page = max(1, (int)($_GET['page'] ?? 1));
@@ -408,43 +409,85 @@ if (!function_exists('excerpt')) {
     </section>
     <?php endif; ?>
 
-    <!-- SECTIONS ÉDITORIALES -->
-    <?php if ($s1): ?>
-    <section class="alt-section">
-        <div class="alt-inner">
-            <div class="alt-img">
-                <img src="<?= escape($s1['image']) ?>" alt="<?= escape($s1['titre']) ?>" width="600" height="400" loading="lazy">
+    <!-- BLOC 1 — image gauche + 3 colonnes droite -->
+    <?php if ($b1c1 && $b1c2 && $b1c3): ?>
+    <section class="seo-block-1">
+        <div class="seo-block-1-inner">
+            <div class="seo-block-1-img">
+                <img src="images/article-1.webp" alt="<?= escape($b1c1['titre']) ?>" width="600" height="500" loading="lazy">
             </div>
-            <div class="alt-body">
-                <span class="badge-cat"><?= escape(SITE_NICHE) ?></span>
-                <h2><?= escape($s1['titre']) ?></h2>
-                <p><?= escape($s1['texte']) ?></p>
-                <a href="<?= escape($s1['lien']) ?>" class="alt-link"><?= escape($s1['lien_texte']) ?> →</a>
+            <div class="seo-block-1-cols">
+                <div class="seo-col">
+                    <div class="seo-icon"><?= escape($b1c1['image']) ?></div>
+                    <h2><?= escape($b1c1['titre']) ?></h2>
+                    <p><?= escape($b1c1['texte']) ?></p>
+                </div>
+                <div class="seo-col">
+                    <div class="seo-icon"><?= escape($b1c2['image']) ?></div>
+                    <h2><?= escape($b1c2['titre']) ?></h2>
+                    <p><?= escape($b1c2['texte']) ?></p>
+                </div>
+                <div class="seo-col">
+                    <div class="seo-icon"><?= escape($b1c3['image']) ?></div>
+                    <h2><?= escape($b1c3['titre']) ?></h2>
+                    <p><?= escape($b1c3['texte']) ?></p>
+                </div>
             </div>
         </div>
     </section>
     <?php endif; ?>
 
-    <?php if ($dark): ?>
-    <section class="dark-band">
-        <span class="editorial-badge"><?= escape(SITE_NAME) ?></span>
-        <h2><?= escape($dark['titre']) ?></h2>
-        <p><?= escape($dark['texte']) ?></p>
-        <a href="<?= escape($dark['lien']) ?>" class="hero-btn"><?= escape($dark['lien_texte']) ?> →</a>
+    <!-- BLOC 2 — texte gauche + image droite -->
+    <?php if ($b2): ?>
+    <section class="seo-block-2">
+        <div class="seo-block-2-inner">
+            <div class="seo-block-2-body">
+                <h2><?= escape($b2['titre']) ?></h2>
+                <?= nl2br(escape($b2['texte'])) ?>
+                <a href="<?= escape($b2['lien']) ?>" class="alt-link"><?= escape($b2['lien_texte']) ?> →</a>
+            </div>
+            <div class="seo-block-2-img">
+                <img src="images/article-2.webp" alt="<?= escape($b2['titre']) ?>" width="600" height="420" loading="lazy">
+            </div>
+        </div>
     </section>
     <?php endif; ?>
 
-    <?php if ($s2): ?>
-    <section class="alt-section alt-reverse">
-        <div class="alt-inner">
-            <div class="alt-img">
-                <img src="<?= escape($s2['image']) ?>" alt="<?= escape($s2['titre']) ?>" width="600" height="400" loading="lazy">
+    <!-- BLOC DARK — bandeau sombre centré -->
+    <?php if ($bdark): ?>
+    <section class="seo-dark-band">
+        <div class="seo-dark-inner">
+            <h2><?= escape($bdark['titre']) ?></h2>
+            <p><?= escape($bdark['texte']) ?></p>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- BLOC 4 — image gauche + texte droite -->
+    <?php if ($b4): ?>
+    <section class="seo-block-4">
+        <div class="seo-block-4-inner">
+            <div class="seo-block-4-img">
+                <img src="images/article-3.webp" alt="<?= escape($b4['titre']) ?>" width="600" height="420" loading="lazy">
             </div>
-            <div class="alt-body">
-                <span class="badge-cat"><?= escape(SITE_NICHE) ?></span>
-                <h2><?= escape($s2['titre']) ?></h2>
-                <p><?= escape($s2['texte']) ?></p>
-                <a href="<?= escape($s2['lien']) ?>" class="alt-link"><?= escape($s2['lien_texte']) ?> →</a>
+            <div class="seo-block-4-body">
+                <h2><?= escape($b4['titre']) ?></h2>
+                <?= nl2br(escape($b4['texte'])) ?>
+                <a href="<?= escape($b4['lien']) ?>" class="alt-link"><?= escape($b4['lien_texte']) ?> →</a>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- BLOC 5 — image fond + texte overlay gauche -->
+    <?php if ($b5): ?>
+    <section class="seo-video-band">
+        <img src="images/article-4.webp" alt="<?= escape($b5['titre']) ?>" class="seo-video-bg">
+        <div class="seo-video-overlay">
+            <div class="seo-video-body">
+                <h2><?= escape($b5['titre']) ?></h2>
+                <p><?= escape($b5['texte']) ?></p>
+                <a href="<?= escape($b5['lien']) ?>" class="hero-btn"><?= escape($b5['lien_texte']) ?> →</a>
             </div>
         </div>
     </section>
