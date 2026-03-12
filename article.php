@@ -216,6 +216,24 @@ $derniers = $pdo->query(
             <!-- Contenu principal -->
             <div class="article-content">
                 <?= $article['contenu_html'] ?>
+
+                <?php
+                // Disclaimer médical pour articles YMYL (santé, CBD, bien-être)
+                $ymyl_categories = ['cbd', 'santé', 'sante', 'bien-être', 'bien-etre', 'wellness', 'health', 'médecine', 'medecine', 'nutrition', 'complément', 'complement', 'thérapie', 'therapie', 'huile', 'chanvre', 'cannabidiol'];
+                $cat_lower = mb_strtolower($article['categorie'], 'UTF-8');
+                $is_ymyl = false;
+                foreach ($ymyl_categories as $ymyl) {
+                    if (strpos($cat_lower, $ymyl) !== false) {
+                        $is_ymyl = true;
+                        break;
+                    }
+                }
+                if ($is_ymyl):
+                ?>
+                <div class="medical-disclaimer">
+                    <p><strong>Avertissement :</strong> Les informations contenues dans cet article sont fournies à titre informatif uniquement et ne constituent en aucun cas un avis médical. Elles ne remplacent pas une consultation avec un professionnel de santé qualifié. Avant d'utiliser tout produit à base de CBD ou de modifier votre routine de santé, consultez votre médecin ou pharmacien, notamment si vous êtes enceinte, allaitante, sous traitement médicamenteux ou souffrez d'une pathologie. <?= escape(SITE_NAME) ?> décline toute responsabilité quant à l'utilisation des informations présentées.</p>
+                </div>
+                <?php endif; ?>
             </div>
 
             <!-- Sidebar -->
