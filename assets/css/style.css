@@ -1521,15 +1521,27 @@ textarea:focus,
     color: var(--muted); margin: 0;
 }
 
-/* BLOC 2 — texte gauche + image droite */
-.seo-block-2 { padding: 80px 0; background: var(--light); }
+/* BLOC 2 — texte gauche + image pleine hauteur droite */
+.seo-block-2 {
+    padding: 0;
+    background: var(--light);
+    overflow: hidden;
+}
 .seo-block-2-inner {
-    max-width: 1200px; margin: 0 auto; padding: 0 40px;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    min-height: 520px;
 }
 .seo-block-2-body {
-    display: flex; flex-direction: column; gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 60px 80px 60px 40px;
+    max-width: 700px;
+    margin-left: auto;
 }
 .seo-block-2-body h2 {
     font-family: 'Cormorant Garamond', serif;
@@ -1540,9 +1552,14 @@ textarea:focus,
     font-size: 0.92rem; line-height: 1.8;
     color: var(--muted); margin: 0;
 }
+.seo-block-2-img {
+    overflow: hidden;
+}
 .seo-block-2-img img {
-    width: 100%; height: 420px;
-    object-fit: cover; border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
 }
 .seo-block-2-text {
     font-size: 0.92rem;
@@ -1566,9 +1583,6 @@ textarea:focus,
     padding: 20px 16px;
     background: white;
     border-left: 3px solid var(--color-accent);
-}
-.seo-block-4 .seo-chiffre {
-    background: var(--light);
 }
 .seo-chiffre-num {
     font-family: 'Cormorant Garamond', serif;
@@ -1602,33 +1616,47 @@ textarea:focus,
     line-height: 1.75; margin: 0;
 }
 
-/* BLOC 4 — image gauche + texte droite */
-.seo-block-4 { padding: 80px 0; background: white; }
+/* BLOC 4 — image pleine hauteur gauche + texte droite */
+.seo-block-4 {
+    padding: 0;
+    background: white;
+    overflow: hidden;
+}
 .seo-block-4-inner {
-    max-width: 1200px; margin: 0 auto; padding: 0 40px;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 0;
+    align-items: stretch;
+    min-height: 520px;
+}
+.seo-block-4-img {
+    overflow: hidden;
 }
 .seo-block-4-img img {
-    width: 100%; height: 420px;
-    object-fit: cover; border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
 }
 .seo-block-4-body {
-    display: flex; flex-direction: column; gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 60px 40px 60px 80px;
+    max-width: 700px;
 }
 .seo-block-4-body h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem; font-weight: 700;
     color: var(--dark); line-height: 1.25; margin: 0;
 }
-.seo-block-4-body p {
-    font-size: 0.92rem; line-height: 1.8;
-    color: var(--muted); margin: 0;
-}
+.seo-block-4-body p,
 .seo-block-4-text {
     font-size: 0.92rem;
     line-height: 1.8;
     color: var(--muted);
+    margin: 0;
 }
 
 /* BLOC 5 — image fond + texte overlay gauche */
@@ -1679,14 +1707,22 @@ textarea:focus,
         padding: 40px 20px;
     }
 
-    .seo-block-2 { padding: 60px 0; }
+    .seo-block-2 { padding: 0; }
     .seo-block-2-inner {
         grid-template-columns: 1fr;
-        gap: 40px;
-        padding: 0 20px;
+        gap: 0;
+        min-height: auto;
+    }
+    .seo-block-2-body {
+        padding: 40px 20px;
+        max-width: 100%;
+        margin-left: 0;
     }
     .seo-block-2-body h2 { font-size: 1.6rem; }
-    .seo-block-2-img img { height: 280px; }
+    .seo-block-2-img img {
+        height: 300px;
+        min-height: 300px;
+    }
 
     .seo-chiffres {
         flex-direction: column;
@@ -1700,14 +1736,21 @@ textarea:focus,
     .seo-dark-band { padding: 60px 20px; }
     .seo-dark-inner h2 { font-size: 2rem; }
 
-    .seo-block-4 { padding: 60px 0; }
+    .seo-block-4 { padding: 0; }
     .seo-block-4-inner {
         grid-template-columns: 1fr;
-        gap: 40px;
-        padding: 0 20px;
+        gap: 0;
+        min-height: auto;
+    }
+    .seo-block-4-body {
+        padding: 40px 20px;
+        max-width: 100%;
     }
     .seo-block-4-body h2 { font-size: 1.6rem; }
-    .seo-block-4-img img { height: 280px; }
+    .seo-block-4-img img {
+        height: 300px;
+        min-height: 300px;
+    }
 
     .seo-video-band { height: 400px; }
     .seo-video-overlay { padding: 0 20px; }

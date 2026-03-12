@@ -166,7 +166,8 @@ $needs_migration = empty($blocs)
     || isset($blocs['alt_1'])
     || isset($blocs['dark'])
     || !isset($blocs['bloc_1_col_1'])
-    || (isset($blocs['bloc_2']) && substr($blocs['bloc_2']['lien'] ?? '', 0, 1) !== '[');
+    || (isset($blocs['bloc_2']) && substr($blocs['bloc_2']['lien'] ?? '', 0, 1) !== '[')
+    || (isset($blocs['bloc_4']) && substr($blocs['bloc_4']['lien'] ?? '', 0, 1) === '[');
 
 if ($needs_migration) {
     // Vider la table pour la migration
@@ -193,9 +194,9 @@ if ($needs_migration) {
          'Le CBD s\'impose progressivement comme un allié incontournable des sportifs de tous niveaux. Une approche naturelle et holistique pour optimiser vos performances sans compromis.',
          '/articles', 'Tous nos articles', 5],
 
-        ['bloc_4', '', 'Une solution naturelle antidouleur',
-         "L'interaction du CBD avec le système endocannabinoïde module la perception de la douleur chronique. Ce composé végétal cible les récepteurs CB2 pour calmer les tensions musculaires et articulaires sans risque de dépendance.\n\nContrairement aux anti-inflammatoires classiques, le CBD n'agresse pas la muqueuse gastrique et peut être utilisé sur le long terme.",
-         '[{"num":"CB2","label":"Récepteurs ciblés pour calmer douleurs musculaires et articulaires"},{"num":"0","label":"Risque de dépendance contrairement aux antidouleurs classiques"},{"num":"3x","label":"Moins d\'effets secondaires gastriques vs anti-inflammatoires classiques"}]', '', 6],
+        ['bloc_4', '', 'CBD antidouleur : une alternative naturelle aux anti-inflammatoires',
+         "L'interaction du CBD avec le système endocannabinoïde module la perception de la douleur chronique. Ce composé végétal cible les récepteurs CB2 pour calmer les tensions musculaires et articulaires sans risque de dépendance.\n\nContrairement aux anti-inflammatoires non stéroïdiens (AINS), le CBD n'agresse pas la muqueuse gastrique et peut être utilisé sur le long terme. Les études cliniques montrent une réduction significative des douleurs inflammatoires après 4 semaines d'utilisation régulière.\n\nLe cannabidiol agit également sur les voies de la sérotonine, contribuant à une meilleure gestion du stress souvent associé aux douleurs chroniques. Cette approche holistique en fait un complément idéal pour les personnes recherchant une solution naturelle et durable.",
+         '', '', 6],
 
         ['bloc_5', '', 'Nutrition sportive et CBD',
          'Le CBD s\'intègre naturellement dans votre protocole nutritionnel sportif. Associé à une alimentation riche en protéines et acides gras essentiels, il optimise la récupération musculaire et soutient les performances sur la durée.',
@@ -486,31 +487,18 @@ if (!function_exists('excerpt')) {
     </section>
     <?php endif; ?>
 
-    <!-- BLOC 4 — image gauche + texte droite + chiffres clés -->
+    <!-- BLOC 4 — image pleine hauteur gauche + texte SEO droite -->
     <?php if ($b4): ?>
     <section class="seo-block-4">
         <div class="seo-block-4-inner">
             <div class="seo-block-4-img">
-                <img src="images/article-3.webp" alt="<?= escape($b4['titre']) ?>" width="600" height="420" loading="lazy">
+                <img src="images/article-3.webp" alt="<?= escape($b4['titre']) ?>" width="600" height="520" loading="lazy">
             </div>
             <div class="seo-block-4-body">
                 <h2><?= escape($b4['titre']) ?></h2>
                 <div class="seo-block-4-text">
                     <?= nl2br(escape($b4['texte'])) ?>
                 </div>
-                <?php
-                $chiffres4 = json_decode($b4['lien'] ?? '[]', true);
-                if (!empty($chiffres4)):
-                ?>
-                <div class="seo-chiffres">
-                    <?php foreach ($chiffres4 as $c): ?>
-                    <div class="seo-chiffre">
-                        <span class="seo-chiffre-num"><?= escape($c['num']) ?></span>
-                        <span class="seo-chiffre-label"><?= escape($c['label']) ?></span>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
             </div>
         </div>
     </section>
