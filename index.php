@@ -135,6 +135,73 @@ if (!$hero) {
     $hero = $stmt->fetch();
 }
 
+// Sections éditoriales depuis homepage_content
+$sections_edito = [];
+$rows = getDB()->query(
+    "SELECT * FROM homepage_content ORDER BY ordre ASC"
+)->fetchAll();
+foreach ($rows as $row) {
+    $sections_edito[$row['section']] = $row;
+}
+
+// Insérer des données de test si la table est vide
+$count = getDB()->query("SELECT COUNT(*) FROM homepage_content")->fetchColumn();
+if ($count == 0) {
+    $test_data = [
+        [
+            'section'    => 'alt_1',
+            'titre'      => 'Les bienfaits naturels du CBD',
+            'texte'      => 'Le cannabidiol est un composé naturel issu du chanvre industriel. Sans effet psychotrope, il agit sur le système endocannabinoïde pour favoriser la relaxation, améliorer le sommeil et réduire les inflammations. De plus en plus d\'athlètes et sportifs intègrent le CBD dans leur routine quotidienne de récupération.',
+            'image'      => 'images/article-1.webp',
+            'lien'       => '/articles',
+            'lien_texte' => 'Découvrir nos guides',
+            'ordre'      => 1,
+        ],
+        [
+            'section'    => 'dark',
+            'titre'      => 'Récupération • Performance • Bien-être',
+            'texte'      => 'Le CBD s\'impose progressivement comme un allié incontournable des sportifs de tous niveaux. Que vous soyez un athlète professionnel ou un amateur passionné, le cannabidiol peut transformer votre approche de la récupération musculaire et de la gestion du stress.',
+            'image'      => '',
+            'lien'       => '/articles',
+            'lien_texte' => 'Tous nos articles',
+            'ordre'      => 2,
+        ],
+        [
+            'section'    => 'alt_2',
+            'titre'      => 'CBD et sport : une alliance naturelle',
+            'texte'      => 'Les recherches scientifiques confirment l\'intérêt du CBD pour les sportifs : réduction des douleurs musculaires post-effort, amélioration de la qualité du sommeil réparateur, gestion du stress avant la compétition. Une approche naturelle, légale et sans danger pour optimiser vos performances.',
+            'image'      => 'images/article-2.webp',
+            'lien'       => '/articles',
+            'lien_texte' => 'Lire nos conseils',
+            'ordre'      => 3,
+        ],
+    ];
+
+    $stmt = getDB()->prepare(
+        "INSERT INTO homepage_content
+         (section, titre, texte, image, lien, lien_texte, ordre)
+         VALUES (?, ?, ?, ?, ?, ?, ?)"
+    );
+    foreach ($test_data as $row) {
+        $stmt->execute([
+            $row['section'], $row['titre'], $row['texte'],
+            $row['image'], $row['lien'], $row['lien_texte'], $row['ordre']
+        ]);
+    }
+
+    // Recharger les sections après insertion
+    $rows = getDB()->query(
+        "SELECT * FROM homepage_content ORDER BY ordre ASC"
+    )->fetchAll();
+    foreach ($rows as $row) {
+        $sections_edito[$row['section']] = $row;
+    }
+}
+
+$s1   = $sections_edito['alt_1'] ?? null;
+$dark = $sections_edito['dark']  ?? null;
+$s2   = $sections_edito['alt_2'] ?? null;
+
 // Pagination
 $page = max(1, (int)($_GET['page'] ?? 1));
 $per_page = (int)SITE_ARTICLES_PAR_PAGE;
@@ -324,57 +391,43 @@ if (!function_exists('excerpt')) {
     </section>
     <?php endif; ?>
 
-    <!-- SECTIONS ALTERNÉES -->
-    <?php
-    $featured = $pdo->query("
-        SELECT * FROM articles
-        WHERE statut='publie' AND est_hero=0
-        ORDER BY date_publication DESC LIMIT 3
-    ")->fetchAll();
-    $f1 = $featured[0] ?? null;
-    $f2 = $featured[1] ?? null;
-    $f3 = $featured[2] ?? null;
-    ?>
-
-    <?php if ($f1): ?>
-    <!-- Section alternée 1 : image gauche, texte droite -->
+    <!-- SECTIONS ÉDITORIALES -->
+    <?php if ($s1): ?>
     <section class="alt-section">
         <div class="alt-inner">
             <div class="alt-img">
-                <img src="<?= escape($f1['image']) ?>" alt="<?= escape($f1['titre']) ?>" width="600" height="400" loading="lazy">
+                <img src="<?= escape($s1['image']) ?>" alt="<?= escape($s1['titre']) ?>" width="600" height="400" loading="lazy">
             </div>
             <div class="alt-body">
-                <span class="badge-cat"><?= escape($f1['categorie']) ?></span>
-                <h2><?= escape($f1['titre']) ?></h2>
-                <p><?= escape(substr(strip_tags($f1['contenu_html']), 0, 240)) ?>...</p>
-                <a href="<?= url(escape($f1['slug'])) ?>" class="alt-link">Lire l'article →</a>
+                <span class="badge-cat"><?= escape(SITE_NICHE) ?></span>
+                <h2><?= escape($s1['titre']) ?></h2>
+                <p><?= escape($s1['texte']) ?></p>
+                <a href="<?= escape($s1['lien']) ?>" class="alt-link"><?= escape($s1['lien_texte']) ?> →</a>
             </div>
         </div>
     </section>
     <?php endif; ?>
 
-    <?php if ($f2): ?>
-    <!-- Bandeau sombre pleine largeur -->
+    <?php if ($dark): ?>
     <section class="dark-band">
-        <span class="badge-cat" style="border-color:var(--color-accent);color:var(--color-accent);"><?= escape($f2['categorie']) ?></span>
-        <h2><?= escape($f2['titre']) ?></h2>
-        <p><?= escape(substr(strip_tags($f2['contenu_html']), 0, 180)) ?>...</p>
-        <a href="<?= url(escape($f2['slug'])) ?>" class="hero-btn">Découvrir →</a>
+        <span class="editorial-badge"><?= escape(SITE_NAME) ?></span>
+        <h2><?= escape($dark['titre']) ?></h2>
+        <p><?= escape($dark['texte']) ?></p>
+        <a href="<?= escape($dark['lien']) ?>" class="hero-btn"><?= escape($dark['lien_texte']) ?> →</a>
     </section>
     <?php endif; ?>
 
-    <?php if ($f3): ?>
-    <!-- Section alternée 2 : image droite, texte gauche -->
+    <?php if ($s2): ?>
     <section class="alt-section alt-reverse">
         <div class="alt-inner">
             <div class="alt-img">
-                <img src="<?= escape($f3['image']) ?>" alt="<?= escape($f3['titre']) ?>" width="600" height="400" loading="lazy">
+                <img src="<?= escape($s2['image']) ?>" alt="<?= escape($s2['titre']) ?>" width="600" height="400" loading="lazy">
             </div>
             <div class="alt-body">
-                <span class="badge-cat"><?= escape($f3['categorie']) ?></span>
-                <h2><?= escape($f3['titre']) ?></h2>
-                <p><?= escape(substr(strip_tags($f3['contenu_html']), 0, 240)) ?>...</p>
-                <a href="<?= url(escape($f3['slug'])) ?>" class="alt-link">Lire l'article →</a>
+                <span class="badge-cat"><?= escape(SITE_NICHE) ?></span>
+                <h2><?= escape($s2['titre']) ?></h2>
+                <p><?= escape($s2['texte']) ?></p>
+                <a href="<?= escape($s2['lien']) ?>" class="alt-link"><?= escape($s2['lien_texte']) ?> →</a>
             </div>
         </div>
     </section>
