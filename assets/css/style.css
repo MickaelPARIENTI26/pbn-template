@@ -1284,6 +1284,44 @@ textarea:focus,
     }
 }
 
+/* === AUTHOR BYLINE === */
+.author-byline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 760px;
+    margin: 0 auto 40px;
+    padding: 16px 20px;
+    background: var(--light);
+    border-left: 3px solid var(--color-accent);
+}
+.author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.author-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--dark);
+}
+.author-role {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
 /* === PAGES LÉGALES === */
 .legal-page {
     max-width: 800px;

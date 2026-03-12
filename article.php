@@ -193,6 +193,17 @@ $derniers = $pdo->query(
             <div class="article-divider"></div>
         </div>
 
+        <!-- AUTEUR -->
+        <div class="author-byline">
+            <div class="author-avatar">
+                <?= strtoupper(substr(SITE_AUTHOR, 0, 1)) ?>
+            </div>
+            <div class="author-info">
+                <span class="author-name"><?= escape(SITE_AUTHOR) ?></span>
+                <span class="author-role">Rédacteur expert • <?= SITE_NAME ?></span>
+            </div>
+        </div>
+
         <!-- LAYOUT 2 COLONNES -->
         <div class="article-layout">
 

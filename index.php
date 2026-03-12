@@ -200,14 +200,14 @@ if (!function_exists('excerpt')) {
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "<?= escape(SITE_NAME) ?>",
+        "name": "<?= SITE_NAME ?>",
         "url": "<?= SITE_URL ?>",
-        "description": "<?= escape(SITE_DESC) ?>",
-        "inLanguage": "<?= SITE_LOCALE ?>",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "<?= SITE_URL ?>/?s={search_term_string}",
-            "query-input": "required name=search_term_string"
+        "description": "<?= SITE_DESC ?>",
+        "inLanguage": "fr",
+        "publisher": {
+            "@type": "Organization",
+            "name": "<?= SITE_NAME ?>",
+            "url": "<?= SITE_URL ?>"
         }
     }
     </script>
@@ -217,9 +217,16 @@ if (!function_exists('excerpt')) {
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "<?= escape(SITE_NAME) ?>",
+        "name": "<?= SITE_NAME ?>",
         "url": "<?= SITE_URL ?>",
-        "description": "<?= escape(SITE_DESC) ?>"
+        "description": "<?= SITE_DESC ?>",
+        "foundingDate": "2026",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "contact@<?= SITE_DOMAIN ?>",
+            "contactType": "customer service",
+            "availableLanguage": "French"
+        }
     }
     </script>
 
