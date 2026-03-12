@@ -87,7 +87,13 @@ $derniers = $pdo->query(
         "publisher" => [
             "@type" => "Organization",
             "name" => SITE_NAME,
-            "url" => SITE_URL
+            "url" => SITE_URL,
+            "logo" => [
+                "@type" => "ImageObject",
+                "url" => SITE_URL . "/images/og-default.svg",
+                "width" => 200,
+                "height" => 60
+            ]
         ],
         "mainEntityOfPage" => [
             "@type" => "WebPage",

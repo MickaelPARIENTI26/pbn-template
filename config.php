@@ -37,9 +37,9 @@ define('SITE_DESC', getenv('SITE_DESC') ?: '{{SITE_DESC}}');
 define('SITE_NICHE', getenv('SITE_NICHE') ?: '{{SITE_NICHE}}');
 
 // Couleurs
-define('COLOR_PRIMARY', getenv('COLOR_PRIMARY') ?: '{{COLOR_PRIMARY}}');
-define('COLOR_PRIMARY_LIGHT', getenv('COLOR_PRIMARY_LIGHT') ?: '{{COLOR_PRIMARY_LIGHT}}');
-define('COLOR_ACCENT', getenv('COLOR_ACCENT') ?: '{{COLOR_ACCENT}}');
+define('COLOR_PRIMARY', getenv('COLOR_PRIMARY') ?: '#2C5F2E');
+define('COLOR_PRIMARY_LIGHT', getenv('COLOR_PRIMARY_LIGHT') ?: '#4a8a4d');
+define('COLOR_ACCENT', getenv('COLOR_ACCENT') ?: '#C8A96E');
 
 // Identité étendue
 define('SITE_AUTHOR', getenv('SITE_AUTHOR') ?: '{{SITE_AUTHOR}}');

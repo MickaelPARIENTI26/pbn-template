@@ -1,4 +1,13 @@
 <?php
+if (!ob_start("ob_gzhandler")) {
+    ob_start();
+}
+
+header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: SAMEORIGIN');
+header_remove('X-Powered-By');
+
 // Configuration erreurs selon environnement
 if (defined('SITE_ENV') && SITE_ENV === 'development') {
     ini_set('display_errors', 1);
@@ -70,6 +79,14 @@ if ($uri !== '' && $uri !== 'index.php') {
     }
     if ($uri === 'feed.xml' || $uri === 'rss' || $uri === 'feed') {
         require __DIR__ . '/feed.php';
+        exit;
+    }
+    if ($uri === 'politique-confidentialite' || $uri === 'politique-confidentialite.php') {
+        require __DIR__ . '/politique-confidentialite.php';
+        exit;
+    }
+    if ($uri === 'cgu' || $uri === 'cgu.php') {
+        require __DIR__ . '/cgu.php';
         exit;
     }
     $_GET['slug'] = $uri;
@@ -226,6 +243,12 @@ if (!function_exists('excerpt')) {
             "email": "contact@<?= SITE_DOMAIN ?>",
             "contactType": "customer service",
             "availableLanguage": "French"
+        },
+        "logo": {
+            "@type": "ImageObject",
+            "url": "<?= SITE_URL ?>/images/og-default.svg",
+            "width": 200,
+            "height": 60
         }
     }
     </script>
