@@ -70,6 +70,38 @@ $derniers = $pdo->query(
     <meta name="twitter:description" content="<?= escape($article['meta_description']) ?>">
     <meta name="twitter:image" content="<?= SITE_URL . '/' . escape($article['image']) ?>">
 
+    <!-- JSON-LD BlogPosting Schema -->
+    <?php
+    $schema_article = [
+        "@context" => "https://schema.org",
+        "@type" => "BlogPosting",
+        "headline" => $article['titre'],
+        "description" => $article['meta_description'],
+        "image" => url($article['image']),
+        "datePublished" => date('c', strtotime($article['date_publication'])),
+        "dateModified" => date('c', strtotime($article['date_publication'])),
+        "author" => [
+            "@type" => "Person",
+            "name" => SITE_AUTHOR
+        ],
+        "publisher" => [
+            "@type" => "Organization",
+            "name" => SITE_NAME,
+            "url" => SITE_URL
+        ],
+        "mainEntityOfPage" => [
+            "@type" => "WebPage",
+            "@id" => url($article['slug'])
+        ],
+        "articleSection" => $article['categorie'],
+        "inLanguage" => "fr",
+        "wordCount" => str_word_count(strip_tags($article['contenu_html']))
+    ];
+    ?>
+    <script type="application/ld+json">
+<?= json_encode($schema_article, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="<?= url('favicon.svg') ?>">
     <link rel="apple-touch-icon" href="<?= url('favicon.svg') ?>">
