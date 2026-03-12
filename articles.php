@@ -125,34 +125,32 @@ if (!function_exists('excerpt')) {
     <main role="main" id="main-content">
     <!-- EN-TÊTE PAGE -->
     <section class="recents-section" style="padding-top: 60px;">
-        <div class="recents-inner">
-            <h1 class="section-title">Tous les articles</h1>
-            <div class="section-divider"></div>
-            <p style="text-align: center; color: var(--muted); margin-bottom: 40px;"><?= count($articles) ?> article<?= count($articles) > 1 ? 's' : '' ?> publiés</p>
+        <h1 class="section-title">Tous les articles</h1>
+        <p style="max-width: 1200px; margin: -32px auto 48px; padding: 0 40px; text-align: left; color: var(--muted);"><?= count($articles) ?> article<?= count($articles) > 1 ? 's' : '' ?> publiés</p>
 
-            <?php if (!empty($articles)): ?>
-            <div class="recents-grid">
-                <?php foreach ($articles as $index => $article): ?>
-                <a href="<?= url(escape($article['slug'])) ?>" class="article-card">
-                    <div class="card-img-wrap">
-                        <img src="/<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" width="600" height="400" <?= $index < 3 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+        <?php if (!empty($articles)): ?>
+        <div class="recents-grid">
+            <?php foreach ($articles as $index => $article): ?>
+            <a href="<?= url(escape($article['slug'])) ?>" class="recent-card">
+                <div class="recent-card-img">
+                    <img src="/<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" width="600" height="220" <?= $index < 4 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                    <span class="badge-cat"><?= escape($article['categorie']) ?></span>
+                </div>
+                <div class="recent-card-body">
+                    <h2><?= escape($article['titre']) ?></h2>
+                    <p><?= escape(excerpt($article['contenu_html'], 100)) ?></p>
+                    <div class="recent-card-meta">
+                        <span><?= formatDate($article['date_publication']) ?></span>
+                        <span class="meta-dot"></span>
+                        <span><?= (int)$article['read_time'] ?: 5 ?> min</span>
                     </div>
-                    <div class="card-body">
-                        <span class="badge-cat"><?= escape($article['categorie']) ?></span>
-                        <h2 style="font-size: 1.1rem;"><?= escape($article['titre']) ?></h2>
-                        <p class="card-excerpt"><?= escape(excerpt($article['contenu_html'], 100)) ?></p>
-                        <div class="card-meta">
-                            <span><?= formatDate($article['date_publication']) ?></span>
-                            <span><?= (int)$article['read_time'] ?> min</span>
-                        </div>
-                    </div>
-                </a>
-                <?php endforeach; ?>
-            </div>
-            <?php else: ?>
-            <p style="text-align: center; color: var(--muted); padding: 60px 0;">Aucun article pour le moment.</p>
-            <?php endif; ?>
+                </div>
+            </a>
+            <?php endforeach; ?>
         </div>
+        <?php else: ?>
+        <p style="max-width: 1200px; margin: 0 auto; padding: 60px 40px; text-align: center; color: var(--muted);">Aucun article pour le moment.</p>
+        <?php endif; ?>
     </section>
     </main>
 

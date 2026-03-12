@@ -528,27 +528,25 @@ if (!function_exists('excerpt')) {
     ?>
     <?php if (!empty($recents)): ?>
     <section class="recents-section">
-        <div class="recents-inner">
-            <h2 class="section-title">Derniers articles</h2>
-            <div class="section-divider"></div>
-            <div class="recents-grid">
-                <?php foreach($recents as $a): ?>
-                <a href="<?= url(escape($a['slug'])) ?>" class="article-card">
-                    <div class="card-img-wrap">
-                        <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" width="600" height="400" loading="lazy">
+        <h2 class="section-title">Derniers articles</h2>
+        <div class="recents-grid">
+            <?php foreach($recents as $a): ?>
+            <a href="<?= url(escape($a['slug'])) ?>" class="recent-card">
+                <div class="recent-card-img">
+                    <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" width="600" height="220" loading="lazy">
+                    <span class="badge-cat"><?= escape($a['categorie']) ?></span>
+                </div>
+                <div class="recent-card-body">
+                    <h3><?= escape($a['titre']) ?></h3>
+                    <p><?= escape(substr(strip_tags($a['contenu_html']), 0, 130)) ?>...</p>
+                    <div class="recent-card-meta">
+                        <span><?= date('d M Y', strtotime($a['date_publication'])) ?></span>
+                        <span class="meta-dot"></span>
+                        <span><?= $a['read_time'] ?? 5 ?> min</span>
                     </div>
-                    <div class="card-body">
-                        <span class="badge-cat"><?= escape($a['categorie']) ?></span>
-                        <h3><?= escape($a['titre']) ?></h3>
-                        <p class="card-excerpt"><?= escape(substr(strip_tags($a['contenu_html']), 0, 130)) ?>...</p>
-                        <div class="card-meta">
-                            <span><?= date('d M Y', strtotime($a['date_publication'])) ?></span>
-                            <span><?= $a['read_time'] ?> min</span>
-                        </div>
-                    </div>
-                </a>
-                <?php endforeach; ?>
-            </div>
+                </div>
+            </a>
+            <?php endforeach; ?>
         </div>
     </section>
     <?php endif; ?>
