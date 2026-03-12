@@ -109,6 +109,9 @@ $derniers = $pdo->query(
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="<?= escape(SITE_NAME) ?> RSS" href="<?= url('feed.xml') ?>">
 
+    <!-- Preload Hero Image -->
+    <link rel="preload" as="image" href="<?= escape($article['image']) ?>">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,7 +151,7 @@ $derniers = $pdo->query(
     <main role="main" id="main-content">
         <!-- IMAGE HERO -->
         <div class="article-hero">
-            <img src="<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>">
+            <img src="<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" width="1200" height="580" fetchpriority="high">
         </div>
 
         <!-- HEADER ARTICLE -->
@@ -182,7 +185,7 @@ $derniers = $pdo->query(
                     <div class="sidebar-divider"></div>
                     <?php foreach($similaires as $s): ?>
                     <a href="<?= url(escape($s['slug'])) ?>" class="sidebar-card">
-                        <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>">
+                        <img src="<?= escape($s['image']) ?>" alt="<?= escape($s['titre']) ?>" width="80" height="60" loading="lazy">
                         <div class="sidebar-card-body">
                             <span class="sidebar-cat"><?= escape($s['categorie']) ?></span>
                             <p><?= escape($s['titre']) ?></p>
@@ -198,7 +201,7 @@ $derniers = $pdo->query(
                     <?php foreach($derniers as $d): ?>
                     <?php if ($d['slug'] === $article['slug']): continue; endif; ?>
                     <a href="<?= url(escape($d['slug'])) ?>" class="sidebar-card">
-                        <img src="<?= escape($d['image']) ?>" alt="<?= escape($d['titre']) ?>">
+                        <img src="<?= escape($d['image']) ?>" alt="<?= escape($d['titre']) ?>" width="80" height="60" loading="lazy">
                         <div class="sidebar-card-body">
                             <span class="sidebar-cat"><?= escape($d['categorie']) ?></span>
                             <p><?= escape($d['titre']) ?></p>

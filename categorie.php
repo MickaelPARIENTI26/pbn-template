@@ -69,6 +69,9 @@ if (!function_exists('excerpt')) {
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="<?= escape(SITE_NAME) ?> RSS" href="<?= url('feed.xml') ?>">
 
+    <!-- Preload First Image -->
+    <?php if (!empty($articles)): ?><link rel="preload" as="image" href="<?= escape($articles[0]['image']) ?>"><?php endif; ?>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,9 +123,9 @@ if (!function_exists('excerpt')) {
         <!-- LISTE DES ARTICLES -->
         <div style="max-width:1200px; margin:0 auto; padding:0 40px 80px;">
             <?php if (!empty($articles)): ?>
-                <?php foreach ($articles as $a): ?>
+                <?php foreach ($articles as $index => $a): ?>
                 <a href="<?= url(escape($a['slug'])) ?>" class="article-row">
-                    <img class="article-row-img" src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>">
+                    <img class="article-row-img" src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" width="300" height="210" <?= $index === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
                     <div class="article-row-body">
                         <span class="badge-cat"><?= escape($a['categorie']) ?></span>
                         <h3><?= escape($a['titre']) ?></h3>

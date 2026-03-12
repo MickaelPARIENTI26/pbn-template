@@ -82,6 +82,7 @@ if (!function_exists('excerpt')) {
 
     <!-- Preload Critical Resources -->
     <link rel="preload" href="assets/css/style.css" as="style">
+    <?php if (!empty($articles)): ?><link rel="preload" as="image" href="/<?= escape($articles[0]['image']) ?>"><?php endif; ?>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -135,7 +136,7 @@ if (!function_exists('excerpt')) {
                     <article class="article-card fade-up delay-<?= ($index % 4) + 1 ?>">
                         <div class="card-img-wrap position-relative">
                             <span class="card-category-badge"><?= escape($article['categorie']) ?></span>
-                            <img src="/<?= escape($article['image']) ?>" alt="" loading="lazy">
+                            <img src="/<?= escape($article['image']) ?>" alt="" width="600" height="400" <?= $index === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
                         </div>
                         <div class="p-3">
                             <div class="text-muted small mb-2"><?= formatDate($article['date_publication']) ?></div>

@@ -226,6 +226,7 @@ if (!function_exists('excerpt')) {
     <!-- Preload Critical Resources -->
     <link rel="preload" href="assets/css/style.css" as="style">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" as="style">
+    <?php if ($hero): ?><link rel="preload" as="image" href="<?= escape($hero['image']) ?>"><?php endif; ?>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,7 +271,7 @@ if (!function_exists('excerpt')) {
     <!-- HERO ARTICLE -->
     <?php if ($hero): ?>
     <section class="hero-section">
-        <img src="<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>">
+        <img src="<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>" width="1200" height="580" fetchpriority="high">
         <div class="hero-overlay">
             <span class="hero-badge"><?= escape($hero['categorie']) ?></span>
             <h1><?= escape($hero['titre']) ?></h1>
@@ -297,7 +298,7 @@ if (!function_exists('excerpt')) {
     <section class="alt-section">
         <div class="alt-inner">
             <div class="alt-img">
-                <img src="<?= escape($f1['image']) ?>" alt="<?= escape($f1['titre']) ?>">
+                <img src="<?= escape($f1['image']) ?>" alt="<?= escape($f1['titre']) ?>" width="600" height="400" loading="lazy">
             </div>
             <div class="alt-body">
                 <span class="badge-cat"><?= escape($f1['categorie']) ?></span>
@@ -324,7 +325,7 @@ if (!function_exists('excerpt')) {
     <section class="alt-section alt-reverse">
         <div class="alt-inner">
             <div class="alt-img">
-                <img src="<?= escape($f3['image']) ?>" alt="<?= escape($f3['titre']) ?>">
+                <img src="<?= escape($f3['image']) ?>" alt="<?= escape($f3['titre']) ?>" width="600" height="400" loading="lazy">
             </div>
             <div class="alt-body">
                 <span class="badge-cat"><?= escape($f3['categorie']) ?></span>
@@ -353,7 +354,7 @@ if (!function_exists('excerpt')) {
                 <?php foreach($recents as $a): ?>
                 <a href="<?= url(escape($a['slug'])) ?>" class="article-card">
                     <div class="card-img-wrap">
-                        <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>">
+                        <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" width="600" height="400" loading="lazy">
                     </div>
                     <div class="card-body">
                         <span class="badge-cat"><?= escape($a['categorie']) ?></span>
