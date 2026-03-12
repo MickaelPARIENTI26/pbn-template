@@ -48,6 +48,22 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     </url>
 
     <!-- Articles individuels -->
+<?php
+// Récupérer les catégories
+$categories = $pdo->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' ORDER BY categorie")->fetchAll(PDO::FETCH_COLUMN);
+?>
+
+    <!-- Pages catégories -->
+<?php foreach ($categories as $cat): ?>
+    <url>
+        <loc><?= SITE_URL ?>/categorie/<?= htmlspecialchars(categorie_slug($cat), ENT_XML1, 'UTF-8') ?></loc>
+        <lastmod><?= $lastmod_home ?></lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+<?php endforeach; ?>
+
+    <!-- Articles individuels -->
 <?php foreach ($articles as $article):
     $lastmod = date('Y-m-d', strtotime($article['date_publication']));
 ?>
@@ -59,9 +75,21 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     </url>
 <?php endforeach; ?>
 
-    <!-- Mentions légales -->
+    <!-- Pages légales -->
     <url>
         <loc><?= SITE_URL ?>/mentions-legales</loc>
+        <lastmod><?= date('Y-m-d') ?></lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc><?= SITE_URL ?>/politique-confidentialite</loc>
+        <lastmod><?= date('Y-m-d') ?></lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc><?= SITE_URL ?>/cgu</loc>
         <lastmod><?= date('Y-m-d') ?></lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
