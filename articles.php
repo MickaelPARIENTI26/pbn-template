@@ -81,8 +81,7 @@ if (!function_exists('excerpt')) {
     <link rel="alternate" type="application/rss+xml" title="<?= escape(SITE_NAME) ?> RSS" href="<?= url('feed.xml') ?>">
 
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="assets/css/style.css" as="style">
-    <?php if (!empty($articles)): ?><link rel="preload" as="image" href="/<?= escape($articles[0]['image']) ?>"><?php endif; ?>
+    <link rel="preload" href="/assets/css/style.css" as="style">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,7 +89,7 @@ if (!function_exists('excerpt')) {
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- Variables CSS injectées -->
     <style>
@@ -124,37 +123,36 @@ if (!function_exists('excerpt')) {
     <div class="site-banner" role="banner"><?= escape(SITE_NICHE) ?> — Tous nos articles</div>
 
     <main role="main" id="main-content">
-    <!-- LISTE DES ARTICLES -->
-    <section class="container mt-5 mb-5" aria-labelledby="page-title">
-        <h1 class="mb-4" style="font-family: var(--font-display);" id="page-title">Tous les articles</h1>
+    <!-- EN-TÊTE PAGE -->
+    <section class="recents-section" style="padding-top: 60px;">
+        <div class="recents-inner">
+            <h1 class="section-title">Tous les articles</h1>
+            <div class="section-divider"></div>
+            <p style="text-align: center; color: var(--muted); margin-bottom: 40px;"><?= count($articles) ?> article<?= count($articles) > 1 ? 's' : '' ?> publiés</p>
 
-        <?php if (!empty($articles)): ?>
-        <div class="row g-4">
-            <?php foreach ($articles as $index => $article): ?>
-            <div class="col-sm-6 col-md-4">
-                <a href="<?= url(escape($article['slug'])) ?>" class="text-decoration-none" aria-label="Lire l'article : <?= escape($article['titre']) ?>">
-                    <article class="article-card fade-up delay-<?= ($index % 4) + 1 ?>">
-                        <div class="card-img-wrap position-relative">
-                            <span class="card-category-badge"><?= escape($article['categorie']) ?></span>
-                            <img src="/<?= escape($article['image']) ?>" alt="" width="600" height="400" <?= $index === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+            <?php if (!empty($articles)): ?>
+            <div class="recents-grid">
+                <?php foreach ($articles as $index => $article): ?>
+                <a href="<?= url(escape($article['slug'])) ?>" class="article-card">
+                    <div class="card-img-wrap">
+                        <img src="/<?= escape($article['image']) ?>" alt="<?= escape($article['titre']) ?>" width="600" height="400" <?= $index < 3 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                    </div>
+                    <div class="card-body">
+                        <span class="badge-cat"><?= escape($article['categorie']) ?></span>
+                        <h2 style="font-size: 1.1rem;"><?= escape($article['titre']) ?></h2>
+                        <p class="card-excerpt"><?= escape(excerpt($article['contenu_html'], 100)) ?></p>
+                        <div class="card-meta">
+                            <span><?= formatDate($article['date_publication']) ?></span>
+                            <span><?= (int)$article['read_time'] ?> min</span>
                         </div>
-                        <div class="p-3">
-                            <div class="text-muted small mb-2"><?= formatDate($article['date_publication']) ?></div>
-                            <h2 class="card-title text-dark"><?= escape($article['titre']) ?></h2>
-                            <p class="card-excerpt mt-2"><?= escape(excerpt($article['contenu_html'], 100)) ?></p>
-                        </div>
-                        <div class="px-3 pb-3 mt-auto d-flex justify-content-between align-items-center">
-                            <span class="btn-read-more small">Lire <span aria-hidden="true">→</span></span>
-                            <span class="text-muted small"><?= (int)$article['read_time'] ?> min</span>
-                        </div>
-                    </article>
+                    </div>
                 </a>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
+            <?php else: ?>
+            <p style="text-align: center; color: var(--muted); padding: 60px 0;">Aucun article pour le moment.</p>
+            <?php endif; ?>
         </div>
-        <?php else: ?>
-        <p class="text-muted">Aucun article pour le moment.</p>
-        <?php endif; ?>
     </section>
     </main>
 
@@ -194,7 +192,7 @@ if (!function_exists('excerpt')) {
     </footer>
 
     <!-- Custom JS -->
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 
 </body>
 </html>

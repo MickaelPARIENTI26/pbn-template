@@ -140,7 +140,7 @@ $derniers = $pdo->query(
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- Variables CSS injectées -->
     <style>
@@ -292,7 +292,7 @@ $derniers = $pdo->query(
     </footer>
 
     <!-- Custom JS -->
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 
 </body>
 </html>
