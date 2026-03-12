@@ -161,9 +161,13 @@ try {
     ");
 }
 
-// Insérer des données de test CBD si la table est vide
-$count = getDB()->query("SELECT COUNT(*) FROM homepage_content")->fetchColumn();
-if ($count == 0) {
+// Migration : si anciennes sections (alt_1, dark, alt_2) ou table vide → insérer nouvelles sections
+$needs_migration = empty($blocs) || isset($blocs['alt_1']) || isset($blocs['dark']) || !isset($blocs['bloc_1_col_1']);
+
+if ($needs_migration) {
+    // Vider la table pour la migration
+    getDB()->exec("TRUNCATE TABLE homepage_content");
+
     $test_data = [
         ['bloc_1_col_1', '💪', 'CBD et Récupération',
          'Le CBD agit sur les récepteurs CB1 et CB2 pour réduire l\'inflammation musculaire post-effort. Les sportifs l\'intègrent pour accélérer la récupération et réduire les courbatures après l\'entraînement.',
@@ -204,6 +208,7 @@ if ($count == 0) {
     }
 
     // Recharger les blocs après insertion
+    $blocs = [];
     $rows = getDB()->query(
         "SELECT * FROM homepage_content ORDER BY ordre ASC"
     )->fetchAll();
