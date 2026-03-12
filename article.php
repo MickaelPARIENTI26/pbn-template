@@ -102,6 +102,22 @@ $derniers = $pdo->query(
 <?= json_encode($schema_article, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
     </script>
 
+    <!-- JSON-LD BreadcrumbList Schema -->
+    <?php
+    $breadcrumb = [
+        "@context" => "https://schema.org",
+        "@type" => "BreadcrumbList",
+        "itemListElement" => [
+            ["@type" => "ListItem", "position" => 1, "name" => "Accueil", "item" => SITE_URL],
+            ["@type" => "ListItem", "position" => 2, "name" => $article['categorie'], "item" => url('categorie') . '?cat=' . urlencode($article['categorie'])],
+            ["@type" => "ListItem", "position" => 3, "name" => $article['titre'], "item" => url($article['slug'])]
+        ]
+    ];
+    ?>
+    <script type="application/ld+json">
+<?= json_encode($breadcrumb, JSON_UNESCAPED_UNICODE) ?>
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="<?= url('favicon.svg') ?>">
     <link rel="apple-touch-icon" href="<?= url('favicon.svg') ?>">
@@ -146,6 +162,15 @@ $derniers = $pdo->query(
             <?php endforeach; ?>
             <a href="<?= url('articles') ?>" class="nav-link nav-link-cta">Tous les articles</a>
         </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb-nav" aria-label="Fil d'Ariane">
+        <a href="<?= url() ?>">Accueil</a>
+        <span>›</span>
+        <a href="<?= url('categorie') ?>?cat=<?= urlencode($article['categorie']) ?>"><?= escape($article['categorie']) ?></a>
+        <span>›</span>
+        <span><?= escape($article['titre']) ?></span>
     </nav>
 
     <main role="main" id="main-content">

@@ -1258,6 +1258,32 @@ textarea:focus,
     border-radius: 50%;
 }
 
+/* === BREADCRUMB === */
+.breadcrumb-nav {
+    max-width: 1200px;
+    margin: 16px auto;
+    padding: 0 40px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.breadcrumb-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.breadcrumb-nav a:hover {
+    color: var(--color-primary);
+}
+@media (max-width: 768px) {
+    .breadcrumb-nav {
+        padding: 0 20px;
+        font-size: 0.75rem;
+    }
+}
+
 /* === PAGES LÉGALES === */
 .legal-page {
     max-width: 800px;
