@@ -52,14 +52,14 @@ if (!function_exists('excerpt')) {
     <title><?= escape($cat) ?> — <?= escape(SITE_NAME) ?></title>
     <meta name="description" content="Tous nos articles sur <?= escape($cat) ?>">
     <meta name="robots" content="<?= SITE_ROBOTS ?>">
-    <link rel="canonical" href="<?= SITE_URL ?>/categorie?cat=<?= urlencode($cat) ?>">
+    <link rel="canonical" href="<?= SITE_URL ?>/categorie/<?= categorie_slug($cat) ?>">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="<?= escape(SITE_NAME) ?>">
     <meta property="og:title" content="<?= escape($cat) ?> — <?= escape(SITE_NAME) ?>">
     <meta property="og:description" content="Tous nos articles sur <?= escape($cat) ?>">
-    <meta property="og:url" content="<?= SITE_URL ?>/categorie?cat=<?= urlencode($cat) ?>">
+    <meta property="og:url" content="<?= SITE_URL ?>/categorie/<?= categorie_slug($cat) ?>">
     <meta property="og:locale" content="<?= SITE_LOCALE ?>">
 
     <!-- JSON-LD BreadcrumbList Schema -->
@@ -69,7 +69,7 @@ if (!function_exists('excerpt')) {
         "@type" => "BreadcrumbList",
         "itemListElement" => [
             ["@type" => "ListItem", "position" => 1, "name" => "Accueil", "item" => SITE_URL],
-            ["@type" => "ListItem", "position" => 2, "name" => $cat, "item" => url('categorie') . '?cat=' . urlencode($cat)]
+            ["@type" => "ListItem", "position" => 2, "name" => $cat, "item" => url('categorie/' . categorie_slug($cat))]
         ]
     ];
     ?>
@@ -117,7 +117,7 @@ if (!function_exists('excerpt')) {
             foreach($cats as $c):
                 $catSlug = urlencode($c['categorie']);
             ?>
-            <a href="<?= url('categorie') ?>?cat=<?= $catSlug ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
+            <a href="/categorie/<?= categorie_slug($c['categorie']) ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
             <?php endforeach; ?>
             <a href="<?= url('articles') ?>" class="nav-link nav-link-cta">Tous les articles</a>
         </div>
@@ -184,7 +184,7 @@ if (!function_exists('excerpt')) {
             <div class="footer-col">
                 <p class="footer-heading">Catégories</p>
                 <?php foreach($footer_cats as $fc): ?>
-                <a href="<?= url('categorie') ?>?cat=<?= urlencode($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
+                <a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
                 <?php endforeach; ?>
             </div>
             <div class="footer-col">

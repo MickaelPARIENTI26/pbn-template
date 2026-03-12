@@ -62,7 +62,7 @@ $pdo = getDB();
             foreach($cats as $c):
                 $catSlug = urlencode($c['categorie']);
             ?>
-            <a href="<?= url('categorie') ?>?cat=<?= $catSlug ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
+            <a href="/categorie/<?= categorie_slug($c['categorie']) ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
             <?php endforeach; ?>
             <a href="<?= url('articles') ?>" class="nav-link nav-link-cta">Tous les articles</a>
         </div>
@@ -238,7 +238,7 @@ $pdo = getDB();
             <div class="footer-col">
                 <p class="footer-heading">Catégories</p>
                 <?php foreach($footer_cats as $fc): ?>
-                <a href="<?= url('categorie') ?>?cat=<?= urlencode($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
+                <a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
                 <?php endforeach; ?>
             </div>
             <div class="footer-col">

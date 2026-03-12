@@ -1,5 +1,6 @@
 <?php
 header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'");
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header_remove('X-Powered-By');
@@ -83,6 +84,23 @@ if ($uri !== '' && $uri !== 'index.php') {
     }
     if ($uri === 'cgu' || $uri === 'cgu.php') {
         require __DIR__ . '/cgu.php';
+        exit;
+    }
+    if (preg_match('#^categorie/([a-z0-9\-]+)$#', $uri, $m)) {
+        $cat_slug = $m[1];
+        // Retrouve la vraie catégorie depuis le slug
+        $all_cats = getDB()->query(
+            "SELECT DISTINCT categorie FROM articles WHERE statut='publie'"
+        )->fetchAll(PDO::FETCH_COLUMN);
+        $matched_cat = '';
+        foreach ($all_cats as $c) {
+            if (categorie_slug($c) === $cat_slug) {
+                $matched_cat = $c;
+                break;
+            }
+        }
+        $_GET['cat'] = $matched_cat ?: $cat_slug;
+        require __DIR__ . '/categorie.php';
         exit;
     }
     $_GET['slug'] = $uri;
@@ -282,9 +300,8 @@ if (!function_exists('excerpt')) {
             <?php
             $cats = $pdo->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' ORDER BY categorie LIMIT 6")->fetchAll();
             foreach($cats as $c):
-                $catSlug = urlencode($c['categorie']);
             ?>
-            <a href="<?= url('categorie') ?>?cat=<?= $catSlug ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
+            <a href="/categorie/<?= categorie_slug($c['categorie']) ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
             <?php endforeach; ?>
             <a href="<?= url('articles') ?>" class="nav-link nav-link-cta">Tous les articles</a>
         </div>
@@ -419,7 +436,7 @@ if (!function_exists('excerpt')) {
             <div class="footer-col">
                 <p class="footer-heading">Catégories</p>
                 <?php foreach($footer_cats as $fc): ?>
-                <a href="<?= url('categorie') ?>?cat=<?= urlencode($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
+                <a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
                 <?php endforeach; ?>
             </div>
             <div class="footer-col">

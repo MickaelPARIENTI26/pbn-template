@@ -115,7 +115,7 @@ $derniers = $pdo->query(
         "@type" => "BreadcrumbList",
         "itemListElement" => [
             ["@type" => "ListItem", "position" => 1, "name" => "Accueil", "item" => SITE_URL],
-            ["@type" => "ListItem", "position" => 2, "name" => $article['categorie'], "item" => url('categorie') . '?cat=' . urlencode($article['categorie'])],
+            ["@type" => "ListItem", "position" => 2, "name" => $article['categorie'], "item" => url('categorie/' . categorie_slug($article['categorie']))],
             ["@type" => "ListItem", "position" => 3, "name" => $article['titre'], "item" => url($article['slug'])]
         ]
     ];
@@ -164,7 +164,7 @@ $derniers = $pdo->query(
             foreach($cats as $c):
                 $catSlug = urlencode($c['categorie']);
             ?>
-            <a href="<?= url('categorie') ?>?cat=<?= $catSlug ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
+            <a href="/categorie/<?= categorie_slug($c['categorie']) ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
             <?php endforeach; ?>
             <a href="<?= url('articles') ?>" class="nav-link nav-link-cta">Tous les articles</a>
         </div>
@@ -174,7 +174,7 @@ $derniers = $pdo->query(
     <nav class="breadcrumb-nav" aria-label="Fil d'Ariane">
         <a href="<?= url() ?>">Accueil</a>
         <span>›</span>
-        <a href="<?= url('categorie') ?>?cat=<?= urlencode($article['categorie']) ?>"><?= escape($article['categorie']) ?></a>
+        <a href="/categorie/<?= categorie_slug($article['categorie']) ?>"><?= escape($article['categorie']) ?></a>
         <span>›</span>
         <span><?= escape($article['titre']) ?></span>
     </nav>
@@ -276,7 +276,7 @@ $derniers = $pdo->query(
             <div class="footer-col">
                 <p class="footer-heading">Catégories</p>
                 <?php foreach($footer_cats as $fc): ?>
-                <a href="<?= url('categorie') ?>?cat=<?= urlencode($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
+                <a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
                 <?php endforeach; ?>
             </div>
             <div class="footer-col">

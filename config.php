@@ -100,3 +100,20 @@ function url(string $slug = ''): string
     }
     return SITE_URL . '/' . $slug;
 }
+
+/**
+ * Génère un slug URL-friendly pour une catégorie
+ */
+function categorie_slug($cat) {
+    $cat = mb_strtolower($cat, 'UTF-8');
+    $replacements = [
+        'à'=>'a','â'=>'a','ä'=>'a','é'=>'e','è'=>'e',
+        'ê'=>'e','ë'=>'e','î'=>'i','ï'=>'i','ô'=>'o',
+        'ö'=>'o','ù'=>'u','û'=>'u','ü'=>'u','ç'=>'c',
+        ' '=>'-','\''=>'-','&'=>'et'
+    ];
+    $cat = strtr($cat, $replacements);
+    $cat = preg_replace('/[^a-z0-9\-]/', '', $cat);
+    $cat = preg_replace('/-+/', '-', $cat);
+    return trim($cat, '-');
+}
