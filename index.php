@@ -1,8 +1,4 @@
 <?php
-if (!ob_start("ob_gzhandler")) {
-    ob_start();
-}
-
 header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
