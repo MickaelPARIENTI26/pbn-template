@@ -137,11 +137,28 @@ if (!$hero) {
 
 // Sections éditoriales depuis homepage_content
 $sections_edito = [];
-$rows = getDB()->query(
-    "SELECT * FROM homepage_content ORDER BY ordre ASC"
-)->fetchAll();
-foreach ($rows as $row) {
-    $sections_edito[$row['section']] = $row;
+try {
+    $rows = getDB()->query(
+        "SELECT * FROM homepage_content ORDER BY ordre ASC"
+    )->fetchAll();
+    foreach ($rows as $row) {
+        $sections_edito[$row['section']] = $row;
+    }
+} catch (PDOException $e) {
+    // Table n'existe pas encore, on la crée
+    getDB()->exec("
+        CREATE TABLE IF NOT EXISTS homepage_content (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            section VARCHAR(50) NOT NULL,
+            titre VARCHAR(500),
+            texte TEXT,
+            image VARCHAR(500),
+            lien VARCHAR(500),
+            lien_texte VARCHAR(200),
+            ordre INT DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
 }
 
 // Insérer des données de test si la table est vide
