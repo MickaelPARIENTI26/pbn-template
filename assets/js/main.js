@@ -1,10 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // 1. Navbar scroll shadow
+    // 1. Navbar scroll effect (glass effect on scroll)
+    var mainNav = document.querySelector('.main-nav');
+    var navbar = document.querySelector('.navbar');
+
     window.addEventListener('scroll', function() {
-        var navbar = document.querySelector('.navbar');
+        var scrollY = window.scrollY;
+
+        // Main nav (new style)
+        if (mainNav) {
+            if (scrollY > 50) {
+                mainNav.classList.add('scrolled');
+            } else {
+                mainNav.classList.remove('scrolled');
+            }
+        }
+
+        // Legacy navbar
         if (navbar) {
-            if (window.scrollY > 50) {
+            if (scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
