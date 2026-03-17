@@ -364,7 +364,6 @@ if (!function_exists('excerpt')) {
 
     <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/css/style.css" as="style">
-    <?php if ($hero): ?><link rel="preload" as="image" href="<?= escape($hero['image']) ?>"><?php endif; ?>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -469,9 +468,6 @@ if (!function_exists('excerpt')) {
                     </div>
                     <?php endif; ?>
                 </div>
-                <div class="kimi-content-img">
-                    <img src="images/article-2.webp" alt="<?= escape($b2['titre']) ?>" width="600" height="420" loading="lazy">
-                </div>
             </div>
         </div>
     </section>
@@ -492,9 +488,6 @@ if (!function_exists('excerpt')) {
     <section class="kimi-content-block kimi-content-reverse">
         <div class="container">
             <div class="kimi-content-grid">
-                <div class="kimi-content-img">
-                    <img src="images/article-3.webp" alt="<?= escape($b4['titre']) ?>" width="600" height="520" loading="lazy">
-                </div>
                 <div class="kimi-content-body">
                     <h2><?= escape($b4['titre']) ?></h2>
                     <div class="kimi-content-text">

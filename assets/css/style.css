@@ -632,22 +632,8 @@ textarea:focus-visible {
 }
 
 .kimi-content-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.kimi-content-reverse .kimi-content-grid {
-    direction: rtl;
-}
-
-.kimi-content-reverse .kimi-content-body {
-    direction: ltr;
-}
-
-.kimi-content-reverse .kimi-content-img {
-    direction: ltr;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .kimi-content-body h2 {
@@ -678,14 +664,6 @@ textarea:focus-visible {
     line-height: 1.85;
     color: var(--muted);
     margin-bottom: 1.5rem;
-}
-
-.kimi-content-img img {
-    width: 100%;
-    height: 420px;
-    object-fit: cover;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 /* === KIMI STATS (chiffres clés) === */
@@ -1003,19 +981,6 @@ textarea:focus-visible {
 
     .kimi-features-grid {
         grid-template-columns: 1fr;
-    }
-
-    .kimi-content-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .kimi-content-reverse .kimi-content-grid {
-        direction: ltr;
-    }
-
-    .kimi-content-img img {
-        height: 280px;
     }
 
     .kimi-stats {
