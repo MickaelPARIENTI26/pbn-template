@@ -388,8 +388,11 @@ if (!function_exists('excerpt')) {
         }
     </style>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Homepage CSS (22 Ko vs 57 Ko) -->
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <!-- Full CSS différé (articles, sidebar, legal — non utilisé sur homepage) -->
+    <link rel="stylesheet" href="/assets/css/style.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/assets/css/style.css"></noscript>
 
     <!-- Google Fonts — chargement non-bloquant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
