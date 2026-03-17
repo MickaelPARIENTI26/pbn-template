@@ -632,8 +632,26 @@ textarea:focus-visible {
 }
 
 .kimi-content-grid {
-    max-width: 800px;
-    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.kimi-content-reverse .kimi-content-grid {
+    direction: rtl;
+}
+
+.kimi-content-reverse .kimi-content-body,
+.kimi-content-reverse .kimi-content-img {
+    direction: ltr;
+}
+
+.kimi-content-img img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 16px;
 }
 
 .kimi-content-body h2 {
@@ -981,6 +999,19 @@ textarea:focus-visible {
 
     .kimi-features-grid {
         grid-template-columns: 1fr;
+    }
+
+    .kimi-content-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .kimi-content-reverse .kimi-content-grid {
+        direction: ltr;
+    }
+
+    .kimi-content-img img {
+        height: 280px;
     }
 
     .kimi-stats {

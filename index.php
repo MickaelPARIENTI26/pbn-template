@@ -468,6 +468,9 @@ if (!function_exists('excerpt')) {
                     </div>
                     <?php endif; ?>
                 </div>
+                <div class="kimi-content-img">
+                    <img src="images/article-2.svg" alt="<?= escape($b2['titre']) ?>" width="600" height="420" loading="lazy">
+                </div>
             </div>
         </div>
     </section>
@@ -488,6 +491,9 @@ if (!function_exists('excerpt')) {
     <section class="kimi-content-block kimi-content-reverse">
         <div class="container">
             <div class="kimi-content-grid">
+                <div class="kimi-content-img">
+                    <img src="images/article-3.svg" alt="<?= escape($b4['titre']) ?>" width="600" height="520" loading="lazy">
+                </div>
                 <div class="kimi-content-body">
                     <h2><?= escape($b4['titre']) ?></h2>
                     <div class="kimi-content-text">
