@@ -6,17 +6,17 @@
 /* === VARIABLES CSS === */
 :root {
     /* Colors - injected via PHP */
-    --dark: #1a1a18;
-    --mid: #4a4a46;
-    --light: #faf9f7;
-    --border: #e8e4dc;
-    --muted: #5a5a58;
-    --cream: #f5f3ef;
+    --dark: #111827;
+    --mid: #4b5563;
+    --light: #ffffff;
+    --border: #e5e7eb;
+    --muted: #6b7280;
+    --cream: #f9fafb;
     --sage: #a8b5a0;
 
-    /* Typography - Organic/Wellness */
-    --font-display: 'Lora', Georgia, serif;
-    --font-body: 'Raleway', system-ui, sans-serif;
+    /* Typography - Clean/Modern */
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Spacing */
     --space-xs: 8px;
@@ -395,7 +395,499 @@ textarea:focus-visible {
     }
 }
 
-/* === SEO BLOCKS === */
+/* ============================================
+   KIMI DESIGN — Clean & Minimal Homepage
+   ============================================ */
+
+/* === CONTAINER === */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* === KIMI HEADER === */
+.kimi-header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.kimi-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.kimi-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity var(--transition-fast);
+}
+
+.kimi-logo:hover {
+    opacity: 0.8;
+}
+
+.kimi-nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.kimi-nav-links a {
+    text-decoration: none;
+    color: var(--mid);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color var(--transition-fast);
+}
+
+.kimi-nav-links a:hover {
+    color: var(--color-primary);
+}
+
+/* === KIMI HERO === */
+.kimi-hero {
+    padding: 5rem 0 4rem;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb, 5, 150, 105), 0.03) 0%, var(--light) 100%);
+}
+
+.kimi-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.kimi-hero-desc {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+}
+
+/* === KIMI BUTTON === */
+.kimi-btn {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all var(--transition-base);
+    border: none;
+    cursor: pointer;
+}
+
+.kimi-btn:hover {
+    background: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    color: white;
+}
+
+/* === KIMI FEATURES === */
+.kimi-features {
+    padding: 4rem 0;
+    background: white;
+}
+
+.kimi-section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 2rem;
+}
+
+.kimi-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.kimi-feature-card {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    text-align: center;
+    transition: all var(--transition-base);
+    background: white;
+}
+
+.kimi-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--color-primary);
+}
+
+.kimi-feature-card h3 {
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.kimi-feature-icon {
+    font-size: 1.3rem;
+    margin-right: 0.25rem;
+}
+
+.kimi-feature-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* === KIMI CONTENT BLOCKS (bloc_2, bloc_4) === */
+.kimi-content-block {
+    padding: 4rem 0;
+    background: var(--cream);
+}
+
+.kimi-content-block.kimi-content-reverse {
+    background: white;
+}
+
+.kimi-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.kimi-content-reverse .kimi-content-grid {
+    direction: rtl;
+}
+
+.kimi-content-reverse .kimi-content-body {
+    direction: ltr;
+}
+
+.kimi-content-reverse .kimi-content-img {
+    direction: ltr;
+}
+
+.kimi-content-body h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.kimi-content-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+}
+
+.kimi-content-img img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+/* === KIMI STATS (chiffres clés) === */
+.kimi-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.kimi-stat {
+    flex: 1;
+    min-width: 140px;
+    padding: 1.25rem;
+    background: white;
+    border-radius: 0.75rem;
+    border-left: 3px solid var(--color-primary);
+    transition: all var(--transition-base);
+}
+
+.kimi-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.kimi-stat-num {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.kimi-stat-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+/* === KIMI DARK BAND === */
+.kimi-dark-band {
+    background: var(--dark);
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.kimi-dark-band h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.kimi-dark-band p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* === KIMI CTA BAND (bloc_5) === */
+.kimi-cta-band {
+    padding: 4rem 0;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb, 5, 150, 105), 0.05) 0%, var(--cream) 100%);
+}
+
+.kimi-cta-band h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.kimi-cta-band p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+}
+
+/* === KIMI ARTICLES GRID === */
+.kimi-articles {
+    padding: 5rem 0;
+    background: var(--light);
+}
+
+.kimi-articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.kimi-article-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-base);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.kimi-article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.kimi-article-img {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.kimi-article-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.kimi-article-card:hover .kimi-article-img img {
+    transform: scale(1.06);
+}
+
+.kimi-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-primary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 9999px;
+}
+
+.kimi-article-body {
+    padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.kimi-article-body h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
+    transition: color var(--transition-fast);
+}
+
+.kimi-article-card:hover .kimi-article-body h3 {
+    color: var(--color-primary);
+}
+
+.kimi-article-body p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.kimi-article-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+/* === KIMI FOOTER === */
+.kimi-footer {
+    background: var(--dark);
+    color: white;
+    padding: 2.5rem 0;
+    text-align: center;
+}
+
+.kimi-footer > .container > p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.kimi-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.kimi-footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color var(--transition-fast);
+}
+
+.kimi-footer-links a:hover {
+    color: white;
+}
+
+.kimi-disclaimer {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.kimi-disclaimer strong {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* === KIMI RESPONSIVE === */
+@media (max-width: 768px) {
+    .kimi-hero {
+        padding: 3rem 0 2.5rem;
+    }
+
+    .kimi-hero h1 {
+        font-size: 2rem;
+    }
+
+    .kimi-nav-links {
+        display: none;
+    }
+
+    .kimi-features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kimi-content-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .kimi-content-reverse .kimi-content-grid {
+        direction: ltr;
+    }
+
+    .kimi-content-img img {
+        height: 280px;
+    }
+
+    .kimi-stats {
+        flex-direction: column;
+    }
+
+    .kimi-articles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kimi-dark-band {
+        padding: 3rem 0;
+    }
+
+    .kimi-footer-links {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
+
+/* ============================================
+   END KIMI DESIGN
+   ============================================ */
+
+/* === SEO BLOCKS (Legacy - used by other pages) === */
 
 /* BLOC 1 — Image + 3 colonnes */
 .seo-block-1 {

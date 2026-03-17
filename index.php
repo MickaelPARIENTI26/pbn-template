@@ -364,13 +364,12 @@ if (!function_exists('excerpt')) {
 
     <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/css/style.css" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" as="style">
     <?php if ($hero): ?><link rel="preload" as="image" href="<?= escape($hero['image']) ?>"><?php endif; ?>
 
-    <!-- Google Fonts - Lora + Raleway (Organic/Wellness) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -388,58 +387,53 @@ if (!function_exists('excerpt')) {
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <!-- NAVBAR -->
-    <nav class="main-nav">
-        <a href="<?= url() ?>" class="nav-brand"><?= escape(SITE_LOGO_TEXT) ?></a>
-        <div class="nav-links">
-            <a href="<?= url() ?>" class="nav-link">Accueil</a>
-            <?php
-            $cats = $pdo->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' ORDER BY categorie LIMIT 6")->fetchAll();
-            foreach($cats as $c):
-            ?>
-            <a href="/categorie/<?= categorie_slug($c['categorie']) ?>" class="nav-link"><?= escape($c['categorie']) ?></a>
-            <?php endforeach; ?>
-            <a href="<?= url('articles') ?>" class="nav-link nav-link-cta">Tous les articles</a>
+    <header class="kimi-header">
+        <div class="container">
+            <nav class="kimi-nav">
+                <a href="<?= url() ?>" class="kimi-logo"><?= escape(SITE_LOGO_TEXT) ?></a>
+                <ul class="kimi-nav-links">
+                    <li><a href="<?= url() ?>">Accueil</a></li>
+                    <?php
+                    $cats = $pdo->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' ORDER BY categorie LIMIT 4")->fetchAll();
+                    foreach($cats as $c):
+                    ?>
+                    <li><a href="/categorie/<?= categorie_slug($c['categorie']) ?>"><?= escape($c['categorie']) ?></a></li>
+                    <?php endforeach; ?>
+                    <li><a href="<?= url('articles') ?>">Blog</a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
-
-    <!-- BANNIÈRE -->
-    <div class="site-banner" role="banner"><?= escape(SITE_NICHE) ?> — Guides, conseils & actualités</div>
+    </header>
 
     <main role="main" id="main-content">
-    <!-- HERO ARTICLE -->
+
+    <!-- HERO -->
     <?php if ($hero): ?>
-    <section class="hero-section">
-        <img src="<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>" width="1200" height="580" fetchpriority="high">
-        <div class="hero-overlay">
-            <span class="hero-badge"><?= escape($hero['categorie']) ?></span>
+    <section class="kimi-hero">
+        <div class="container">
             <h1><?= escape($hero['titre']) ?></h1>
-            <p class="hero-excerpt"><?= escape(substr(strip_tags($hero['contenu_html']), 0, 180)) ?>...</p>
-            <a href="<?= url(escape($hero['slug'])) ?>" class="hero-btn">Lire l'article →</a>
+            <p class="kimi-hero-desc"><?= escape(substr(strip_tags($hero['contenu_html']), 0, 180)) ?>...</p>
+            <a href="<?= url(escape($hero['slug'])) ?>" class="kimi-btn">Lire l'article</a>
         </div>
     </section>
     <?php endif; ?>
 
-    <!-- BLOC 1 — image gauche + 3 colonnes droite -->
+    <!-- FEATURES — 3 colonnes depuis BDD -->
     <?php if ($b1c1 && $b1c2 && $b1c3): ?>
-    <section class="seo-block-1">
-        <div class="seo-block-1-inner">
-            <div class="seo-block-1-img">
-                <img src="images/article-1.webp" alt="<?= escape($b1c1['titre']) ?>" width="600" height="500" loading="lazy">
-            </div>
-            <div class="seo-block-1-cols">
-                <div class="seo-col">
-                    <div class="seo-icon"><?= escape($b1c1['image']) ?></div>
-                    <h2><?= escape($b1c1['titre']) ?></h2>
+    <section class="kimi-features">
+        <div class="container">
+            <h2 class="kimi-section-title"><?= escape(SITE_TAGLINE) ?></h2>
+            <div class="kimi-features-grid">
+                <div class="kimi-feature-card">
+                    <h3><span class="kimi-feature-icon"><?= escape($b1c1['image']) ?></span> <?= escape($b1c1['titre']) ?></h3>
                     <p><?= escape($b1c1['texte']) ?></p>
                 </div>
-                <div class="seo-col">
-                    <div class="seo-icon"><?= escape($b1c2['image']) ?></div>
-                    <h2><?= escape($b1c2['titre']) ?></h2>
+                <div class="kimi-feature-card">
+                    <h3><span class="kimi-feature-icon"><?= escape($b1c2['image']) ?></span> <?= escape($b1c2['titre']) ?></h3>
                     <p><?= escape($b1c2['texte']) ?></p>
                 </div>
-                <div class="seo-col">
-                    <div class="seo-icon"><?= escape($b1c3['image']) ?></div>
-                    <h2><?= escape($b1c3['titre']) ?></h2>
+                <div class="kimi-feature-card">
+                    <h3><span class="kimi-feature-icon"><?= escape($b1c3['image']) ?></span> <?= escape($b1c3['titre']) ?></h3>
                     <p><?= escape($b1c3['texte']) ?></p>
                 </div>
             </div>
@@ -447,31 +441,33 @@ if (!function_exists('excerpt')) {
     </section>
     <?php endif; ?>
 
-    <!-- BLOC 2 — texte gauche + chiffres clés + image droite -->
+    <!-- BLOC 2 — texte + chiffres clés -->
     <?php if ($b2): ?>
-    <section class="seo-block-2">
-        <div class="seo-block-2-inner">
-            <div class="seo-block-2-body">
-                <h2><?= escape($b2['titre']) ?></h2>
-                <div class="seo-block-2-text">
-                    <?= nl2br(escape($b2['texte'])) ?>
-                </div>
-                <?php
-                $chiffres = json_decode($b2['lien'] ?? '[]', true);
-                if (!empty($chiffres)):
-                ?>
-                <div class="seo-chiffres">
-                    <?php foreach ($chiffres as $c): ?>
-                    <div class="seo-chiffre">
-                        <span class="seo-chiffre-num"><?= escape($c['num']) ?></span>
-                        <span class="seo-chiffre-label"><?= escape($c['label']) ?></span>
+    <section class="kimi-content-block">
+        <div class="container">
+            <div class="kimi-content-grid">
+                <div class="kimi-content-body">
+                    <h2><?= escape($b2['titre']) ?></h2>
+                    <div class="kimi-content-text">
+                        <?= nl2br(escape($b2['texte'])) ?>
                     </div>
-                    <?php endforeach; ?>
+                    <?php
+                    $chiffres = json_decode($b2['lien'] ?? '[]', true);
+                    if (!empty($chiffres)):
+                    ?>
+                    <div class="kimi-stats">
+                        <?php foreach ($chiffres as $c): ?>
+                        <div class="kimi-stat">
+                            <span class="kimi-stat-num"><?= escape($c['num']) ?></span>
+                            <span class="kimi-stat-label"><?= escape($c['label']) ?></span>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
-            </div>
-            <div class="seo-block-2-img">
-                <img src="images/article-2.webp" alt="<?= escape($b2['titre']) ?>" width="600" height="420" loading="lazy">
+                <div class="kimi-content-img">
+                    <img src="images/article-2.webp" alt="<?= escape($b2['titre']) ?>" width="600" height="420" loading="lazy">
+                </div>
             </div>
         </div>
     </section>
@@ -479,41 +475,40 @@ if (!function_exists('excerpt')) {
 
     <!-- BLOC DARK — bandeau sombre centré -->
     <?php if ($bdark): ?>
-    <section class="seo-dark-band">
-        <div class="seo-dark-inner">
+    <section class="kimi-dark-band">
+        <div class="container">
             <h2><?= escape($bdark['titre']) ?></h2>
             <p><?= escape($bdark['texte']) ?></p>
         </div>
     </section>
     <?php endif; ?>
 
-    <!-- BLOC 4 — image pleine hauteur gauche + texte SEO droite -->
+    <!-- BLOC 4 — image + texte SEO -->
     <?php if ($b4): ?>
-    <section class="seo-block-4">
-        <div class="seo-block-4-inner">
-            <div class="seo-block-4-img">
-                <img src="images/article-3.webp" alt="<?= escape($b4['titre']) ?>" width="600" height="520" loading="lazy">
-            </div>
-            <div class="seo-block-4-body">
-                <h2><?= escape($b4['titre']) ?></h2>
-                <div class="seo-block-4-text">
-                    <?= nl2br(escape($b4['texte'])) ?>
+    <section class="kimi-content-block kimi-content-reverse">
+        <div class="container">
+            <div class="kimi-content-grid">
+                <div class="kimi-content-img">
+                    <img src="images/article-3.webp" alt="<?= escape($b4['titre']) ?>" width="600" height="520" loading="lazy">
+                </div>
+                <div class="kimi-content-body">
+                    <h2><?= escape($b4['titre']) ?></h2>
+                    <div class="kimi-content-text">
+                        <?= nl2br(escape($b4['texte'])) ?>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <?php endif; ?>
 
-    <!-- BLOC 5 — image fond + texte overlay gauche -->
+    <!-- BLOC 5 — bandeau CTA -->
     <?php if ($b5): ?>
-    <section class="seo-video-band">
-        <img src="images/article-4.webp" alt="<?= escape($b5['titre']) ?>" class="seo-video-bg">
-        <div class="seo-video-overlay">
-            <div class="seo-video-body">
-                <h2><?= escape($b5['titre']) ?></h2>
-                <p><?= escape($b5['texte']) ?></p>
-                <a href="<?= escape($b5['lien']) ?>" class="hero-btn"><?= escape($b5['lien_texte']) ?> →</a>
-            </div>
+    <section class="kimi-cta-band">
+        <div class="container">
+            <h2><?= escape($b5['titre']) ?></h2>
+            <p><?= escape($b5['texte']) ?></p>
+            <a href="<?= escape($b5['lien']) ?>" class="kimi-btn"><?= escape($b5['lien_texte']) ?></a>
         </div>
     </section>
     <?php endif; ?>
@@ -527,29 +522,31 @@ if (!function_exists('excerpt')) {
     ")->fetchAll();
     ?>
     <?php if (!empty($recents)): ?>
-    <section class="recents-section">
-        <h2 class="section-title">Derniers articles</h2>
-        <div class="recents-grid">
-            <?php foreach($recents as $a): ?>
-            <a href="<?= url(escape($a['slug'])) ?>" class="recent-card">
-                <div class="recent-card-img">
-                    <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" width="600" height="220" loading="lazy">
-                    <span class="badge-cat"><?= escape($a['categorie']) ?></span>
-                </div>
-                <div class="recent-card-body">
-                    <h3><?= escape($a['titre']) ?></h3>
-                    <p><?= escape(substr(strip_tags($a['contenu_html']), 0, 130)) ?>...</p>
-                    <div class="recent-card-meta">
-                        <span><?= date('d M Y', strtotime($a['date_publication'])) ?></span>
-                        <span class="meta-dot"></span>
-                        <span><?= $a['read_time'] ?? 5 ?> min</span>
+    <section class="kimi-articles">
+        <div class="container">
+            <h2 class="kimi-section-title">Nos derniers articles</h2>
+            <div class="kimi-articles-grid">
+                <?php foreach($recents as $a): ?>
+                <a href="<?= url(escape($a['slug'])) ?>" class="kimi-article-card">
+                    <div class="kimi-article-img">
+                        <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" width="600" height="220" loading="lazy">
+                        <span class="kimi-badge"><?= escape($a['categorie']) ?></span>
                     </div>
-                </div>
-            </a>
-            <?php endforeach; ?>
+                    <div class="kimi-article-body">
+                        <h3><?= escape($a['titre']) ?></h3>
+                        <p><?= escape(substr(strip_tags($a['contenu_html']), 0, 130)) ?>...</p>
+                        <div class="kimi-article-meta">
+                            <span><?= date('d M Y', strtotime($a['date_publication'])) ?></span>
+                            <span><?= $a['read_time'] ?? 5 ?> min de lecture</span>
+                        </div>
+                    </div>
+                </a>
+                <?php endforeach; ?>
+            </div>
         </div>
     </section>
     <?php endif; ?>
+
     </main>
 
     <!-- FOOTER -->
@@ -558,32 +555,22 @@ if (!function_exists('excerpt')) {
         "SELECT DISTINCT categorie FROM articles WHERE statut='publie' LIMIT 5"
     )->fetchAll();
     ?>
-    <footer class="site-footer">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div class="footer-brand"><?= escape(SITE_LOGO_TEXT) ?></div>
-                <p><?= escape(SITE_FOOTER_DESC) ?></p>
-            </div>
-            <div class="footer-col">
-                <p class="footer-heading">Navigation</p>
+    <footer class="kimi-footer">
+        <div class="container">
+            <p>&copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?>. Tous droits réservés.</p>
+            <div class="kimi-footer-links">
                 <a href="<?= url() ?>">Accueil</a>
-                <a href="<?= url('articles') ?>">Tous les articles</a>
-            </div>
-            <div class="footer-col">
-                <p class="footer-heading">Catégories</p>
+                <a href="<?= url('articles') ?>">Blog</a>
                 <?php foreach($footer_cats as $fc): ?>
                 <a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
                 <?php endforeach; ?>
-            </div>
-            <div class="footer-col">
-                <p class="footer-heading">Légal</p>
                 <a href="<?= url('mentions-legales') ?>">Mentions légales</a>
                 <a href="<?= url('politique-confidentialite') ?>">Confidentialité</a>
                 <a href="<?= url('cgu') ?>">CGU</a>
             </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?> — <?= escape(SITE_DOMAIN) ?>
+            <div class="kimi-disclaimer">
+                <strong>Avertissement :</strong> Les informations présentes sur ce site sont fournies à titre informatif uniquement et ne constituent pas un avis médical. <?= escape(SITE_FOOTER_DESC) ?>
+            </div>
         </div>
     </footer>
 
