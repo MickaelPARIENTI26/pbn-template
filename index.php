@@ -369,7 +369,7 @@ if (!function_exists('excerpt')) {
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -412,8 +412,8 @@ if (!function_exists('excerpt')) {
     <section class="kimi-hero">
         <div class="container">
             <h1><?= escape($hero['titre']) ?></h1>
-            <p class="kimi-hero-desc"><?= escape(substr(strip_tags($hero['contenu_html']), 0, 180)) ?>...</p>
-            <a href="<?= url(escape($hero['slug'])) ?>" class="kimi-btn">Lire l'article</a>
+            <p class="kimi-hero-desc"><?= escape(substr(strip_tags($hero['contenu_html']), 0, 200)) ?>...</p>
+            <a href="<?= url(escape($hero['slug'])) ?>" class="kimi-btn">Lire l'article →</a>
         </div>
     </section>
     <?php endif; ?>
@@ -423,17 +423,21 @@ if (!function_exists('excerpt')) {
     <section class="kimi-features">
         <div class="container">
             <h2 class="kimi-section-title"><?= escape(SITE_TAGLINE) ?></h2>
+            <p class="kimi-section-subtitle"><?= escape(SITE_DESC) ?></p>
             <div class="kimi-features-grid">
                 <div class="kimi-feature-card">
-                    <h3><span class="kimi-feature-icon"><?= escape($b1c1['image']) ?></span> <?= escape($b1c1['titre']) ?></h3>
+                    <span class="kimi-feature-icon"><?= escape($b1c1['image']) ?></span>
+                    <h3><?= escape($b1c1['titre']) ?></h3>
                     <p><?= escape($b1c1['texte']) ?></p>
                 </div>
                 <div class="kimi-feature-card">
-                    <h3><span class="kimi-feature-icon"><?= escape($b1c2['image']) ?></span> <?= escape($b1c2['titre']) ?></h3>
+                    <span class="kimi-feature-icon"><?= escape($b1c2['image']) ?></span>
+                    <h3><?= escape($b1c2['titre']) ?></h3>
                     <p><?= escape($b1c2['texte']) ?></p>
                 </div>
                 <div class="kimi-feature-card">
-                    <h3><span class="kimi-feature-icon"><?= escape($b1c3['image']) ?></span> <?= escape($b1c3['titre']) ?></h3>
+                    <span class="kimi-feature-icon"><?= escape($b1c3['image']) ?></span>
+                    <h3><?= escape($b1c3['titre']) ?></h3>
                     <p><?= escape($b1c3['texte']) ?></p>
                 </div>
             </div>
@@ -508,7 +512,7 @@ if (!function_exists('excerpt')) {
         <div class="container">
             <h2><?= escape($b5['titre']) ?></h2>
             <p><?= escape($b5['texte']) ?></p>
-            <a href="<?= escape($b5['lien']) ?>" class="kimi-btn"><?= escape($b5['lien_texte']) ?></a>
+            <a href="<?= escape($b5['lien']) ?>" class="kimi-btn"><?= escape($b5['lien_texte']) ?> →</a>
         </div>
     </section>
     <?php endif; ?>
@@ -557,19 +561,34 @@ if (!function_exists('excerpt')) {
     ?>
     <footer class="kimi-footer">
         <div class="container">
-            <p>&copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?>. Tous droits réservés.</p>
-            <div class="kimi-footer-links">
-                <a href="<?= url() ?>">Accueil</a>
-                <a href="<?= url('articles') ?>">Blog</a>
-                <?php foreach($footer_cats as $fc): ?>
-                <a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
-                <?php endforeach; ?>
-                <a href="<?= url('mentions-legales') ?>">Mentions légales</a>
-                <a href="<?= url('politique-confidentialite') ?>">Confidentialité</a>
-                <a href="<?= url('cgu') ?>">CGU</a>
+            <div class="kimi-footer-grid">
+                <div class="kimi-footer-col">
+                    <div class="kimi-footer-brand"><?= escape(SITE_LOGO_TEXT) ?></div>
+                    <p class="kimi-footer-brand-desc"><?= escape(SITE_FOOTER_DESC) ?></p>
+                </div>
+                <div class="kimi-footer-col">
+                    <p class="kimi-footer-heading">Navigation</p>
+                    <a href="<?= url() ?>">Accueil</a>
+                    <a href="<?= url('articles') ?>">Tous les articles</a>
+                </div>
+                <div class="kimi-footer-col">
+                    <p class="kimi-footer-heading">Catégories</p>
+                    <?php foreach($footer_cats as $fc): ?>
+                    <a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
+                    <?php endforeach; ?>
+                </div>
+                <div class="kimi-footer-col">
+                    <p class="kimi-footer-heading">Légal</p>
+                    <a href="<?= url('mentions-legales') ?>">Mentions légales</a>
+                    <a href="<?= url('politique-confidentialite') ?>">Confidentialité</a>
+                    <a href="<?= url('cgu') ?>">CGU</a>
+                </div>
             </div>
-            <div class="kimi-disclaimer">
-                <strong>Avertissement :</strong> Les informations présentes sur ce site sont fournies à titre informatif uniquement et ne constituent pas un avis médical. <?= escape(SITE_FOOTER_DESC) ?>
+            <div class="kimi-footer-bottom">
+                <p>&copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?> — <?= escape(SITE_DOMAIN) ?></p>
+                <div class="kimi-disclaimer">
+                    <strong>Avertissement :</strong> Les informations présentes sur ce site sont fournies à titre informatif uniquement et ne constituent pas un avis médical. Le CBD n'est pas un médicament et ne se substitue pas à un traitement médical.
+                </div>
             </div>
         </div>
     </footer>
