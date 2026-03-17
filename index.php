@@ -369,7 +369,7 @@ if (!function_exists('excerpt')) {
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -386,20 +386,28 @@ if (!function_exists('excerpt')) {
 <body>
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
+    <!-- HEADER TOP BAR -->
+    <div class="k-topbar">
+        <div class="k-container">
+            <?= escape(SITE_NICHE) ?> — Guides, conseils & actualités
+        </div>
+    </div>
+
     <!-- NAVBAR -->
-    <header class="kimi-header">
-        <div class="container">
-            <nav class="kimi-nav">
-                <a href="<?= url() ?>" class="kimi-logo"><?= escape(SITE_LOGO_TEXT) ?></a>
-                <ul class="kimi-nav-links">
+    <header class="k-header">
+        <div class="k-container">
+            <nav class="k-nav">
+                <a href="<?= url() ?>" class="k-logo"><?= escape(SITE_LOGO_TEXT) ?></a>
+                <ul class="k-nav-links">
                     <li><a href="<?= url() ?>">Accueil</a></li>
                     <?php
-                    $cats = $pdo->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' ORDER BY categorie LIMIT 4")->fetchAll();
+                    $cats = $pdo->query("SELECT DISTINCT categorie FROM articles WHERE statut='publie' ORDER BY categorie LIMIT 6")->fetchAll();
                     foreach($cats as $c):
                     ?>
                     <li><a href="/categorie/<?= categorie_slug($c['categorie']) ?>"><?= escape($c['categorie']) ?></a></li>
                     <?php endforeach; ?>
                     <li><a href="<?= url('articles') ?>">Blog</a></li>
+                    <li><a href="<?= url('articles') ?>" class="k-nav-cta">Découvrir</a></li>
                 </ul>
             </nav>
         </div>
@@ -407,65 +415,182 @@ if (!function_exists('excerpt')) {
 
     <main role="main" id="main-content">
 
-    <!-- HERO -->
+    <!-- HERO SECTION — 2 colonnes -->
     <?php if ($hero): ?>
-    <section class="kimi-hero">
-        <div class="container">
-            <h1><?= escape($hero['titre']) ?></h1>
-            <p class="kimi-hero-desc"><?= escape(substr(strip_tags($hero['contenu_html']), 0, 180)) ?>...</p>
-            <a href="<?= url(escape($hero['slug'])) ?>" class="kimi-btn">Lire l'article</a>
-        </div>
-    </section>
-    <?php endif; ?>
-
-    <!-- FEATURES — 3 colonnes depuis BDD -->
-    <?php if ($b1c1 && $b1c2 && $b1c3): ?>
-    <section class="kimi-features">
-        <div class="container">
-            <h2 class="kimi-section-title"><?= escape(SITE_TAGLINE) ?></h2>
-            <div class="kimi-features-grid">
-                <div class="kimi-feature-card">
-                    <h3><span class="kimi-feature-icon"><?= escape($b1c1['image']) ?></span> <?= escape($b1c1['titre']) ?></h3>
-                    <p><?= escape($b1c1['texte']) ?></p>
+    <?php
+    // Stats dynamiques
+    $total_pub = (int)$pdo->query("SELECT COUNT(*) FROM articles WHERE statut='publie'")->fetchColumn();
+    ?>
+    <section class="k-hero">
+        <div class="k-container">
+            <div class="k-hero-grid">
+                <div class="k-hero-content">
+                    <span class="k-hero-badge">⭐ <?= escape(SITE_TAGLINE) ?></span>
+                    <h1><?= escape($hero['titre']) ?></h1>
+                    <p class="k-hero-desc"><?= escape(substr(strip_tags($hero['contenu_html']), 0, 200)) ?>...</p>
+                    <div class="k-hero-buttons">
+                        <a href="<?= url(escape($hero['slug'])) ?>" class="k-btn k-btn-primary">Lire l'article →</a>
+                        <a href="<?= url('articles') ?>" class="k-btn k-btn-secondary">Tous nos guides</a>
+                    </div>
+                    <div class="k-hero-stats">
+                        <div class="k-hero-stat">
+                            <span class="k-hero-stat-num"><?= $total_pub ?>+</span>
+                            <span class="k-hero-stat-label">Articles publiés</span>
+                        </div>
+                        <div class="k-hero-stat">
+                            <span class="k-hero-stat-num"><?= count($cats) ?></span>
+                            <span class="k-hero-stat-label">Catégories</span>
+                        </div>
+                        <div class="k-hero-stat">
+                            <span class="k-hero-stat-num">4.9/5</span>
+                            <span class="k-hero-stat-label">Note moyenne</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="kimi-feature-card">
-                    <h3><span class="kimi-feature-icon"><?= escape($b1c2['image']) ?></span> <?= escape($b1c2['titre']) ?></h3>
-                    <p><?= escape($b1c2['texte']) ?></p>
-                </div>
-                <div class="kimi-feature-card">
-                    <h3><span class="kimi-feature-icon"><?= escape($b1c3['image']) ?></span> <?= escape($b1c3['titre']) ?></h3>
-                    <p><?= escape($b1c3['texte']) ?></p>
+                <div class="k-hero-image">
+                    <img src="<?= escape($hero['image']) ?>" alt="<?= escape($hero['titre']) ?>" width="600" height="400" fetchpriority="high">
                 </div>
             </div>
         </div>
     </section>
     <?php endif; ?>
 
-    <!-- BLOC 2 — texte + chiffres clés -->
-    <?php if ($b2): ?>
-    <section class="kimi-content-block">
-        <div class="container">
-            <div class="kimi-content-grid">
-                <div class="kimi-content-body">
-                    <h2><?= escape($b2['titre']) ?></h2>
-                    <div class="kimi-content-text">
-                        <?= nl2br(escape($b2['texte'])) ?>
-                    </div>
-                    <?php
-                    $chiffres = json_decode($b2['lien'] ?? '[]', true);
-                    if (!empty($chiffres)):
-                    ?>
-                    <div class="kimi-stats">
-                        <?php foreach ($chiffres as $c): ?>
-                        <div class="kimi-stat">
-                            <span class="kimi-stat-num"><?= escape($c['num']) ?></span>
-                            <span class="kimi-stat-label"><?= escape($c['label']) ?></span>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
+    <!-- TRUST BAR -->
+    <section class="k-trust-bar">
+        <div class="k-container">
+            <div class="k-trust-grid">
+                <div class="k-trust-item">
+                    <span class="k-trust-icon">🌿</span>
+                    <div><strong>100% Naturel</strong><br><span>Produits certifiés</span></div>
+                </div>
+                <div class="k-trust-item">
+                    <span class="k-trust-icon">🚚</span>
+                    <div><strong>Guides complets</strong><br><span>Conseils d'experts</span></div>
+                </div>
+                <div class="k-trust-item">
+                    <span class="k-trust-icon">🔒</span>
+                    <div><strong>Sources vérifiées</strong><br><span>Études scientifiques</span></div>
+                </div>
+                <div class="k-trust-item">
+                    <span class="k-trust-icon">✅</span>
+                    <div><strong>Mis à jour</strong><br><span>Contenu régulier</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES — depuis BDD -->
+    <?php if (!empty($cats)): ?>
+    <section class="k-categories">
+        <div class="k-container">
+            <div class="k-section-header">
+                <span class="k-section-tag">Découvrez nos thématiques</span>
+                <h2>Nos catégories</h2>
+                <p>Une sélection complète de guides et articles pour tous vos besoins</p>
+            </div>
+            <div class="k-cat-grid">
+                <?php
+                $cat_icons = ['💧', '🌸', '✨', '🍬', '🌿', '🔬', '💪', '🧘'];
+                $i = 0;
+                foreach($cats as $c):
+                    $icon = $cat_icons[$i % count($cat_icons)];
+                    $cat_count = (int)$pdo->prepare("SELECT COUNT(*) FROM articles WHERE statut='publie' AND categorie = ?");
+                    $stmt_cat = $pdo->prepare("SELECT COUNT(*) FROM articles WHERE statut='publie' AND categorie = ?");
+                    $stmt_cat->execute([$c['categorie']]);
+                    $cat_count = (int)$stmt_cat->fetchColumn();
+                ?>
+                <a href="/categorie/<?= categorie_slug($c['categorie']) ?>" class="k-cat-card">
+                    <div class="k-cat-icon"><?= $icon ?></div>
+                    <h3><?= escape($c['categorie']) ?></h3>
+                    <p><?= $cat_count ?> article<?= $cat_count > 1 ? 's' : '' ?> disponible<?= $cat_count > 1 ? 's' : '' ?></p>
+                    <span class="k-cat-link">Découvrir →</span>
+                </a>
+                <?php $i++; endforeach; ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- BENEFITS — 3 colonnes depuis homepage_content -->
+    <?php if ($b1c1 && $b1c2 && $b1c3): ?>
+    <section class="k-benefits">
+        <div class="k-container">
+            <div class="k-section-header">
+                <span class="k-section-tag">Bienfaits</span>
+                <h2>Les bienfaits du <?= escape(SITE_NICHE) ?></h2>
+                <p>Découvrez comment améliorer votre quotidien</p>
+            </div>
+            <div class="k-benefits-grid">
+                <div class="k-benefit-card">
+                    <div class="k-benefit-icon"><?= escape($b1c1['image']) ?></div>
+                    <h3><?= escape($b1c1['titre']) ?></h3>
+                    <p><?= escape($b1c1['texte']) ?></p>
+                    <?php if ($b1c1['lien']): ?>
+                    <a href="<?= escape($b1c1['lien']) ?>" class="k-link-arrow"><?= escape($b1c1['lien_texte']) ?> →</a>
                     <?php endif; ?>
                 </div>
-                <div class="kimi-content-img">
+                <div class="k-benefit-card">
+                    <div class="k-benefit-icon"><?= escape($b1c2['image']) ?></div>
+                    <h3><?= escape($b1c2['titre']) ?></h3>
+                    <p><?= escape($b1c2['texte']) ?></p>
+                    <?php if ($b1c2['lien']): ?>
+                    <a href="<?= escape($b1c2['lien']) ?>" class="k-link-arrow"><?= escape($b1c2['lien_texte']) ?> →</a>
+                    <?php endif; ?>
+                </div>
+                <div class="k-benefit-card">
+                    <div class="k-benefit-icon"><?= escape($b1c3['image']) ?></div>
+                    <h3><?= escape($b1c3['titre']) ?></h3>
+                    <p><?= escape($b1c3['texte']) ?></p>
+                    <?php if ($b1c3['lien']): ?>
+                    <a href="<?= escape($b1c3['lien']) ?>" class="k-link-arrow"><?= escape($b1c3['lien_texte']) ?> →</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- WHY US — Section sombre avec engagements -->
+    <?php if ($bdark): ?>
+    <section class="k-why-us">
+        <div class="k-container">
+            <div class="k-section-header k-section-header-light">
+                <h2><?= escape($bdark['titre']) ?></h2>
+                <p><?= escape($bdark['texte']) ?></p>
+            </div>
+            <?php
+            // Chiffres clés depuis bloc_2
+            $chiffres = $b2 ? json_decode($b2['lien'] ?? '[]', true) : [];
+            if (!empty($chiffres)):
+            ?>
+            <div class="k-why-grid">
+                <?php
+                $why_icons = ['🌱', '⚖️', '🔬', '📚'];
+                $wi = 0;
+                foreach ($chiffres as $ch):
+                ?>
+                <div class="k-why-card">
+                    <div class="k-why-icon"><?= $why_icons[$wi % 4] ?></div>
+                    <h3><?= escape($ch['num']) ?></h3>
+                    <p><?= escape($ch['label']) ?></p>
+                </div>
+                <?php $wi++; endforeach; ?>
+            </div>
+            <?php endif; ?>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- BLOC CONTENU SEO — bloc_2 texte + image -->
+    <?php if ($b2): ?>
+    <section class="k-content-section">
+        <div class="k-container">
+            <div class="k-content-grid">
+                <div class="k-content-body">
+                    <h2><?= escape($b2['titre']) ?></h2>
+                    <div class="k-content-text"><?= nl2br(escape($b2['texte'])) ?></div>
+                </div>
+                <div class="k-content-img">
                     <img src="images/article-2.webp" alt="<?= escape($b2['titre']) ?>" width="600" height="420" loading="lazy">
                 </div>
             </div>
@@ -473,79 +598,103 @@ if (!function_exists('excerpt')) {
     </section>
     <?php endif; ?>
 
-    <!-- BLOC DARK — bandeau sombre centré -->
-    <?php if ($bdark): ?>
-    <section class="kimi-dark-band">
-        <div class="container">
-            <h2><?= escape($bdark['titre']) ?></h2>
-            <p><?= escape($bdark['texte']) ?></p>
-        </div>
-    </section>
-    <?php endif; ?>
-
-    <!-- BLOC 4 — image + texte SEO -->
+    <!-- BLOC CONTENU SEO — bloc_4 image + texte (inversé) -->
     <?php if ($b4): ?>
-    <section class="kimi-content-block kimi-content-reverse">
-        <div class="container">
-            <div class="kimi-content-grid">
-                <div class="kimi-content-img">
+    <section class="k-content-section k-content-reverse">
+        <div class="k-container">
+            <div class="k-content-grid">
+                <div class="k-content-img">
                     <img src="images/article-3.webp" alt="<?= escape($b4['titre']) ?>" width="600" height="520" loading="lazy">
                 </div>
-                <div class="kimi-content-body">
+                <div class="k-content-body">
                     <h2><?= escape($b4['titre']) ?></h2>
-                    <div class="kimi-content-text">
-                        <?= nl2br(escape($b4['texte'])) ?>
-                    </div>
+                    <div class="k-content-text"><?= nl2br(escape($b4['texte'])) ?></div>
                 </div>
             </div>
         </div>
     </section>
     <?php endif; ?>
 
-    <!-- BLOC 5 — bandeau CTA -->
-    <?php if ($b5): ?>
-    <section class="kimi-cta-band">
-        <div class="container">
-            <h2><?= escape($b5['titre']) ?></h2>
-            <p><?= escape($b5['texte']) ?></p>
-            <a href="<?= escape($b5['lien']) ?>" class="kimi-btn"><?= escape($b5['lien_texte']) ?></a>
-        </div>
-    </section>
-    <?php endif; ?>
-
-    <!-- DERNIERS ARTICLES -->
+    <!-- BLOG — Derniers articles -->
     <?php
     $recents = $pdo->query("
         SELECT * FROM articles
         WHERE statut='publie' AND est_hero=0
-        ORDER BY date_publication DESC LIMIT 4
+        ORDER BY date_publication DESC LIMIT 3
     ")->fetchAll();
     ?>
     <?php if (!empty($recents)): ?>
-    <section class="kimi-articles">
-        <div class="container">
-            <h2 class="kimi-section-title">Nos derniers articles</h2>
-            <div class="kimi-articles-grid">
+    <section class="k-blog">
+        <div class="k-container">
+            <div class="k-section-header">
+                <span class="k-section-tag">Blog</span>
+                <h2>Derniers articles</h2>
+                <p>Conseils, guides et actualités</p>
+            </div>
+            <div class="k-blog-grid">
                 <?php foreach($recents as $a): ?>
-                <a href="<?= url(escape($a['slug'])) ?>" class="kimi-article-card">
-                    <div class="kimi-article-img">
-                        <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" width="600" height="220" loading="lazy">
-                        <span class="kimi-badge"><?= escape($a['categorie']) ?></span>
+                <a href="<?= url(escape($a['slug'])) ?>" class="k-blog-card">
+                    <div class="k-blog-image">
+                        <img src="<?= escape($a['image']) ?>" alt="<?= escape($a['titre']) ?>" width="400" height="180" loading="lazy">
                     </div>
-                    <div class="kimi-article-body">
+                    <div class="k-blog-content">
+                        <div class="k-blog-meta">
+                            <span><?= escape($a['categorie']) ?></span>
+                            <span><?= date('d M Y', strtotime($a['date_publication'])) ?></span>
+                            <span><?= $a['read_time'] ?? 5 ?> min</span>
+                        </div>
                         <h3><?= escape($a['titre']) ?></h3>
                         <p><?= escape(substr(strip_tags($a['contenu_html']), 0, 130)) ?>...</p>
-                        <div class="kimi-article-meta">
-                            <span><?= date('d M Y', strtotime($a['date_publication'])) ?></span>
-                            <span><?= $a['read_time'] ?? 5 ?> min de lecture</span>
-                        </div>
+                        <span class="k-link-arrow">Lire l'article →</span>
                     </div>
                 </a>
                 <?php endforeach; ?>
             </div>
+            <div class="k-blog-more">
+                <a href="<?= url('articles') ?>" class="k-btn k-btn-secondary">Voir tous les articles</a>
+            </div>
         </div>
     </section>
     <?php endif; ?>
+
+    <!-- CTA SECTION -->
+    <?php if ($b5): ?>
+    <section class="k-cta">
+        <div class="k-container">
+            <h2><?= escape($b5['titre']) ?></h2>
+            <p><?= escape($b5['texte']) ?></p>
+            <a href="<?= escape($b5['lien']) ?>" class="k-btn k-btn-white"><?= escape($b5['lien_texte']) ?></a>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- FAQ SECTION -->
+    <section class="k-faq">
+        <div class="k-container">
+            <div class="k-section-header">
+                <span class="k-section-tag">FAQ</span>
+                <h2>Questions fréquentes</h2>
+            </div>
+            <div class="k-faq-grid">
+                <div class="k-faq-item">
+                    <h4>Le CBD est-il légal en France ?</h4>
+                    <p>Oui, le CBD est légal en France à condition que les produits contiennent moins de 0,3% de THC. Tous les produits recommandés respectent cette législation.</p>
+                </div>
+                <div class="k-faq-item">
+                    <h4>Le CBD fait-il planer ?</h4>
+                    <p>Non, le CBD n'a pas d'effet psychoactif et ne provoque pas de sensation planante. Contrairement au THC, le CBD n'affecte pas la conscience.</p>
+                </div>
+                <div class="k-faq-item">
+                    <h4>Quelle dose de CBD pour commencer ?</h4>
+                    <p>Il est recommandé de commencer par une dose faible (10-20mg par jour) et d'augmenter progressivement jusqu'à trouver la dose optimale.</p>
+                </div>
+                <div class="k-faq-item">
+                    <h4>Combien de temps durent les effets ?</h4>
+                    <p>Les effets du CBD durent généralement 4 à 6 heures selon le mode de consommation et la dose ingérée.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     </main>
 
@@ -555,21 +704,42 @@ if (!function_exists('excerpt')) {
         "SELECT DISTINCT categorie FROM articles WHERE statut='publie' LIMIT 5"
     )->fetchAll();
     ?>
-    <footer class="kimi-footer">
-        <div class="container">
-            <p>&copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?>. Tous droits réservés.</p>
-            <div class="kimi-footer-links">
-                <a href="<?= url() ?>">Accueil</a>
-                <a href="<?= url('articles') ?>">Blog</a>
-                <?php foreach($footer_cats as $fc): ?>
-                <a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a>
-                <?php endforeach; ?>
-                <a href="<?= url('mentions-legales') ?>">Mentions légales</a>
-                <a href="<?= url('politique-confidentialite') ?>">Confidentialité</a>
-                <a href="<?= url('cgu') ?>">CGU</a>
+    <footer class="k-footer">
+        <div class="k-container">
+            <div class="k-footer-grid">
+                <div class="k-footer-col k-footer-brand-col">
+                    <div class="k-footer-brand"><?= escape(SITE_LOGO_TEXT) ?></div>
+                    <p><?= escape(SITE_FOOTER_DESC) ?></p>
+                </div>
+                <div class="k-footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="<?= url() ?>">Accueil</a></li>
+                        <li><a href="<?= url('articles') ?>">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="k-footer-col">
+                    <h4>Catégories</h4>
+                    <ul>
+                        <?php foreach($footer_cats as $fc): ?>
+                        <li><a href="/categorie/<?= categorie_slug($fc['categorie']) ?>"><?= escape($fc['categorie']) ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <div class="k-footer-col">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="<?= url('mentions-legales') ?>">Mentions légales</a></li>
+                        <li><a href="<?= url('politique-confidentialite') ?>">Confidentialité</a></li>
+                        <li><a href="<?= url('cgu') ?>">CGU</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="kimi-disclaimer">
-                <strong>Avertissement :</strong> Les informations présentes sur ce site sont fournies à titre informatif uniquement et ne constituent pas un avis médical. <?= escape(SITE_FOOTER_DESC) ?>
+            <div class="k-footer-bottom">
+                <p>&copy; <?= date('Y') ?> <?= escape(SITE_NAME) ?>. Tous droits réservés.</p>
+                <div class="k-disclaimer">
+                    <strong>Avertissement :</strong> Les informations présentes sur ce site sont fournies à titre informatif uniquement et ne constituent pas un avis médical. Le CBD n'est pas un médicament et ne se substitue pas à un traitement médical. Consultez toujours un professionnel de santé avant de consommer du CBD. Les produits CBD vendus en France contiennent moins de 0,3% de THC conformément à la législation en vigueur.
+                </div>
             </div>
         </div>
     </footer>
