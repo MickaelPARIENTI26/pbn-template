@@ -422,7 +422,7 @@ if (!function_exists('excerpt')) {
         </div>
     </header>
 
-    <main role="main" id="main-content">
+    <main id="main-content">
 
     <!-- HERO -->
     <?php if ($hero): ?>
@@ -470,7 +470,7 @@ if (!function_exists('excerpt')) {
                 <div class="kimi-content-body">
                     <h2><?= escape($b2['titre']) ?></h2>
                     <div class="kimi-content-text">
-                        <?= nl2br(escape($b2['texte'])) ?>
+                        <?= nl2br(escape($b2['texte']), false) ?>
                     </div>
                     <?php
                     $chiffres = json_decode($b2['lien'] ?? '[]', true);
@@ -515,7 +515,7 @@ if (!function_exists('excerpt')) {
                 <div class="kimi-content-body">
                     <h2><?= escape($b4['titre']) ?></h2>
                     <div class="kimi-content-text">
-                        <?= nl2br(escape($b4['texte'])) ?>
+                        <?= nl2br(escape($b4['texte']), false) ?>
                     </div>
                 </div>
             </div>
