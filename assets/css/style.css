@@ -396,759 +396,491 @@ textarea:focus-visible {
 }
 
 /* ============================================
-   KIMI DESIGN — Exact Replica
+   KIMI DESIGN — Clean & Minimal Homepage
    ============================================ */
 
-/* === K-CONTAINER === */
-.k-container {
+/* === CONTAINER === */
+.container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* === TOP BAR === */
-.k-topbar {
-    background: var(--color-primary);
-    color: #fff;
-    text-align: center;
-    padding: 8px 20px;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-/* === HEADER / NAV === */
-.k-header {
+/* === KIMI HEADER === */
+.kimi-header {
     background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-.k-nav {
+.kimi-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
 }
 
-.k-logo {
-    font-size: 1.75rem;
-    font-weight: 800;
+.kimi-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--color-primary);
     text-decoration: none;
-    transition: opacity 0.3s;
-}
-
-.k-logo:hover { opacity: 0.8; }
-
-.k-nav-links {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 0.5rem;
+    transition: opacity var(--transition-fast);
+}
+
+.kimi-logo:hover {
+    opacity: 0.8;
+}
+
+.kimi-nav-links {
+    display: flex;
+    gap: 2rem;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.k-nav-links a {
+.kimi-nav-links a {
     text-decoration: none;
     color: var(--mid);
     font-weight: 500;
     font-size: 0.95rem;
-    transition: color 0.3s;
+    transition: color var(--transition-fast);
 }
 
-.k-nav-links a:hover { color: var(--color-primary); }
-
-.k-nav-cta {
-    background: var(--color-primary) !important;
-    color: #fff !important;
-    padding: 0.6rem 1.25rem;
-    border-radius: 50px;
-    font-weight: 600 !important;
-    transition: all 0.3s !important;
+.kimi-nav-links a:hover {
+    color: var(--color-primary);
 }
 
-.k-nav-cta:hover {
-    background: var(--color-primary-light) !important;
-    transform: translateY(-2px);
-}
-
-/* === HERO === */
-.k-hero {
+/* === KIMI HERO === */
+.kimi-hero {
     padding: 5rem 0 4rem;
-    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #ffffff 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.k-hero::after {
-    content: '🌿';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    font-size: 400px;
-    opacity: 0.03;
-    pointer-events: none;
-}
-
-.k-hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.k-hero-badge {
-    display: inline-block;
-    background: white;
-    color: var(--color-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    margin-bottom: 1.5rem;
-}
-
-.k-hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--dark);
-    margin-bottom: 1.25rem;
-}
-
-.k-hero-desc {
-    font-size: 1.25rem;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 2rem;
-    max-width: 540px;
-}
-
-/* Buttons */
-.k-hero-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-}
-
-.k-btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: all 0.3s;
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.k-btn-primary {
-    background: var(--color-primary);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(5,150,105,0.3);
-}
-
-.k-btn-primary:hover {
-    background: var(--color-primary-light);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(5,150,105,0.35);
-    color: #fff;
-}
-
-.k-btn-secondary {
-    background: #fff;
-    color: var(--dark);
-    border-color: var(--border);
-}
-
-.k-btn-secondary:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-}
-
-.k-btn-white {
-    background: #fff;
-    color: var(--color-primary);
-    font-weight: 700;
-}
-
-.k-btn-white:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* Hero Stats */
-.k-hero-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-}
-
-.k-hero-stat-num {
-    display: block;
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--color-primary);
-    line-height: 1;
-    margin-bottom: 0.25rem;
-}
-
-.k-hero-stat-label {
-    font-size: 0.875rem;
-    color: var(--muted);
-}
-
-/* Hero Image */
-.k-hero-image img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-}
-
-/* === TRUST BAR === */
-.k-trust-bar {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 2rem 0;
-}
-
-.k-trust-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-}
-
-.k-trust-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    text-align: left;
-}
-
-.k-trust-icon {
-    font-size: 1.5rem;
-}
-
-.k-trust-item strong {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--dark);
-}
-
-.k-trust-item span {
-    font-size: 0.8rem;
-    color: var(--muted);
-}
-
-/* === SECTION HEADER (reusable) === */
-.k-section-header {
     text-align: center;
-    margin-bottom: 3rem;
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb, 5, 150, 105), 0.03) 0%, var(--light) 100%);
 }
 
-.k-section-tag {
-    display: inline-block;
-    background: #ecfdf5;
-    color: var(--color-primary);
-    padding: 0.4rem 1rem;
-    border-radius: 50px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.k-section-header h2 {
-    font-size: 2.5rem;
+.kimi-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
     color: var(--dark);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.k-section-header p {
-    font-size: 1.1rem;
+.kimi-hero-desc {
+    font-size: 1.15rem;
     color: var(--muted);
     max-width: 600px;
-    margin: 0 auto;
-}
-
-.k-section-header-light h2 { color: #fff; }
-.k-section-header-light p { color: rgba(255,255,255,0.8); }
-
-/* === CATEGORIES === */
-.k-categories {
-    background: #f9fafb;
-    padding: 5rem 0;
-}
-
-.k-cat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-}
-
-.k-cat-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 2rem;
-    text-align: center;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: all 0.3s;
-}
-
-.k-cat-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-
-.k-cat-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-    border-radius: 20px;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.k-cat-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 0.5rem;
-}
-
-.k-cat-card p {
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
-    line-height: 1.5;
-}
-
-.k-cat-link {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-primary);
-}
-
-/* === BENEFITS === */
-.k-benefits {
-    background: #fff;
-    padding: 5rem 0;
-}
-
-.k-benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.k-benefit-card {
-    background: linear-gradient(135deg, #f9fafb, #fff);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 2.5rem;
-    text-align: center;
-    transition: all 0.3s;
-}
-
-.k-benefit-card:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 10px 30px rgba(5,150,105,0.1);
-}
-
-.k-benefit-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-    border-radius: 50%;
-    font-size: 2rem;
-    margin-bottom: 1.25rem;
-}
-
-.k-benefit-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 0.75rem;
-}
-
-.k-benefit-card p {
-    font-size: 0.95rem;
-    color: var(--muted);
+    margin: 0 auto 2rem;
     line-height: 1.7;
-    margin-bottom: 1rem;
 }
 
-.k-link-arrow {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-primary);
+/* === KIMI BUTTON === */
+.kimi-btn {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background: var(--color-primary);
+    color: white;
     text-decoration: none;
-    transition: all 0.2s;
-}
-
-.k-link-arrow:hover {
-    color: var(--color-primary-light);
-}
-
-/* === WHY US (dark section) === */
-.k-why-us {
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    color: #fff;
-    padding: 5rem 0;
-}
-
-.k-why-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-top: 1rem;
-}
-
-.k-why-card {
-    text-align: center;
-    padding: 2rem;
-}
-
-.k-why-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.k-why-card h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-.k-why-card p {
+    border-radius: 0.5rem;
+    font-weight: 600;
     font-size: 0.95rem;
-    color: rgba(255,255,255,0.7);
-    line-height: 1.6;
+    transition: all var(--transition-base);
+    border: none;
+    cursor: pointer;
 }
 
-/* === CONTENT SECTIONS (bloc_2, bloc_4) === */
-.k-content-section {
-    padding: 5rem 0;
-    background: #f9fafb;
+.kimi-btn:hover {
+    background: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    color: white;
 }
 
-.k-content-section.k-content-reverse {
-    background: #fff;
+/* === KIMI FEATURES === */
+.kimi-features {
+    padding: 4rem 0;
+    background: white;
 }
 
-.k-content-grid {
+.kimi-section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 2rem;
+}
+
+.kimi-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.kimi-feature-card {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    text-align: center;
+    transition: all var(--transition-base);
+    background: white;
+}
+
+.kimi-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--color-primary);
+}
+
+.kimi-feature-card h3 {
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.kimi-feature-icon {
+    font-size: 1.3rem;
+    margin-right: 0.25rem;
+}
+
+.kimi-feature-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* === KIMI CONTENT BLOCKS (bloc_2, bloc_4) === */
+.kimi-content-block {
+    padding: 4rem 0;
+    background: var(--cream);
+}
+
+.kimi-content-block.kimi-content-reverse {
+    background: white;
+}
+
+.kimi-content-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 3rem;
     align-items: center;
 }
 
-.k-content-reverse .k-content-grid {
+.kimi-content-reverse .kimi-content-grid {
     direction: rtl;
 }
 
-.k-content-reverse .k-content-body,
-.k-content-reverse .k-content-img {
+.kimi-content-reverse .kimi-content-body {
     direction: ltr;
 }
 
-.k-content-body h2 {
-    font-size: 2.2rem;
+.kimi-content-reverse .kimi-content-img {
+    direction: ltr;
+}
+
+.kimi-content-body h2 {
+    font-size: 2rem;
     font-weight: 700;
     color: var(--dark);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     line-height: 1.2;
 }
 
-.k-content-text {
+.kimi-content-text {
     font-size: 1rem;
-    line-height: 1.85;
+    line-height: 1.8;
     color: var(--muted);
+    margin-bottom: 1.5rem;
 }
 
-.k-content-img img {
+.kimi-content-img img {
     width: 100%;
     height: 400px;
     object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    border-radius: 1rem;
 }
 
-/* === BLOG === */
-.k-blog {
-    background: #fff;
+/* === KIMI STATS (chiffres clés) === */
+.kimi-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.kimi-stat {
+    flex: 1;
+    min-width: 140px;
+    padding: 1.25rem;
+    background: white;
+    border-radius: 0.75rem;
+    border-left: 3px solid var(--color-primary);
+    transition: all var(--transition-base);
+}
+
+.kimi-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.kimi-stat-num {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.kimi-stat-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+/* === KIMI DARK BAND === */
+.kimi-dark-band {
+    background: var(--dark);
     padding: 5rem 0;
+    text-align: center;
 }
 
-.k-blog-grid {
+.kimi-dark-band h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.kimi-dark-band p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* === KIMI CTA BAND (bloc_5) === */
+.kimi-cta-band {
+    padding: 4rem 0;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb, 5, 150, 105), 0.05) 0%, var(--cream) 100%);
+}
+
+.kimi-cta-band h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.kimi-cta-band p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+}
+
+/* === KIMI ARTICLES GRID === */
+.kimi-articles {
+    padding: 5rem 0;
+    background: var(--light);
+}
+
+.kimi-articles-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
 }
 
-.k-blog-card {
-    background: #fff;
-    border-radius: 16px;
+.kimi-article-card {
+    background: white;
+    border-radius: 1rem;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: all 0.3s;
+    transition: all var(--transition-base);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.k-blog-card:hover {
+.kimi-article-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.k-blog-image {
-    height: 180px;
+.kimi-article-img {
+    position: relative;
     overflow: hidden;
+    height: 200px;
 }
 
-.k-blog-image img {
+.kimi-article-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
 }
 
-.k-blog-card:hover .k-blog-image img {
+.kimi-article-card:hover .kimi-article-img img {
     transform: scale(1.06);
 }
 
-.k-blog-content {
-    padding: 1.5rem;
+.kimi-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-primary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 9999px;
 }
 
-.k-blog-meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
+.kimi-article-body {
+    padding: 1.25rem 1.5rem 1.5rem;
 }
 
-.k-blog-content h3 {
+.kimi-article-body h3 {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--dark);
     margin-bottom: 0.5rem;
     line-height: 1.35;
-    transition: color 0.2s;
+    transition: color var(--transition-fast);
 }
 
-.k-blog-card:hover h3 { color: var(--color-primary); }
+.kimi-article-card:hover .kimi-article-body h3 {
+    color: var(--color-primary);
+}
 
-.k-blog-content p {
+.kimi-article-body p {
     font-size: 0.9rem;
     color: var(--muted);
     line-height: 1.6;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.k-blog-more {
-    text-align: center;
-    margin-top: 2.5rem;
-}
-
-/* === CTA === */
-.k-cta {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-    color: #fff;
-    padding: 5rem 0;
-    text-align: center;
-}
-
-.k-cta h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.k-cta p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    line-height: 1.7;
-}
-
-/* === FAQ === */
-.k-faq {
-    background: #fff;
-    padding: 5rem 0;
-}
-
-.k-faq-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.k-faq-item {
-    background: #f9fafb;
-    border-radius: 12px;
-    padding: 1.5rem;
-}
-
-.k-faq-item h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 0.5rem;
-}
-
-.k-faq-item p {
-    font-size: 0.9rem;
+.kimi-article-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
     color: var(--muted);
-    line-height: 1.6;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
 }
 
-/* === FOOTER === */
-.k-footer {
-    background: #111827;
-    color: #fff;
-    padding: 4rem 0 2rem;
+/* === KIMI FOOTER === */
+.kimi-footer {
+    background: var(--dark);
+    color: white;
+    padding: 2.5rem 0;
+    text-align: center;
 }
 
-.k-footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-}
-
-.k-footer-brand {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #fff;
+.kimi-footer > .container > p {
     margin-bottom: 1rem;
+    font-size: 0.95rem;
 }
 
-.k-footer-brand-col p {
-    color: #9ca3af;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    margin: 0;
-}
-
-.k-footer-col h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
+.kimi-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 1.5rem;
     margin-bottom: 1.5rem;
 }
 
-.k-footer-col ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.k-footer-col ul li {
-    margin-bottom: 0.75rem;
-}
-
-.k-footer-col ul a {
-    color: #9ca3af;
+.kimi-footer-links a {
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.3s;
+    transition: color var(--transition-fast);
 }
 
-.k-footer-col ul a:hover {
-    color: var(--color-primary);
+.kimi-footer-links a:hover {
+    color: white;
 }
 
-.k-footer-bottom {
-    border-top: 1px solid #1f2937;
-    padding-top: 2rem;
-    text-align: center;
-}
-
-.k-footer-bottom p {
-    color: var(--muted);
+.kimi-disclaimer {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
     font-size: 0.85rem;
-    margin-bottom: 1rem;
-}
-
-.k-disclaimer {
-    background: #1f2937;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    color: var(--muted);
+    color: rgba(255, 255, 255, 0.5);
     line-height: 1.6;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
-.k-disclaimer strong {
-    color: #9ca3af;
+.kimi-disclaimer strong {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* === KIMI RESPONSIVE === */
-@media (max-width: 1024px) {
-    .k-hero-grid { grid-template-columns: 1fr; text-align: center; }
-    .k-hero-content h1 { font-size: 2.5rem; }
-    .k-hero-desc { margin-left: auto; margin-right: auto; }
-    .k-hero-buttons { justify-content: center; }
-    .k-hero-image { display: none; }
-    .k-cat-grid { grid-template-columns: repeat(2, 1fr); }
-    .k-benefits-grid { grid-template-columns: repeat(2, 1fr); }
-    .k-blog-grid { grid-template-columns: repeat(2, 1fr); }
-    .k-why-grid { grid-template-columns: repeat(2, 1fr); }
-    .k-trust-grid { grid-template-columns: repeat(2, 1fr); }
-    .k-footer-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
 @media (max-width: 768px) {
-    .k-nav-links { display: none; }
-    .k-hero { padding: 3rem 0; }
-    .k-hero-content h1 { font-size: 2rem; }
-    .k-hero-stats { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .k-hero-stat-num { font-size: 1.5rem; }
-    .k-trust-grid { grid-template-columns: 1fr; }
-    .k-cat-grid { grid-template-columns: 1fr; }
-    .k-benefits-grid { grid-template-columns: 1fr; }
-    .k-blog-grid { grid-template-columns: 1fr; }
-    .k-why-grid { grid-template-columns: 1fr; }
-    .k-faq-grid { grid-template-columns: 1fr; }
-    .k-content-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .k-content-reverse .k-content-grid { direction: ltr; }
-    .k-content-img img { height: 280px; }
-    .k-footer-grid { grid-template-columns: 1fr; }
-    .k-section-header h2 { font-size: 2rem; }
-    .k-cta h2 { font-size: 2rem; }
-    .k-hero-buttons { flex-direction: column; align-items: center; }
-    .k-topbar { font-size: 0.75rem; padding: 6px 10px; }
+    .kimi-hero {
+        padding: 3rem 0 2.5rem;
+    }
+
+    .kimi-hero h1 {
+        font-size: 2rem;
+    }
+
+    .kimi-nav-links {
+        display: none;
+    }
+
+    .kimi-features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kimi-content-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .kimi-content-reverse .kimi-content-grid {
+        direction: ltr;
+    }
+
+    .kimi-content-img img {
+        height: 280px;
+    }
+
+    .kimi-stats {
+        flex-direction: column;
+    }
+
+    .kimi-articles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kimi-dark-band {
+        padding: 3rem 0;
+    }
+
+    .kimi-footer-links {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 }
 
 /* ============================================
