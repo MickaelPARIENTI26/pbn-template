@@ -20,13 +20,30 @@ try {
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 $filepath = __DIR__ . '/' . $uri;
 
-// Servir les fichiers statiques directement (PHP built-in server)
+// Servir les fichiers statiques avec cache headers
 if ($uri !== '' && file_exists($filepath) && !is_dir($filepath)) {
-    // Fichiers statiques : laisser le serveur les servir
-    if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/i', $uri)) {
-        return false;
+    if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|webp|avif)$/i', $uri, $ext)) {
+        $mime_types = [
+            'css' => 'text/css',
+            'js' => 'application/javascript',
+            'svg' => 'image/svg+xml',
+            'png' => 'image/png',
+            'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg',
+            'gif' => 'image/gif',
+            'webp' => 'image/webp',
+            'avif' => 'image/avif',
+            'ico' => 'image/x-icon',
+            'woff' => 'font/woff',
+            'woff2' => 'font/woff2',
+            'ttf' => 'font/ttf',
+            'eot' => 'application/vnd.ms-fontobject',
+        ];
+        $e = strtolower($ext[1]);
+        header('Content-Type: ' . ($mime_types[$e] ?? 'application/octet-stream'));
+        header('Cache-Control: public, max-age=31536000, immutable');
+        readfile($filepath);
+        exit;
     }
-    // Fichiers PHP autres que index.php
     if (str_ends_with($uri, '.php')) {
         return false;
     }
