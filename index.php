@@ -362,16 +362,14 @@ if (!function_exists('excerpt')) {
     }
     </script>
 
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="/assets/css/style.css" as="style">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Google Fonts — chargement non-bloquant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap"></noscript>
 
     <!-- Variables CSS injectées -->
     <style>
@@ -593,7 +591,7 @@ if (!function_exists('excerpt')) {
     </footer>
 
     <!-- Custom JS -->
-    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/main.js" defer></script>
 
 </body>
 </html>
