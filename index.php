@@ -362,23 +362,55 @@ if (!function_exists('excerpt')) {
     }
     </script>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Critical CSS inliné (above-the-fold) -->
+    <style>
+        :root {
+            --color-primary: <?= COLOR_PRIMARY ?>;
+            --color-primary-light: <?= COLOR_PRIMARY_LIGHT ?>;
+            --color-accent: <?= COLOR_ACCENT ?>;
+            --dark: #111827;
+            --mid: #4b5563;
+            --light: #ffffff;
+            --border: #e5e7eb;
+            --muted: #6b7280;
+            --cream: #f9fafb;
+            --font-display: 'Lora', Georgia, serif;
+            --font-body: 'Raleway', system-ui, sans-serif;
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; background: var(--light); font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--dark); -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, h4, h5 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0; }
+        p { margin: 0; }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .skip-link { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: #fff; padding: 12px 24px; z-index: 9999; border-radius: 16px; }
+        .skip-link:focus { top: 16px; }
+        .kimi-header { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 1000; }
+        .kimi-nav { display: flex; justify-content: space-between; align-items: center; height: 72px; }
+        .kimi-logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--dark); text-decoration: none; letter-spacing: -0.02em; }
+        .kimi-nav-links { display: flex; align-items: center; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+        .kimi-nav-links a { text-decoration: none; color: var(--mid); font-weight: 500; font-size: 0.88rem; padding: 8px 16px; border-radius: 9999px; }
+        .kimi-hero { padding: 6rem 0 5rem; text-align: center; background: var(--color-primary); position: relative; overflow: hidden; }
+        .kimi-hero .container { position: relative; z-index: 1; }
+        .kimi-hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem,5vw,3.2rem); font-weight: 700; color: #fff; margin: 0 auto 1.25rem; line-height: 1.15; max-width: 750px; letter-spacing: -0.02em; }
+        .kimi-hero-desc { font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7; }
+        .kimi-btn { display: inline-block; padding: 14px 32px; background: #fff; color: var(--color-primary); text-decoration: none; border-radius: 9999px; font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        @media (max-width: 768px) { .kimi-nav-links { display: none; } .kimi-hero { padding: 4rem 0 3rem; } .kimi-hero h1 { font-size: 2rem; } }
+    </style>
+
+    <!-- Full CSS — chargement non-bloquant -->
+    <link rel="stylesheet" href="/assets/css/style.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/assets/css/style.css"></noscript>
 
     <!-- Google Fonts — chargement non-bloquant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap"></noscript>
-
-    <!-- Variables CSS injectées -->
-    <style>
-        :root {
-            --color-primary: <?= COLOR_PRIMARY ?>;
-            --color-primary-light: <?= COLOR_PRIMARY_LIGHT ?>;
-            --color-accent: <?= COLOR_ACCENT ?>;
-        }
-    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
